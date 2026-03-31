@@ -1,0 +1,47 @@
+/*
+Theme Name: Richscape Theme
+Theme URI: https://testky.my.canva.site/richscape-web/
+Author: Developer
+Description: Custom WordPress theme for Richscape Service Introduction. Built with Tailwind CSS and Custom Post Types.
+Version: 1.0.0
+Text Domain: richscape
+*/
+
+/* --- Tailwind Base --- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Custom Design Tokens --- */
+:root {
+    --rs-teal: #2A9D8F;
+    --rs-darkblue: #1A2251;
+    --rs-black: #000000;
+    --rs-white: #ffffff;
+    --rs-gray: #808080;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--rs-white);
+    color: var(--rs-gray);
+    font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--rs-teal);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--rs-darkblue);
+}
