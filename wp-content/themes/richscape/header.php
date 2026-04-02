@@ -11,44 +11,6 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
 	<?php wp_head(); ?>
-
-	<!-- Tailwind CDN Setup & Config Script -->
-    <script src="https://cdn.tailwindcss.com"></script>
-	<script>
-		tailwind.config = {
-			theme: {
-				extend: {
-					colors: {
-						teal: '#2A9D8F',
-						darkblue: '#1A2251',
-						light: '#FFFFFF',
-                        graytext: '#808080'
-					},
-					fontFamily: {
-						sans: ['Montserrat', 'sans-serif'],
-						serif: ['"Playfair Display"', 'serif'],
-                        body: ['"Open Sans"', 'sans-serif']
-					}
-				}
-			}
-		}
-	</script>
-	<!-- Custom Basic Styles -->
-	<style type="text/tailwindcss">
-		@layer utilities {
-			.text-outline {
-				-webkit-text-stroke: 1px rgba(255,255,255,0.5);
-                color: transparent;
-			}
-		}
-		body {
-			@apply bg-white text-graytext font-body;
-		}
-        h1, h2, h3, h4, h5, h6 {
-            @apply font-sans;
-        }
-        #top { scroll-margin-top: 100px; }
-	</style>
 </head>
 
 <body <?php body_class(); ?> id="top">
@@ -57,13 +19,18 @@
 <div id="page" class="site min-h-screen flex flex-col">
 
 	<header id="masthead" class="site-header fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
-		<div class="container mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="flex items-center justify-between h-20">
+        <!-- Top Gradient Bar -->
+        <div class="w-full flex justify-center">
+            <div class="bg-gradient-to-r from-darkblue to-teal w-full" style="max-width:1280px;height:41.11px;"></div>
+        </div>
+        
+		<div class="mx-auto w-full px-4 sm:px-6 lg:px-12" style="max-width:1280px;">
+			<div class="flex items-center justify-between h-24">
 				
 				<!-- Logo -->
 				<div class="flex-shrink-0 flex flex-col justify-center">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center">
-						<img class="_7_i_XA h-14 w-auto drop-shadow-sm" crossorigin="anonymous" draggable="false" src="https://testky.my.canva.site/richscape-web/_assets/media/0a6d3e7847d041c1019462001b5c425f.png" alt="Richscape">
+						<img class="_7_i_XA h-14 w-auto drop-shadow-sm" crossorigin="anonymous" draggable="false" src="/wp-content/uploads/logo.png" alt="Richscape">
 					</a>
 				</div>
 				
@@ -74,14 +41,9 @@
 						'theme_location' => 'primary',
 						'menu_id'        => 'primary-menu',
 						'container'      => false,
-						'menu_class'     => 'flex space-x-6 text-sm font-semibold uppercase tracking-wide text-darkblue items-center',
 						'fallback_cb'    => false,
 					) );
 					?>
-                    <!-- Search Icon -->
-                    <div class="ml-6 w-10 h-10 rounded-full bg-teal flex items-center justify-center text-white cursor-pointer hover:bg-darkblue transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </div>
 				</nav>
 
 				<!-- Mobile menu button -->
@@ -119,4 +81,4 @@
 		});
 	</script>
 
-	<main id="primary" class="site-main flex-grow pt-20">
+	<main id="primary" class="site-main flex-grow pt-32">

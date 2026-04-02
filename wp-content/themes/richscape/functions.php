@@ -29,10 +29,151 @@ function richscape_scripts() {
 	// Enqueue main stylesheet.
 	wp_enqueue_style( 'richscape-style', get_stylesheet_uri() );
 
-	// Inject Tailwind CSS via CDN
-	wp_enqueue_script( 'tailwindcss-cdn', 'https://cdn.tailwindcss.com', array(), null, false );
+	// Enqueue compiled Tailwind CSS.
+	wp_enqueue_style( 'richscape-tailwind', get_template_directory_uri() . '/assets/css/tailwind.css', array(), '1.0.0' );
+
+	// Enqueue banner slider assets (CSS + JS).
+	wp_enqueue_style(
+		'richscape-banner-slider',
+		get_template_directory_uri() . '/assets/css/richscape-banner-slider.css',
+		array(),
+		'1.0.0'
+	);
+	wp_enqueue_script(
+		'richscape-banner-slider',
+		get_template_directory_uri() . '/assets/js/richscape-banner-slider.js',
+		array(), // no jQuery dependency
+		'1.0.0',
+		true     // load in footer
+	);
 }
 add_action( 'wp_enqueue_scripts', 'richscape_scripts' );
+
+/* ============================================================
+   Banner Slider – Shortcode [richscape_banner_slider]
+   ============================================================ */
+
+/**
+ * Build the slides array from ACF → theme option → placeholders.
+ *
+ * @param  int|null $post_id  Post/page ID to read ACF fields from.
+ * @return array              Array of ['url' => string, 'alt' => string].
+ */
+function richscape_get_banner_slides( $post_id = null ) {
+
+	// ── 1. Try ACF repeater on the current post/page ─────────
+	if ( function_exists( 'get_field' ) ) {
+		$rows = get_field( 'banner_slides', $post_id ?: get_the_ID() );
+		if ( ! empty( $rows ) && is_array( $rows ) ) {
+			$slides = array();
+			foreach ( $rows as $row ) {
+				$img = $row['slide_image'] ?? null;
+				if ( ! $img ) continue;
+				// ACF returns an array for image fields; support both array and URL.
+				$url = is_array( $img ) ? ( $img['url'] ?? '' ) : $img;
+				$alt = $row['slide_alt'] ?? ( is_array( $img ) ? ( $img['alt'] ?? '' ) : '' );
+				if ( $url ) {
+					$slides[] = array( 'url' => $url, 'alt' => $alt );
+				}
+			}
+			if ( ! empty( $slides ) ) return $slides;
+		}
+	}
+
+	// ── 2. Try theme option 'richscape_banner_slides' ─────────
+	$option_slides = get_option( 'richscape_banner_slides', array() );
+	if ( ! empty( $option_slides ) && is_array( $option_slides ) ) {
+		return $option_slides;
+	}
+
+	// ── 3. Placeholder fallback (8 landscape images) ──────────
+	$placeholder_base = 'https://picsum.photos/seed/richscape';
+	$placeholders = array(
+		array( 'url' => $placeholder_base . '1/1920/800', 'alt' => 'Richscape – Thiết kế cảnh quan 1' ),
+		array( 'url' => $placeholder_base . '2/1920/800', 'alt' => 'Richscape – Thiết kế cảnh quan 2' ),
+		array( 'url' => $placeholder_base . '3/1920/800', 'alt' => 'Richscape – Thiết kế cảnh quan 3' ),
+		array( 'url' => $placeholder_base . '4/1920/800', 'alt' => 'Richscape – Thiết kế cảnh quan 4' ),
+		array( 'url' => $placeholder_base . '5/1920/800', 'alt' => 'Richscape – Thiết kế cảnh quan 5' ),
+		array( 'url' => $placeholder_base . '6/1920/800', 'alt' => 'Richscape – Thiết kế cảnh quan 6' ),
+		array( 'url' => $placeholder_base . '7/1920/800', 'alt' => 'Richscape – Thiết kế cảnh quan 7' ),
+		array( 'url' => $placeholder_base . '8/1920/800', 'alt' => 'Richscape – Thiết kế cảnh quan 8' ),
+	);
+	return $placeholders;
+}
+
+/**
+ * Shortcode callback – renders the slider HTML.
+ *
+ * Usage: [richscape_banner_slider] or [richscape_banner_slider post_id="42"]
+ *
+ * @param  array $atts  Shortcode attributes.
+ * @return string       Slider HTML.
+ */
+function richscape_banner_slider_shortcode( $atts ) {
+	$atts = shortcode_atts( array( 'post_id' => null ), $atts, 'richscape_banner_slider' );
+
+	$slides = richscape_get_banner_slides( $atts['post_id'] ? (int) $atts['post_id'] : null );
+
+	ob_start();
+	include get_template_directory() . '/templates/banner-slider.php';
+	return ob_get_clean();
+}
+add_shortcode( 'richscape_banner_slider', 'richscape_banner_slider_shortcode' );
+
+/* ============================================================
+   ACF Field Group – banner_slides repeater
+   Registers the field group programmatically so no JSON import
+   is needed. Only runs when ACF Pro is active.
+   ============================================================ */
+add_action( 'acf/init', function () {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+
+	acf_add_local_field_group( array(
+		'key'    => 'group_richscape_banner_slides',
+		'title'  => 'Banner Slider Slides',
+		'fields' => array(
+			array(
+				'key'          => 'field_banner_slides',
+				'label'        => 'Banner Slides',
+				'name'         => 'banner_slides',
+				'type'         => 'repeater',
+				'min'          => 1,
+				'max'          => 12,
+				'layout'       => 'block',
+				'button_label' => 'Add Slide',
+				'sub_fields'   => array(
+					array(
+						'key'           => 'field_slide_image',
+						'label'         => 'Slide Image',
+						'name'          => 'slide_image',
+						'type'          => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'medium',
+						'required'      => 1,
+					),
+					array(
+						'key'           => 'field_slide_alt',
+						'label'         => 'Alt Text',
+						'name'          => 'slide_alt',
+						'type'          => 'text',
+						'placeholder'   => 'Describe the image for accessibility',
+					),
+				),
+			),
+		),
+		// Show this field group on all pages and posts
+		'location' => array(
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'page' ) ),
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'post' ) ),
+		),
+		'menu_order'            => 0,
+		'position'              => 'normal',
+		'style'                 => 'default',
+		'label_placement'       => 'top',
+		'instruction_placement' => 'label',
+		'active'                => true,
+	) );
+} );
 
 /**
  * Register Custom Post Types: Services and Projects
@@ -123,6 +264,16 @@ function richscape_register_cpts() {
 
 }
 add_action( 'init', 'richscape_register_cpts', 0 );
+
+/**
+ * Mark home menu item as active on front page
+ */
+add_filter( 'nav_menu_css_class', function( $classes, $item ) {
+	if ( is_front_page() && home_url( '/' ) === trailingslashit( $item->url ) ) {
+		$classes[] = 'current-menu-item';
+	}
+	return $classes;
+}, 10, 2 );
 
 /**
  * Include Data Import logic

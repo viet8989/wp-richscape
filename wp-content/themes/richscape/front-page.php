@@ -5,38 +5,7 @@
 
 get_header(); ?>
 
-<!-- Hero Section -->
-<section class="relative w-full h-[90vh] min-h-[600px] flex items-center overflow-hidden bg-gray-100">
-	<!-- Background Image -->
-	<div class="absolute inset-0 z-0">
-		<img src="https://images.unsplash.com/photo-1558904541-efa843a96f1d?q=80&w=2070&auto=format&fit=crop" alt="Richscape background" class="w-full h-full object-cover">
-	</div>
-	
-	<!-- Content Box -->
-	<div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex">
-		<div class="w-full md:w-1/2 lg:w-5/12 bg-gradient-to-r from-teal to-darkblue p-10 md:p-14 text-white shadow-2xl relative overflow-hidden rounded-r-3xl md:rounded-3xl">
-			<h2 class="text-teal-200 text-lg md:text-xl font-bold uppercase tracking-widest mb-4">Về Chúng Tôi</h2>
-			<h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
-				As Landscape Creators,<br>We Bring Your Green Visions To Life.
-			</h1>
-			<p class="text-gray-200 text-sm md:text-base leading-relaxed mb-10 font-body">
-				Được thành lập vào năm 2020, RichScape Landscape Design & Build Ltd. là đơn vị chuyên cung cấp các giải pháp thiết kế và thi công cảnh quan toàn diện. Với đội ngũ kiến trúc sư và chuyên gia tâm huyết, chúng tôi biến những ý tưởng sáng tạo thành các không gian sống xanh, bền vững và mang đậm dấu ấn thẩm mỹ riêng biệt. Sự am hiểu sâu sắc về kiến trúc cảnh quan và hệ sinh thái tự nhiên giúp RichScape luôn mang đến những công trình vượt ra ngoài sự mong đợi.
-			</p>
-			
-			<div class="mt-8">
-				<span class="text-outline text-4xl md:text-5xl font-black uppercase tracking-widest opacity-30">Landscape<br>Creator</span>
-			</div>
-		</div>
-	</div>
-
-    <!-- Slider Dots (Decorative) -->
-    <div class="absolute bottom-10 left-0 w-full flex justify-center space-x-3 z-10">
-        <span class="w-3 h-3 rounded-full bg-teal"></span>
-        <span class="w-3 h-3 rounded-full bg-teal/50"></span>
-        <span class="w-3 h-3 rounded-full bg-teal/50"></span>
-        <span class="w-3 h-3 rounded-full bg-teal/50"></span>
-    </div>
-</section>
+<?php echo do_shortcode( '[richscape_banner_slider]' ); ?>
 
 <!-- Vision, Mission & Core Values Section -->
 <section class="py-20 bg-darkblue text-white relative">

@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .text-outline {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        color: transparent;
+    }
+}
+
+body {
+    @apply bg-white text-graytext font-body;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply font-sans;
+}
+
+#top {
+    scroll-margin-top: 100px;
+}
+
+/* WP Nav Menu */
+.main-navigation ul {
+    @apply flex space-x-1 lg:space-x-3 items-center list-none p-0 m-0;
+}
+
+.main-navigation li {
+    @apply list-none m-0;
+}
+
+.main-navigation a {
+    @apply text-darkblue uppercase font-sans text-[11px] xl:text-[13px] font-semibold tracking-wider py-[10px] px-3 lg:px-[20px] transition-all duration-300 block bg-transparent;
+}
+
+.main-navigation li.current-menu-item > a,
+.main-navigation li.current_page_item > a,
+.main-navigation a:hover {
+    @apply bg-gradient-to-r from-darkblue to-teal text-white shadow-md;
+}

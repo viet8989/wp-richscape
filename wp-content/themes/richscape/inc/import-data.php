@@ -88,6 +88,39 @@ function richscape_import_demo_data() {
         // Thumbnail handling could go here
     }
 
+    // Create Main Navigation Menu
+    $menu_name = 'Main Navigation Demo';
+    $menu_location = 'primary';
+    $menu_exists = wp_get_nav_menu_object( $menu_name );
+
+    if ( ! $menu_exists ) {
+        $menu_id = wp_create_nav_menu( $menu_name );
+
+        $menu_items = array(
+            'TRANG CHỦ'           => home_url( '/' ),
+            'VỀ CHÚNG TÔI'        => '#about',
+            'DỊCH VỤ'             => '#services',
+            'DỰ ÁN TIÊU BIỂU'     => '#projects',
+            'THÔNG TIN - BẢN TIN' => '#news',
+            'LIÊN HỆ'             => '#contact',
+        );
+
+        foreach ( $menu_items as $title => $url ) {
+            wp_update_nav_menu_item( $menu_id, 0, array(
+                'menu-item-title'  => $title,
+                'menu-item-url'    => $url,
+                'menu-item-status' => 'publish',
+            ) );
+        }
+
+        // Assign to the primary theme location
+        $locations = get_theme_mod( 'nav_menu_locations' );
+        if ( empty( $locations[ $menu_location ] ) ) {
+            $locations[ $menu_location ] = $menu_id;
+            set_theme_mod( 'nav_menu_locations', $locations );
+        }
+    }
+
     // Mark as imported to prevent duplicate imports
     update_option( 'richscape_demo_imported', true );
 }
