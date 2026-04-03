@@ -81,4 +81,4 @@
 		});
 	</script>
 
-	<main id="primary" class="site-main flex-grow pt-32">
+	<main id="primary" class="site-main flex-grow mx-auto w-full" style="max-width:1280px;">

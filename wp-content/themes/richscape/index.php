@@ -6,7 +6,7 @@
 
 get_header(); ?>
 
-<div class="container mx-auto px-4 py-16">
+<div class="container mx-auto px-4 py-16" style="margin-top: calc(41.11px + 96px);">
 	<?php
 	if ( have_posts() ) :
 		// Start the loop.

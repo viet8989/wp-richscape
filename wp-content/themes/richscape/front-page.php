@@ -78,42 +78,87 @@ get_header(); ?>
 			) );
 
             $mock_services = [
-                'THIẾT KẾ THI CÔNG CẢNH QUAN',
-                'HỆ THỐNG CHIẾU SÁNG & TƯỚI TỰ ĐỘNG',
-                'ĐÀI PHUN NƯỚC, HỒ BƠI & HỒ ÂM',
-                'BẢO DƯỠNG CẢNH QUAN'
+                [
+                    'title' => 'THIẾT KẾ THI CÔNG CẢNH QUAN',
+                    'desc'  => 'Kiến tạo không gian xanh thẩm mỹ, mang đậm dấu ấn riêng với quy trình chuyên nghiệp từ khâu ý tưởng đến khi hoàn thiện thực tế.',
+                    'img'   => 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&auto=format&fit=crop',
+                    'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-auto" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22v-7m0-3c0 0-4-2.5-4-6a4 4 0 018 0c0 3.5-4 6-4 6zm-2 10h4"/></svg>',
+                ],
+                [
+                    'title' => 'HỆ THỐNG CHIẾU SÁNG & TƯỚI TỰ ĐỘNG',
+                    'desc'  => 'Giải pháp chiếu sáng nghệ thuật và hệ thống tưới thông minh tiết kiệm nước, duy trì cảnh quan xanh tươi bền vững.',
+                    'img'   => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop',
+                    'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-auto" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2m0 16v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M2 12h2m16 0h2M4.22 19.78l1.42-1.42m12.72-12.72 1.42-1.42"/></svg>',
+                ],
+                [
+                    'title' => 'ĐÀI PHUN NƯỚC, HỒ BƠI & HỒ ÂM',
+                    'desc'  => 'Thiết kế và thi công đài phun nước, hồ bơi, hồ cá Koi đạt tiêu chuẩn thẩm mỹ, mang lại không gian thư giãn lý tưởng.',
+                    'img'   => 'https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=600&auto=format&fit=crop',
+                    'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-auto" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3C12 3 6 10 6 15a6 6 0 0012 0c0-5-6-12-6-12z"/><path stroke-linecap="round" d="M9 20c0 0-3 1-3 0m12 0c0 1-3 0-3 0"/></svg>',
+                ],
+                [
+                    'title' => 'BẢO DƯỠNG CẢNH QUAN',
+                    'desc'  => 'Dịch vụ chăm sóc định kỳ, cắt tỉa và bảo dưỡng giúp cảnh quan luôn giữ được vẻ đẹp tươi xanh và phát triển bền vững.',
+                    'img'   => 'https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=600&auto=format&fit=crop',
+                    'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-auto" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22C7.5 22 4 18.5 4 14c0-6 8-12 8-12s8 6 8 12c0 4.5-3.5 8-8 8z"/><path stroke-linecap="round" d="M12 22v-9"/></svg>',
+                ],
             ];
 
             $count = 1;
 
 			if ( $services_query->have_posts() ) :
 				while ( $services_query->have_posts() ) : $services_query->the_post();
-					$img_url = has_post_thumbnail() ? get_the_post_thumbnail_url( get_the_ID(), 'medium_large' ) : 'https://images.unsplash.com/photo-1558904541-efa843a96f1d?q=80&w=800&auto=format&fit=crop';
+					$fallback_imgs = [
+						'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&auto=format&fit=crop',
+						'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop',
+						'https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=600&auto=format&fit=crop',
+						'https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=600&auto=format&fit=crop',
+					];
+					$img_url  = has_post_thumbnail() ? get_the_post_thumbnail_url( get_the_ID(), 'medium_large' ) : $fallback_imgs[ ($count - 1) % 4 ];
+					$icon_url = get_post_meta( get_the_ID(), '_service_icon_url', true );
+					$desc     = has_excerpt() ? get_the_excerpt() : wp_trim_words( get_the_content(), 25 );
 					?>
 					<!-- Service Card -->
-					<div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full border border-gray-100">
-						
-						<div class="h-48 overflow-hidden relative">
-							<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php the_title_attribute(); ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute top-4 right-4 text-white font-black text-3xl drop-shadow-lg opacity-80">
-                                <?php echo str_pad($count, 2, '0', STR_PAD_LEFT); ?>
-                            </div>
-						</div>
-						
-						<div class="p-6 flex-grow flex flex-col items-center text-center">
-							<h3 class="text-lg font-bold uppercase text-darkblue tracking-wide mb-3 min-h-[56px]"><?php the_title(); ?></h3>
-							
-							<div class="text-gray-500 font-body text-sm leading-relaxed mb-6 flex-grow">
-								<?php 
-								if ( has_excerpt() ) {
-									the_excerpt();
-								} else {
-									echo wp_trim_words( get_the_content(), 15 );
-								}
-								?>
+					<div class="group relative overflow-hidden flex flex-col border border-white/20 transition-transform duration-300 hover:-translate-y-1"
+					     style="background: linear-gradient(135deg, #1A2251 0%, #2A9D8F 100%); min-height: 500px; border-radius: 28px;">
+
+						<!-- Top: title left, icon+number right -->
+						<div class="relative pt-6 px-5 pb-3">
+							<div class="flex items-start">
+								<!-- Title -->
+								<h3 class="flex-1 text-white font-sans font-bold uppercase text-2xl leading-tight" style="min-height: 90px; padding-right: 56px;">
+									<?php the_title(); ?>
+								</h3>
+								<!-- Icon -->
+								<?php if ( $icon_url ) : ?>
+								<div class="absolute" style="top: 24px; right: 52px; width: 44px;">
+									<img src="<?php echo esc_url( $icon_url ); ?>" alt="" style="width: 44px; height: auto; object-fit: contain; opacity: 0.9;">
+								</div>
+								<?php endif; ?>
+								<!-- Number -->
+								<div class="absolute" style="top: 12px; right: 16px;">
+									<span class="font-serif leading-none font-normal" style="font-size: 52px; color: #2A9D8F; line-height: 1;"><?php echo $count; ?></span>
+								</div>
 							</div>
-							<a href="<?php the_permalink(); ?>" class="inline-flex items-center text-darkblue bg-gray-50 hover:bg-teal hover:text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 mt-auto shadow-sm">
-								Dự Án Liên Quan
+						</div>
+
+						<!-- Description -->
+						<div class="px-5 pb-4">
+							<p class="text-white/80 font-body text-sm leading-relaxed"><?php echo esc_html( $desc ); ?></p>
+						</div>
+
+						<!-- Photo -->
+						<div class="mx-2 mb-1 rounded-2xl overflow-hidden flex-grow" style="min-height: 240px;">
+							<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php the_title_attribute(); ?>"
+							     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+						</div>
+
+						<!-- CTA -->
+						<div class="flex justify-center py-4">
+							<a href="<?php the_permalink(); ?>"
+							   class="font-sans font-bold text-xs uppercase tracking-widest px-6 py-2 rounded-full hover:opacity-80 transition-opacity duration-300"
+							   style="background-color: #2A9D8F; color: #1A2251; text-decoration: underline;">
+								DỰ ÁN LIÊN QUAN
 							</a>
 						</div>
 					</div>
@@ -124,20 +169,46 @@ get_header(); ?>
 			else :
                 foreach ($mock_services as $index => $ms) {
                     ?>
-                    <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full border border-gray-100">
-						<div class="h-48 overflow-hidden relative">
-							<img src="https://images.unsplash.com/photo-1584622781867-1c60ccfc428e?q=80&w=800&auto=format&fit=crop" alt="<?php echo $ms; ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute top-4 right-4 text-white font-black text-3xl drop-shadow-lg opacity-80">
-                                <?php echo str_pad($index + 1, 2, '0', STR_PAD_LEFT); ?>
-                            </div>
+                    <!-- Service Card -->
+					<div class="group relative overflow-hidden flex flex-col border border-white/20 transition-transform duration-300 hover:-translate-y-1"
+					     style="background: linear-gradient(135deg, #1A2251 0%, #2A9D8F 100%); min-height: 500px; border-radius: 28px;">
+
+						<!-- Top: title left, icon+number right -->
+						<div class="relative pt-6 px-5 pb-3">
+							<div class="flex items-start">
+								<!-- Title -->
+								<h3 class="flex-1 text-white font-sans font-bold uppercase text-2xl leading-tight" style="min-height: 90px; padding-right: 56px;">
+									<?php echo esc_html( $ms['title'] ); ?>
+								</h3>
+								<!-- Icon -->
+								<div class="absolute" style="top: 24px; right: 52px; width: 44px;">
+									<?php echo $ms['icon']; ?>
+								</div>
+								<!-- Number -->
+								<div class="absolute" style="top: 12px; right: 16px;">
+									<span class="font-serif leading-none font-normal" style="font-size: 52px; color: #2A9D8F; line-height: 1;"><?php echo $index + 1; ?></span>
+								</div>
+							</div>
 						</div>
-						<div class="p-6 flex-grow flex flex-col items-center text-center">
-							<h3 class="text-lg font-bold uppercase text-darkblue tracking-wide mb-3 min-h-[56px]"><?php echo $ms; ?></h3>
-							<p class="text-gray-500 font-body text-sm leading-relaxed mb-6 flex-grow">
-								Giải pháp toàn diện và chuyên nghiệp giúp nâng tầm vẻ đẹp tự nhiên cho không gian sống của bạn.
-							</p>
-							<a href="#" class="inline-flex items-center text-darkblue bg-gray-50 hover:bg-teal hover:text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 mt-auto shadow-sm">
-								Dự Án Liên Quan
+
+						<!-- Description -->
+						<div class="px-5 pb-4">
+							<p class="text-white/80 font-body text-sm leading-relaxed"><?php echo esc_html( $ms['desc'] ); ?></p>
+						</div>
+
+						<!-- Photo -->
+						<div class="mx-2 mb-1 rounded-2xl overflow-hidden flex-grow" style="min-height: 240px;">
+							<img src="<?php echo esc_url( $ms['img'] ); ?>"
+							     alt="<?php echo esc_attr( $ms['title'] ); ?>"
+							     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+						</div>
+
+						<!-- CTA -->
+						<div class="flex justify-center py-4">
+							<a href="#"
+							   class="font-sans font-bold text-xs uppercase tracking-widest px-6 py-2 rounded-full hover:opacity-80 transition-opacity duration-300"
+							   style="background-color: #2A9D8F; color: #1A2251; text-decoration: underline;">
+								DỰ ÁN LIÊN QUAN
 							</a>
 						</div>
 					</div>

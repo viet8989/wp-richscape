@@ -20,7 +20,7 @@
 			<!-- Column 2: Logo Prominent -->
 			<div class="flex items-center justify-center">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-block transition-transform hover:scale-105">
-                    <img class="_7_i_XA h-28 w-auto rounded-xl bg-white p-4 shadow-xl" crossorigin="anonymous" draggable="false" src="https://testky.my.canva.site/richscape-web/_assets/media/0a6d3e7847d041c1019462001b5c425f.png" alt="Richscape">
+                    <img class="_7_i_XA h-28 w-auto rounded-xl p-4" crossorigin="anonymous" draggable="false" src="/wp-content/uploads/logo_footer.png" alt="Richscape">
                 </a>
 			</div>
 

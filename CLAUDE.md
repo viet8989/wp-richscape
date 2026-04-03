@@ -10,6 +10,8 @@ This is a custom WordPress theme (`richscape`) for a Vietnamese landscape design
 
 **Design reference:** https://testky.my.canva.site/richscape-web/ — this Canva site is the canonical design source. The WordPress theme is a faithful implementation of it.
 
+**Live site:** https://deepskyblue-alpaca-301704.hostingersite.com/ — hosted on Hostinger. Deployment is via FTP (not local). There is no local WordPress installation; changes are deployed by uploading theme files over FTP.
+
 ## Development Setup
 
 All build commands run from inside the theme directory:
@@ -23,7 +25,7 @@ npm run build      # production build (minified)
 
 Tailwind CSS source is in `src/input.css`. The compiled output goes to `assets/css/tailwind.css` (gitignored — must be built before deploying). `tailwind.config.js` in the theme root holds custom colors and fonts.
 
-To develop locally, this theme needs a running WordPress installation. The theme registers two custom post types and auto-imports demo data on first `admin_init`.
+The theme registers two custom post types and auto-imports demo data on first `admin_init`. After editing, build the CSS (`npm run build`) and upload changed files to the server via FTP.
 
 ## Theme Architecture
 

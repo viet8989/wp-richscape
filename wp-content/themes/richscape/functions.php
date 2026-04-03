@@ -37,13 +37,13 @@ function richscape_scripts() {
 		'richscape-banner-slider',
 		get_template_directory_uri() . '/assets/css/richscape-banner-slider.css',
 		array(),
-		'1.0.0'
+		filemtime( get_template_directory() . '/assets/css/richscape-banner-slider.css' )
 	);
 	wp_enqueue_script(
 		'richscape-banner-slider',
 		get_template_directory_uri() . '/assets/js/richscape-banner-slider.js',
 		array(), // no jQuery dependency
-		'1.0.0',
+		filemtime( get_template_directory() . '/assets/js/richscape-banner-slider.js' ),
 		true     // load in footer
 	);
 }
@@ -279,3 +279,157 @@ add_filter( 'nav_menu_css_class', function( $classes, $item ) {
  * Include Data Import logic
  */
 require_once get_template_directory() . '/inc/import-data.php';
+
+/* ============================================================
+   Admin Menu – Banner Slider Manager
+   ============================================================ */
+
+add_action( 'admin_menu', function () {
+	add_menu_page(
+		'Banner Slider',
+		'Banner Slider',
+		'manage_options',
+		'richscape-banner-slider',
+		'richscape_banner_slider_admin_page',
+		'dashicons-images-alt2',
+		25
+	);
+} );
+
+add_action( 'admin_enqueue_scripts', function ( $hook ) {
+	if ( $hook !== 'toplevel_page_richscape-banner-slider' ) return;
+	wp_enqueue_media();
+} );
+
+function richscape_banner_slider_admin_page() {
+	if ( ! current_user_can( 'manage_options' ) ) return;
+
+	// Handle form submission.
+	if ( isset( $_POST['richscape_banner_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['richscape_banner_nonce'] ) ), 'richscape_save_banner' ) ) {
+		$urls = isset( $_POST['slide_url'] ) ? array_map( 'esc_url_raw', wp_unslash( $_POST['slide_url'] ) ) : array();
+		$alts = isset( $_POST['slide_alt'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['slide_alt'] ) ) : array();
+
+		$slides = array();
+		foreach ( $urls as $i => $url ) {
+			if ( empty( $url ) ) continue;
+			$slides[] = array(
+				'url' => $url,
+				'alt' => $alts[ $i ] ?? '',
+			);
+		}
+		update_option( 'richscape_banner_slides', $slides );
+		echo '<div class="notice notice-success is-dismissible"><p>Đã lưu banner slider thành công!</p></div>';
+	}
+
+	$slides = get_option( 'richscape_banner_slides', array() );
+	if ( empty( $slides ) ) {
+		$slides = array( array( 'url' => '', 'alt' => '' ) );
+	}
+	?>
+	<div class="wrap">
+		<h1>Quản lý Banner Slider</h1>
+		<p class="description">Thêm, xóa hoặc sắp xếp lại ảnh cho banner slider trang chủ. Kéo thả để đổi thứ tự.</p>
+		<form method="post" id="richscape-banner-form">
+			<?php wp_nonce_field( 'richscape_save_banner', 'richscape_banner_nonce' ); ?>
+			<div id="richscape-slides-list" style="margin-top:20px;">
+				<?php foreach ( $slides as $index => $slide ) : ?>
+				<div class="richscape-slide-row" style="display:flex;align-items:center;gap:16px;margin-bottom:16px;background:#fff;padding:16px;border:1px solid #ddd;border-radius:6px;">
+					<span class="dashicons dashicons-move" style="cursor:grab;color:#aaa;font-size:22px;flex-shrink:0;" title="Kéo để sắp xếp"></span>
+					<div style="flex-shrink:0;width:120px;height:68px;background:#f0f0f0;border:1px solid #ccc;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+						<?php if ( ! empty( $slide['url'] ) ) : ?>
+							<img src="<?php echo esc_url( $slide['url'] ); ?>" style="width:100%;height:100%;object-fit:cover;">
+						<?php else : ?>
+							<span class="dashicons dashicons-format-image" style="font-size:32px;color:#ccc;"></span>
+						<?php endif; ?>
+					</div>
+					<div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+						<div style="display:flex;gap:8px;align-items:center;">
+							<input type="url" name="slide_url[]" value="<?php echo esc_attr( $slide['url'] ); ?>"
+							       placeholder="URL ảnh" class="richscape-slide-url large-text"
+							       style="flex:1;" readonly>
+							<button type="button" class="button richscape-select-image">Chọn ảnh</button>
+							<button type="button" class="button richscape-clear-image" title="Xóa slide này" style="color:#b32d2e;">&#10005;</button>
+						</div>
+						<input type="text" name="slide_alt[]" value="<?php echo esc_attr( $slide['alt'] ); ?>"
+						       placeholder="Alt text (mô tả ảnh)" class="large-text">
+					</div>
+				</div>
+				<?php endforeach; ?>
+			</div>
+
+			<div style="margin-top:8px;">
+				<button type="button" id="richscape-add-slide" class="button">+ Thêm slide</button>
+			</div>
+
+			<p style="margin-top:24px;">
+				<?php submit_button( 'Lưu Banner Slider', 'primary', 'submit', false ); ?>
+			</p>
+		</form>
+	</div>
+
+	<script>
+	(function($){
+		// Template for a new slide row
+		function newSlideRow() {
+			return $('<div class="richscape-slide-row" style="display:flex;align-items:center;gap:16px;margin-bottom:16px;background:#fff;padding:16px;border:1px solid #ddd;border-radius:6px;">' +
+				'<span class="dashicons dashicons-move" style="cursor:grab;color:#aaa;font-size:22px;flex-shrink:0;" title="Kéo để sắp xếp"></span>' +
+				'<div style="flex-shrink:0;width:120px;height:68px;background:#f0f0f0;border:1px solid #ccc;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;">' +
+					'<span class="dashicons dashicons-format-image" style="font-size:32px;color:#ccc;"></span>' +
+				'</div>' +
+				'<div style="flex:1;display:flex;flex-direction:column;gap:8px;">' +
+					'<div style="display:flex;gap:8px;align-items:center;">' +
+						'<input type="url" name="slide_url[]" value="" placeholder="URL ảnh" class="richscape-slide-url large-text" style="flex:1;" readonly>' +
+						'<button type="button" class="button richscape-select-image">Chọn ảnh</button>' +
+						'<button type="button" class="button richscape-clear-image" title="Xóa slide này" style="color:#b32d2e;">&#10005;</button>' +
+					'</div>' +
+					'<input type="text" name="slide_alt[]" value="" placeholder="Alt text (mô tả ảnh)" class="large-text">' +
+				'</div>' +
+			'</div>');
+		}
+
+		// Add slide
+		$('#richscape-add-slide').on('click', function(){
+			$('#richscape-slides-list').append(newSlideRow());
+		});
+
+		// Remove slide
+		$(document).on('click', '.richscape-clear-image', function(){
+			if ($('.richscape-slide-row').length > 1) {
+				$(this).closest('.richscape-slide-row').remove();
+			} else {
+				var row = $(this).closest('.richscape-slide-row');
+				row.find('.richscape-slide-url').val('');
+				row.find('input[name="slide_alt[]"]').val('');
+				row.find('div').first().html('<span class="dashicons dashicons-format-image" style="font-size:32px;color:#ccc;"></span>');
+			}
+		});
+
+		// Open media uploader
+		$(document).on('click', '.richscape-select-image', function(){
+			var row = $(this).closest('.richscape-slide-row');
+			var frame = wp.media({
+				title: 'Chọn ảnh banner',
+				button: { text: 'Sử dụng ảnh này' },
+				multiple: false,
+				library: { type: 'image' }
+			});
+			frame.on('select', function(){
+				var attachment = frame.state().get('selection').first().toJSON();
+				row.find('.richscape-slide-url').val(attachment.url);
+				if (!row.find('input[name="slide_alt[]"]').val()) {
+					row.find('input[name="slide_alt[]"]').val(attachment.alt || attachment.title || '');
+				}
+				var thumb = row.find('div').first();
+				thumb.html('<img src="' + attachment.url + '" style="width:100%;height:100%;object-fit:cover;">');
+			});
+			frame.open();
+		});
+
+		// Sortable drag-to-reorder
+		if ($.fn.sortable) {
+			$('#richscape-slides-list').sortable({ handle: '.dashicons-move', axis: 'y' });
+		}
+	})(jQuery);
+	</script>
+	<?php
+}
