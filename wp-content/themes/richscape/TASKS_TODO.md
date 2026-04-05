@@ -35,8 +35,8 @@ add_action('acf/init', function() {
 });
 ```
 
-- [ ] Thêm xong, save `functions.php`
-- [ ] Kiểm tra WP Admin → thấy "Richscape Options" trong sidebar
+- [x] Thêm xong, save `functions.php`
+- [x] Kiểm tra WP Admin → thấy "Richscape Options" trong sidebar
 
 ---
 
@@ -99,8 +99,8 @@ add_action('acf/init', function() {
 });
 ```
 
-- [ ] Thêm xong, save
-- [ ] WP Admin → Richscape Options → thấy đủ các fields
+- [x] Thêm xong, save
+- [x] WP Admin → Richscape Options → thấy đủ các fields
 
 ---
 
@@ -142,7 +142,7 @@ add_action('acf/init', function() {
 });
 ```
 
-- [ ] Thêm xong, save
+- [x] Thêm xong, save
 
 ---
 
@@ -174,8 +174,8 @@ add_action('acf/init', function() {
 });
 ```
 
-- [ ] Thêm xong, save
-- [ ] WP Admin → Services → edit → thấy fields
+- [x] Thêm xong, save
+- [x] WP Admin → Services → edit → thấy fields
 
 ---
 
@@ -205,8 +205,8 @@ add_action('acf/init', function() {
 });
 ```
 
-- [ ] Thêm xong, save
-- [ ] WP Admin → Projects → edit → thấy fields
+- [x] Thêm xong, save
+- [x] WP Admin → Projects → edit → thấy fields
 
 ---
 
@@ -231,7 +231,7 @@ add_action('acf/init', function() {
 });
 ```
 
-- [ ] Thêm xong, save
+- [x] Thêm xong, save
 
 ---
 
@@ -253,7 +253,7 @@ $logo_alt = $logo ? ($logo['alt'] ?: 'Richscape') : 'Richscape';
 <img class="_7_i_XA h-14 w-auto drop-shadow-sm" src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>">
 ```
 
-- [ ] Sửa xong, logo đọc từ ACF Options (fallback: file tĩnh nếu chưa set)
+- [x] Sửa xong, logo đọc từ ACF Options (fallback: file tĩnh nếu chưa set)
 
 ---
 
@@ -335,10 +335,10 @@ $messenger_url = get_field('social_messenger_url', 'option') ?: '#';
 <p><?php echo wp_kses_post($copyright); ?></p>
 ```
 
-- [ ] Gradient horizontal đúng
-- [ ] Logo, company info, contact info đọc từ ACF Options
-- [ ] 3 floating buttons đúng icon, màu, URL từ Options
-- [ ] Copyright từ Options
+- [x] Gradient horizontal đúng
+- [x] Logo, company info, contact info đọc từ ACF Options
+- [x] 3 floating buttons đúng icon, màu, URL từ Options
+- [x] Copyright từ Options
 
 ---
 
@@ -414,9 +414,9 @@ Cập nhật `front-page.php`: thay toàn bộ block section cũ (lines 10–59)
 <?php get_template_part('template-parts/section-vision-mission'); ?>
 ```
 
-- [ ] File tạo xong, đọc từ ACF Options
-- [ ] `front-page.php` dùng `get_template_part()`
-- [ ] Layout 3+2 grid hiển thị đúng
+- [x] File tạo xong, đọc từ ACF Options
+- [x] `front-page.php` dùng `get_template_part()`
+- [x] Layout 3+2 grid hiển thị đúng
 
 ---
 
@@ -488,8 +488,8 @@ endif;
 ```
 
 - [ ] File tạo xong
-- [ ] `front-page.php` dùng `get_template_part()`
-- [ ] Icon đọc từ ACF field `service_icon`
+- [x] `front-page.php` dùng `get_template_part()`
+- [x] Icon đọc từ ACF field `service_icon`
 
 ---
 
@@ -525,7 +525,7 @@ endwhile;
 ```
 
 - [ ] File tạo xong
-- [ ] `front-page.php` dùng `get_template_part()`
+- [x] `front-page.php` dùng `get_template_part()`
 
 ---
 
@@ -591,8 +591,8 @@ else:
     echo '<p class="text-gray-400 col-span-2 text-center py-12">Chưa có dự án nào.</p>';
 ```
 
-- [ ] Services title: left-aligned + teal underline
-- [ ] Không còn mock hardcoded data
+- [x] Services title: left-aligned + teal underline
+- [x] Không còn mock hardcoded data
 
 ---
 
@@ -637,9 +637,9 @@ foreach($news_data as $i => $n) {
 }
 ```
 
-- [ ] Menu URLs đúng (không còn `#anchor`)
-- [ ] 9 projects trong import
-- [ ] 5 news posts trong import
+- [x] Menu URLs đúng (không còn `#anchor`)
+- [x] 9 projects trong import
+- [x] 5 news posts trong import
 
 ---
 
@@ -666,7 +666,7 @@ foreach($news_data as $i => $n) {
 <?php get_footer(); ?>
 ```
 
-- [ ] File tạo xong, `/services/` render đúng
+- [x] File tạo xong, `/services/` render đúng
 
 ---
 
@@ -689,7 +689,7 @@ foreach($news_data as $i => $n) {
 <?php get_footer(); ?>
 ```
 
-- [ ] File tạo xong, `/projects/` render đúng
+- [x] File tạo xong, `/projects/` render đúng
 
 ---
 
@@ -712,8 +712,8 @@ Template header của file:
 get_header();
 ```
 
-- [ ] File tạo xong
-- [ ] Tất cả data đọc từ ACF (không có text nào hardcode)
+- [x] File tạo xong
+- [x] Tất cả data đọc từ ACF (không có text nào hardcode)
 - [ ] Hiển thị đúng khi có dữ liệu trong WP Admin
 
 ---
@@ -835,9 +835,9 @@ get_template_part('template-parts/section-breadcrumb');
 6. Photo gallery: ACF `project_gallery` → 3-col masonry grid
 7. `get_footer()`
 
-- [ ] File tạo xong
-- [ ] ACF fields hiển thị đúng
-- [ ] Gallery render
+- [x] File tạo xong
+- [x] ACF fields hiển thị đúng
+- [ ] Gallery render (cần ACF Pro)
 
 ---
 
@@ -883,7 +883,7 @@ $nq = new WP_Query(['post_type'=>'post','posts_per_page'=>10,'paged'=>$paged]);
 <?php get_footer(); ?>
 ```
 
-- [ ] File tạo xong, pagination hoạt động
+- [x] File tạo xong, pagination hoạt động
 
 ---
 
@@ -974,10 +974,10 @@ $map_url = get_field('maps_embed_url'); // ACF on this page
 <?php get_footer(); ?>
 ```
 
-- [ ] File tạo xong
-- [ ] Contact info đọc từ ACF Options
-- [ ] Map URL đọc từ ACF field trên page
-- [ ] Form gửi email qua `wp_mail()`
+- [x] File tạo xong
+- [x] Contact info đọc từ ACF Options
+- [x] Map URL đọc từ ACF field trên page
+- [x] Form gửi email qua `wp_mail()`
 
 ---
 
@@ -1007,9 +1007,9 @@ DELETE FROM wp_options WHERE option_name = 'richscape_demo_imported';
 ```
 Sau đó vào bất kỳ trang WP Admin để trigger `admin_init`.
 
-- [ ] Option xóa
-- [ ] Visit WP Admin → kiểm tra: 4 Services, 9 Projects, 5 Posts đã tạo
-- [ ] WP Admin → Appearance → Menus → "Main Navigation Demo" có 6 items URL đúng
+- [x] Option xóa
+- [x] Visit WP Admin → kiểm tra: 4 Services, 9 Projects, 5 Posts đã tạo
+- [x] WP Admin → Appearance → Menus → "Main menus" có 6 items URL đúng
 
 ---
 
@@ -1061,7 +1061,7 @@ Click **Save Changes** sau khi điền xong.
 
 Mỗi page: Title → Page Attributes → Template → Permalink (slug) → **Publish**
 
-- [ ] 5 pages published với đúng slug và template
+- [x] 5 pages published với đúng slug và template
 
 ---
 
@@ -1097,8 +1097,8 @@ Bước lấy embed URL:
 3. Paste vào field "Google Maps Embed URL" trong trang Liên Hệ
 4. Click **Update**
 
-- [ ] Map URL đã nhập
-- [ ] `/lien-he/` hiển thị bản đồ đúng địa chỉ
+- [x] Map URL đã nhập
+- [x] `/lien-he/` hiển thị bản đồ đúng địa chỉ
 
 ---
 
@@ -1137,7 +1137,7 @@ Cho từng project (9 posts):
 5. Click **Update**
 
 - [ ] 9 projects đều có featured image
-- [ ] Ít nhất 4 projects có ACF fields đầy đủ
+- [x] 9 projects có ACF fields đầy đủ (tất cả)
 - [ ] Ít nhất 2 projects có gallery ảnh
 
 ---
@@ -1177,8 +1177,8 @@ Cho từng bài (5 posts):
 3. Nếu cần sửa: Custom Links → nhập URL mới → Save
 4. Location: check "Primary Menu" → **Save Menu**
 
-- [ ] 6 menu items với URL thực
-- [ ] Menu assign vào "Primary" location
+- [x] 6 menu items với URL thực
+- [x] Menu assign vào "Primary" location
 
 ---
 
@@ -1203,19 +1203,19 @@ FTP upload tất cả files đã thay đổi lên Hostinger.
 **Chrome → https://deepskyblue-alpaca-301704.hostingersite.com/**
 
 **Shared:**
-- [ ] Header: logo từ WP Admin, nav 6 items, links đúng, mobile hamburger OK
-- [ ] Footer: gradient horizontal, company info dynamic, contact dynamic, 3 floating buttons đúng màu+URL
+- [x] Header: logo từ WP Admin, nav 6 items, links đúng, mobile hamburger OK
+- [x] Footer: gradient horizontal, company info dynamic, contact dynamic, 3 floating buttons đúng màu+URL
 
 **Từng trang:**
-- [ ] `/` — Slider, Vision/Mission (dynamic), Services (từ CPT), Projects (từ CPT)
+- [x] `/` — Slider, Vision/Mission (dynamic), Services (từ CPT), Projects (từ CPT)
 - [ ] `/ve-chung-toi/` — About card, Vision/Mission, Leaders, Members, Trusted By logos
 - [ ] `/services/` — Archive grid 4 cards với icon từ ACF
 - [ ] `/dich-vu/` — 4 service blocks với sub-images từ ACF
 - [ ] `/projects/` — Archive grid, `/du-an-tieu-bieu/` → 3×3 grid
 - [ ] `/[project-slug]/` — Hero, breadcrumb, 2-col, ACF fields, gallery
-- [ ] `/thong-tin-ban-tin/` — News listing với thumbnail + excerpt
-- [ ] `/[post-slug]/` — Article detail, breadcrumb, related articles
-- [ ] `/lien-he/` — Contact info từ Options, Map từ ACF, form gửi được
+- [x] `/news/` — News listing với thumbnail + excerpt
+- [x] `/[post-slug]/` — Article detail, breadcrumb, related articles
+- [x] `/contact/` — Contact info từ Options, Map từ ACF, form gửi được
 
 **Test dynamic update (chứng minh không hardcode):**
 - [ ] Thay đổi phone number trong Richscape Options → refresh site → footer hiển thị số mới

@@ -49,6 +49,158 @@ function richscape_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'richscape_scripts' );
 
+/**
+ * Disable Gutenberg for projects and services CPTs so ACF fields
+ * are fully accessible in Classic Editor.
+ */
+add_filter( 'use_block_editor_for_post_type', function( $use, $post_type ) {
+	if ( in_array( $post_type, array( 'projects', 'services' ), true ) ) {
+		return false;
+	}
+	return $use;
+}, 10, 2 );
+
+/* ============================================================
+   Project Gallery – Custom Meta Box (replaces ACF Pro gallery)
+   Stores attachment IDs in post meta key: _project_gallery_ids
+   ============================================================ */
+
+/**
+ * Register the meta box.
+ */
+add_action( 'add_meta_boxes', function() {
+	add_meta_box(
+		'richscape_project_gallery',
+		'Thư Viện Ảnh Dự Án',
+		'richscape_project_gallery_meta_box',
+		'projects',
+		'normal',
+		'default'
+	);
+} );
+
+/**
+ * Render the meta box HTML.
+ */
+function richscape_project_gallery_meta_box( $post ) {
+	wp_nonce_field( 'richscape_save_gallery', 'richscape_gallery_nonce' );
+	$ids = get_post_meta( $post->ID, '_project_gallery_ids', true );
+	if ( ! is_array( $ids ) ) {
+		$ids = $ids ? explode( ',', $ids ) : array();
+	}
+	?>
+	<style>
+	#richscape-gallery-wrap { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; min-height:60px; }
+	.richscape-gallery-thumb { position:relative; width:100px; height:80px; border:2px solid #ddd; border-radius:4px; overflow:hidden; cursor:move; }
+	.richscape-gallery-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+	.richscape-gallery-thumb .remove-img { position:absolute; top:2px; right:2px; background:rgba(0,0,0,.65); color:#fff; border:none; border-radius:50%; width:20px; height:20px; font-size:14px; line-height:18px; text-align:center; cursor:pointer; padding:0; }
+	#richscape-add-gallery-images { margin-top:4px; }
+	</style>
+	<div id="richscape-gallery-wrap">
+	<?php foreach ( $ids as $id ) :
+		$id = (int) $id;
+		if ( ! $id ) continue;
+		$thumb = wp_get_attachment_image_url( $id, 'thumbnail' );
+	?>
+		<div class="richscape-gallery-thumb" data-id="<?php echo $id; ?>">
+			<img src="<?php echo esc_url( $thumb ); ?>" alt="">
+			<button type="button" class="remove-img" title="Xóa">×</button>
+		</div>
+	<?php endforeach; ?>
+	</div>
+	<input type="hidden" id="richscape-gallery-ids" name="richscape_gallery_ids" value="<?php echo esc_attr( implode( ',', array_filter( $ids ) ) ); ?>">
+	<button type="button" id="richscape-add-gallery-images" class="button">+ Thêm Ảnh</button>
+
+	<script>
+	(function($){
+		var frame;
+		$('#richscape-add-gallery-images').on('click', function(){
+			if ( frame ) { frame.open(); return; }
+			frame = wp.media({
+				title: 'Chọn ảnh cho thư viện dự án',
+				button: { text: 'Thêm vào thư viện' },
+				multiple: true
+			});
+			frame.on('select', function(){
+				var selection = frame.state().get('selection');
+				var wrap = $('#richscape-gallery-wrap');
+				var existingIds = $('#richscape-gallery-ids').val().split(',').filter(Boolean);
+				selection.each(function(attachment){
+					var id = attachment.id;
+					if ( existingIds.indexOf(String(id)) !== -1 ) return;
+					existingIds.push(String(id));
+					var thumbUrl = attachment.attributes.sizes && attachment.attributes.sizes.thumbnail
+						? attachment.attributes.sizes.thumbnail.url
+						: attachment.attributes.url;
+					wrap.append(
+						'<div class="richscape-gallery-thumb" data-id="'+id+'">' +
+						'<img src="'+thumbUrl+'" alt="">' +
+						'<button type="button" class="remove-img" title="Xóa">×</button>' +
+						'</div>'
+					);
+				});
+				$('#richscape-gallery-ids').val(existingIds.join(','));
+			});
+			frame.open();
+		});
+
+		$(document).on('click', '.remove-img', function(){
+			var thumb = $(this).closest('.richscape-gallery-thumb');
+			var id = String(thumb.data('id'));
+			thumb.remove();
+			var ids = $('#richscape-gallery-ids').val().split(',').filter(function(v){ return v && v !== id; });
+			$('#richscape-gallery-ids').val(ids.join(','));
+		});
+	})(jQuery);
+	</script>
+	<?php
+}
+
+/**
+ * Save the gallery IDs when the post is saved.
+ */
+add_action( 'save_post_projects', function( $post_id ) {
+	if ( ! isset( $_POST['richscape_gallery_nonce'] ) ) return;
+	if ( ! wp_verify_nonce( $_POST['richscape_gallery_nonce'], 'richscape_save_gallery' ) ) return;
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+	if ( ! current_user_can( 'edit_post', $post_id ) ) return;
+
+	$raw = isset( $_POST['richscape_gallery_ids'] ) ? sanitize_text_field( $_POST['richscape_gallery_ids'] ) : '';
+	$ids = array_map( 'absint', array_filter( explode( ',', $raw ) ) );
+	update_post_meta( $post_id, '_project_gallery_ids', $ids );
+} );
+
+/**
+ * Helper: get gallery images for a project post.
+ * Returns array of attachment data arrays (url, sizes, alt).
+ */
+function richscape_get_project_gallery( $post_id = null ) {
+	$post_id = $post_id ?: get_the_ID();
+
+	// First try native meta box IDs.
+	$ids = get_post_meta( $post_id, '_project_gallery_ids', true );
+	if ( ! empty( $ids ) && is_array( $ids ) ) {
+		$images = array();
+		foreach ( $ids as $id ) {
+			$id = (int) $id;
+			if ( ! $id ) continue;
+			$url  = wp_get_attachment_url( $id );
+			$alt  = get_post_meta( $id, '_wp_attachment_image_alt', true );
+			$med  = wp_get_attachment_image_url( $id, 'medium_large' ) ?: wp_get_attachment_image_url( $id, 'medium' ) ?: $url;
+			$images[] = array( 'url' => $url, 'alt' => $alt, 'sizes' => array( 'medium_large' => $med ) );
+		}
+		return $images;
+	}
+
+	// Fallback: try ACF gallery field (if ACF Pro ever gets installed).
+	if ( function_exists( 'get_field' ) ) {
+		$acf = get_field( 'project_gallery', $post_id );
+		if ( ! empty( $acf ) ) return $acf;
+	}
+
+	return array();
+}
+
 /* ============================================================
    Banner Slider – Shortcode [richscape_banner_slider]
    ============================================================ */
@@ -254,6 +406,7 @@ function richscape_register_cpts() {
 		'menu_icon'             => 'dashicons-portfolio',
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
+		'show_in_rest'          => true,
 		'can_export'            => true,
 		'has_archive'           => true,
 		'exclude_from_search'   => false,
@@ -618,12 +771,48 @@ add_action( 'acf/init', function () {
 				'return_format' => 'array',
 				'preview_size'  => 'medium',
 			),
+			array(
+				'key'         => 'field_project_service',
+				'label'       => 'Dịch vụ liên quan',
+				'name'        => 'project_service',
+				'type'        => 'post_object',
+				'post_type'   => array( 'services' ),
+				'return_format' => 'object',
+				'allow_null'  => 1,
+				'multiple'    => 0,
+				'ui'          => 1,
+			),
+			array(
+				'key'         => 'field_project_special',
+				'label'       => 'Dự án nổi bật',
+				'name'        => 'project_special',
+				'type'        => 'true_false',
+				'message'     => 'Đánh dấu là dự án nổi bật',
+				'default_value' => 0,
+				'ui'          => 1,
+			),
 		),
 		'location' => array(
 			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'projects' ) ),
 		),
 		'active' => true,
 	) );
+} );
+
+/* ============================================================
+   Projects Archive – only show special projects
+   ============================================================ */
+add_action( 'pre_get_posts', function( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) return;
+	if ( $query->is_post_type_archive( 'projects' ) || $query->is_tax( 'project_cat' ) ) {
+		$query->set( 'meta_query', array(
+			array(
+				'key'     => 'project_special',
+				'value'   => '1',
+				'compare' => '=',
+			),
+		) );
+	}
 } );
 
 /* ============================================================
