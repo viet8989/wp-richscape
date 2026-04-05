@@ -30,7 +30,12 @@
 				<!-- Logo -->
 				<div class="flex-shrink-0 flex flex-col justify-center">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center">
-						<img class="_7_i_XA h-14 w-auto drop-shadow-sm" crossorigin="anonymous" draggable="false" src="/wp-content/uploads/logo.png" alt="Richscape">
+						<?php
+						$logo_header = function_exists( 'get_field' ) ? get_field( 'logo_header', 'option' ) : null;
+						$logo_url    = $logo_header['url'] ?? '/wp-content/uploads/logo.png';
+						$logo_alt    = $logo_header['alt'] ?? 'Richscape';
+						?>
+						<img class="_7_i_XA h-14 w-auto drop-shadow-sm" crossorigin="anonymous" draggable="false" src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( $logo_alt ); ?>">
 					</a>
 				</div>
 				

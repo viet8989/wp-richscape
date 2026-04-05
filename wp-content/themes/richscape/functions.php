@@ -433,3 +433,204 @@ function richscape_banner_slider_admin_page() {
 	</script>
 	<?php
 }
+
+/* ============================================================
+   ACF Options Page
+   ============================================================ */
+add_action( 'acf/init', function () {
+	if ( ! function_exists( 'acf_add_options_page' ) ) return;
+	acf_add_options_page( array(
+		'page_title' => 'Richscape Options',
+		'menu_title' => 'Richscape Options',
+		'menu_slug'  => 'richscape-options',
+		'capability' => 'manage_options',
+		'icon_url'   => 'dashicons-admin-generic',
+		'position'   => 2,
+	) );
+} );
+
+/* ============================================================
+   ACF Field Groups (all registered programmatically)
+   ============================================================ */
+add_action( 'acf/init', function () {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) return;
+
+	// ── Options Page Fields ──────────────────────────────────
+	acf_add_local_field_group( array(
+		'key'    => 'group_richscape_site_options',
+		'title'  => 'Richscape Site Options',
+		'fields' => array(
+			array( 'key' => 'field_logo_header',         'label' => 'Logo Header',         'name' => 'logo_header',         'type' => 'image',    'return_format' => 'array', 'preview_size' => 'medium' ),
+			array( 'key' => 'field_logo_footer',         'label' => 'Logo Footer',         'name' => 'logo_footer',         'type' => 'image',    'return_format' => 'array', 'preview_size' => 'medium' ),
+			array( 'key' => 'field_company_name_full',   'label' => 'Tên đầy đủ',          'name' => 'company_name_full',   'type' => 'text' ),
+			array( 'key' => 'field_company_name_abbr',   'label' => 'Tên viết tắt',        'name' => 'company_name_abbr',   'type' => 'text' ),
+			array( 'key' => 'field_company_name_intl',   'label' => 'Tên quốc tế',         'name' => 'company_name_intl',   'type' => 'text' ),
+			array( 'key' => 'field_company_tax_id',      'label' => 'Mã số thuế',          'name' => 'company_tax_id',      'type' => 'text' ),
+			array( 'key' => 'field_contact_phone',       'label' => 'Điện thoại',          'name' => 'contact_phone',       'type' => 'text' ),
+			array( 'key' => 'field_contact_email',       'label' => 'Email',               'name' => 'contact_email',       'type' => 'email' ),
+			array( 'key' => 'field_contact_address',     'label' => 'Địa chỉ',             'name' => 'contact_address',     'type' => 'textarea', 'rows' => 3 ),
+			array( 'key' => 'field_social_zalo_url',     'label' => 'Zalo URL',            'name' => 'social_zalo_url',     'type' => 'url' ),
+			array( 'key' => 'field_social_messenger_url','label' => 'Messenger URL',       'name' => 'social_messenger_url','type' => 'url' ),
+			array( 'key' => 'field_about_tagline_en',    'label' => 'English Tagline',     'name' => 'about_tagline_en',    'type' => 'text' ),
+			array( 'key' => 'field_about_intro_vi',      'label' => 'Vietnamese Intro',    'name' => 'about_intro_vi',      'type' => 'textarea', 'rows' => 4 ),
+			array( 'key' => 'field_vision_text',         'label' => 'Nội dung Tầm Nhìn',   'name' => 'vision_text',         'type' => 'textarea', 'rows' => 4 ),
+			array( 'key' => 'field_mission_text',        'label' => 'Nội dung Sứ Mệnh',    'name' => 'mission_text',        'type' => 'textarea', 'rows' => 4 ),
+			array(
+				'key'          => 'field_core_values',
+				'label'        => 'Giá Trị Cốt Lõi',
+				'name'         => 'core_values',
+				'type'         => 'repeater',
+				'button_label' => 'Thêm giá trị',
+				'layout'       => 'block',
+				'sub_fields'   => array(
+					array( 'key' => 'field_cv_title',       'label' => 'Tên giá trị', 'name' => 'cv_title',       'type' => 'text' ),
+					array( 'key' => 'field_cv_description', 'label' => 'Mô tả',       'name' => 'cv_description', 'type' => 'textarea', 'rows' => 2 ),
+				),
+			),
+			array(
+				'key'          => 'field_trusted_by',
+				'label'        => 'Đối Tác Tin Tưởng',
+				'name'         => 'trusted_by',
+				'type'         => 'repeater',
+				'button_label' => 'Thêm đối tác',
+				'layout'       => 'block',
+				'sub_fields'   => array(
+					array( 'key' => 'field_partner_logo', 'label' => 'Logo',        'name' => 'partner_logo', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail' ),
+					array( 'key' => 'field_partner_name', 'label' => 'Tên đối tác', 'name' => 'partner_name', 'type' => 'text' ),
+				),
+			),
+			array( 'key' => 'field_footer_copyright', 'label' => 'Copyright text', 'name' => 'footer_copyright', 'type' => 'text' ),
+		),
+		'location' => array(
+			array( array( 'param' => 'options_page', 'operator' => '==', 'value' => 'richscape-options' ) ),
+		),
+		'active' => true,
+	) );
+
+	// ── About Page Fields ────────────────────────────────────
+	acf_add_local_field_group( array(
+		'key'    => 'group_richscape_about_page',
+		'title'  => 'Lãnh Đạo & Thành Viên',
+		'fields' => array(
+			array(
+				'key'          => 'field_leaders',
+				'label'        => 'Lãnh Đạo',
+				'name'         => 'leaders',
+				'type'         => 'repeater',
+				'button_label' => 'Thêm lãnh đạo',
+				'layout'       => 'block',
+				'sub_fields'   => array(
+					array( 'key' => 'field_leader_name',     'label' => 'Họ tên',           'name' => 'leader_name',     'type' => 'text' ),
+					array( 'key' => 'field_leader_title',    'label' => 'Chức danh',        'name' => 'leader_title',    'type' => 'text' ),
+					array( 'key' => 'field_leader_bio',      'label' => 'Tiểu sử',          'name' => 'leader_bio',      'type' => 'textarea', 'rows' => 4 ),
+					array( 'key' => 'field_leader_portrait', 'label' => 'Ảnh chân dung',    'name' => 'leader_portrait', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
+					array( 'key' => 'field_leader_bg_photo', 'label' => 'Ảnh nền landscape','name' => 'leader_bg_photo', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
+				),
+			),
+			array(
+				'key'          => 'field_members',
+				'label'        => 'Thành Viên',
+				'name'         => 'members',
+				'type'         => 'repeater',
+				'button_label' => 'Thêm thành viên',
+				'layout'       => 'block',
+				'sub_fields'   => array(
+					array( 'key' => 'field_member_name',     'label' => 'Họ tên',    'name' => 'member_name',     'type' => 'text' ),
+					array( 'key' => 'field_member_title',    'label' => 'Chức danh', 'name' => 'member_title',    'type' => 'text' ),
+					array( 'key' => 'field_member_bio',      'label' => 'Tiểu sử',   'name' => 'member_bio',      'type' => 'textarea', 'rows' => 3 ),
+					array( 'key' => 'field_member_portrait', 'label' => 'Ảnh',       'name' => 'member_portrait', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
+				),
+			),
+		),
+		'location' => array(
+			array( array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-about.php' ) ),
+		),
+		'active' => true,
+	) );
+
+	// ── Contact Page Fields ──────────────────────────────────
+	acf_add_local_field_group( array(
+		'key'    => 'group_richscape_contact_page',
+		'title'  => 'Bản Đồ Google',
+		'fields' => array(
+			array(
+				'key'          => 'field_maps_embed_url',
+				'label'        => 'Google Maps Embed URL',
+				'name'         => 'maps_embed_url',
+				'type'         => 'text',
+				'instructions' => 'Paste src URL từ Google Maps → Share → Embed (chỉ phần src="...")',
+			),
+		),
+		'location' => array(
+			array( array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-contact.php' ) ),
+		),
+		'active' => true,
+	) );
+
+	// ── Services CPT Fields ──────────────────────────────────
+	acf_add_local_field_group( array(
+		'key'    => 'group_richscape_services_cpt',
+		'title'  => 'Chi Tiết Dịch Vụ',
+		'fields' => array(
+			array(
+				'key'           => 'field_service_icon',
+				'label'         => 'Biểu tượng dịch vụ',
+				'name'          => 'service_icon',
+				'type'          => 'image',
+				'return_format' => 'array',
+				'preview_size'  => 'thumbnail',
+			),
+			array(
+				'key'          => 'field_service_sub_images',
+				'label'        => 'Ảnh chi tiết',
+				'name'         => 'service_sub_images',
+				'type'         => 'repeater',
+				'button_label' => 'Thêm ảnh',
+				'layout'       => 'block',
+				'sub_fields'   => array(
+					array( 'key' => 'field_sub_image',   'label' => 'Ảnh',     'name' => 'sub_image',   'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
+					array( 'key' => 'field_sub_caption', 'label' => 'Caption', 'name' => 'sub_caption', 'type' => 'text',  'placeholder' => 'VD: MASTER PLAN' ),
+				),
+			),
+		),
+		'location' => array(
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'services' ) ),
+		),
+		'active' => true,
+	) );
+
+	// ── Projects CPT Fields ──────────────────────────────────
+	acf_add_local_field_group( array(
+		'key'    => 'group_richscape_projects_cpt',
+		'title'  => 'Chi Tiết Dự Án',
+		'fields' => array(
+			array( 'key' => 'field_project_client',       'label' => 'Chủ đầu tư',              'name' => 'project_client',       'type' => 'text' ),
+			array( 'key' => 'field_project_area_total',   'label' => 'Quy mô tổng thể (m²)',    'name' => 'project_area_total',   'type' => 'text' ),
+			array( 'key' => 'field_project_area_green',   'label' => 'Diện tích phủ xanh (m²)', 'name' => 'project_area_green',   'type' => 'text' ),
+			array( 'key' => 'field_project_scope',        'label' => 'Phạm vi thực hiện',       'name' => 'project_scope',        'type' => 'text' ),
+			array( 'key' => 'field_project_address',      'label' => 'Địa chỉ dự án',           'name' => 'project_address',      'type' => 'text' ),
+			array( 'key' => 'field_project_category_tag', 'label' => 'Loại dịch vụ',            'name' => 'project_category_tag', 'type' => 'text' ),
+			array(
+				'key'           => 'field_project_gallery',
+				'label'         => 'Thư viện ảnh',
+				'name'          => 'project_gallery',
+				'type'          => 'gallery',
+				'return_format' => 'array',
+				'preview_size'  => 'medium',
+			),
+		),
+		'location' => array(
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'projects' ) ),
+		),
+		'active' => true,
+	) );
+} );
+
+/* ============================================================
+   View Counters (Projects + Posts)
+   ============================================================ */
+function richscape_increment_view_count( $post_id, $meta_key = '_post_views' ) {
+	if ( is_admin() ) return;
+	$count = (int) get_post_meta( $post_id, $meta_key, true );
+	update_post_meta( $post_id, $meta_key, $count + 1 );
+}
