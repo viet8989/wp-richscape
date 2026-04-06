@@ -78,70 +78,6 @@
   pointer-events: none;
 }
 
-/* ── Overlay gradient card (bottom-left) ───────────────────── */
-.rbs-overlay-card {
-  position: absolute;
-  bottom: 48px;
-  left: 0;
-  z-index: 10;
-  /* gradient card: navy → teal */
-  background: linear-gradient(135deg, var(--rbs-navy) 0%, var(--rbs-teal) 100%);
-  padding: 18px 32px 18px 40px;
-  border-radius: 0 12px 12px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-width: 340px;
-  box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.35);
-}
-
-/* "VỀ CHÚNG TÔI" label */
-.rbs-overlay-card .rbs-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--rbs-teal);
-  background: rgba(255, 255, 255, 0.15);
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 3px;
-  margin-bottom: 4px;
-  align-self: flex-start;
-}
-
-/* English tagline */
-.rbs-overlay-card .rbs-tagline {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(15px, 1.6vw, 20px);
-  font-style: italic;
-  font-weight: 600;
-  color: #ffffff;
-  line-height: 1.3;
-  margin: 0;
-}
-
-/* Vietnamese body copy */
-.rbs-overlay-card .rbs-body {
-  font-family: 'Open Sans', sans-serif;
-  font-size: clamp(11px, 1.1vw, 13px);
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.6;
-  margin: 4px 0 0;
-}
-
-/* "LANDSCAPE CREATOR" footer text */
-.rbs-overlay-card .rbs-footer-text {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 8px;
-}
-
 /* ── Navigation arrows ─────────────────────────────────────── */
 .rbs-arrow {
   position: absolute;
@@ -220,10 +156,86 @@
   .rbs-arrow {
     display: none;
   }
+}
 
-  .rbs-overlay-card {
-    bottom: 32px;
-    max-width: 80vw;
-    padding: 14px 20px 14px 20px;
+/* ── About section: overlaps the bottom of the slider ──────── */
+.about-section-overlap {
+  position: relative;
+  z-index: 30;
+  margin-top: -80px;
+  margin-bottom: 10px;
+  padding-left: 50px;
+}
+
+/* ── About card section ─────────────────────────────────────── */
+.about-card-inner {
+  width: 100%;
+  background: linear-gradient(135deg, #1A2251 0%, #2A9D8F 100%);
+  padding: 48px 40px;
+  color: #ffffff;
+}
+
+@media (min-width: 1024px) {
+  .about-card-inner {
+    width: 50%;
+    padding: 64px 64px 56px;
   }
+}
+
+/* ── Vision/Mission section: 4/8 column grid ───────────────── */
+.vm-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .vm-grid {
+    grid-template-columns: 4fr 8fr;
+    gap: 4rem;
+  }
+}
+
+/* ── Core values number badge ───────────────────────────────── */
+.cv-badge {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  background: #2A9D8F;
+  color: #ffffff;
+  margin-top: 2px;
+}
+
+/* ── Core value item: badge on top, line + text below ───────── */
+.cv-item {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Row below badge: line + text side by side */
+.cv-body {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Vertical line centered under badge (badge = 26px, center at 13px) */
+.cv-line {
+  width: 2px;
+  flex-shrink: 0;
+  background: rgba(42, 157, 143, 0.5);
+  margin-left: 12px;
+  min-height: 20px;
+}
+
+.cv-text-block {
+  flex: 1;
 }

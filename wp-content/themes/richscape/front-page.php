@@ -7,6 +7,8 @@ get_header(); ?>
 
 <?php echo do_shortcode( '[richscape_banner_slider]' ); ?>
 
+<?php get_template_part( 'template-parts/section-about-card' ); ?>
+
 <?php get_template_part( 'template-parts/section-vision-mission' ); ?>
 
 <!-- Services Section -->

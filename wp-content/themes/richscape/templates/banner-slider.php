@@ -47,21 +47,6 @@ if ( empty( $slides ) || ! is_array( $slides ) ) {
         <?php endforeach; ?>
     </div>
 
-    <?php
-    // Read overlay text from ACF Options with hardcoded fallbacks
-    $rbs_tagline = function_exists( 'get_field' ) ? get_field( 'about_tagline_en', 'option' ) : '';
-    $rbs_intro   = function_exists( 'get_field' ) ? get_field( 'about_intro_vi',   'option' ) : '';
-    $rbs_tagline = $rbs_tagline ?: 'As Landscape Creators, We Bring Your Green Visions To Life.';
-    $rbs_intro   = $rbs_intro   ?: 'RICHSCAPE mang đến giải pháp thiết kế và thi công cảnh quan chuyên nghiệp – từ ý tưởng đến hiện thực.';
-    ?>
-    <?php /* ── Overlay gradient card (bottom-left) ──────────── */ ?>
-    <div class="rbs-overlay-card" aria-hidden="true">
-        <span class="rbs-label">VỀ CHÚNG TÔI</span>
-        <p class="rbs-tagline"><?php echo nl2br( esc_html( $rbs_tagline ) ); ?></p>
-        <p class="rbs-body"><?php echo nl2br( esc_html( $rbs_intro ) ); ?></p>
-        <span class="rbs-footer-text">LANDSCAPE CREATOR</span>
-    </div>
-
     <?php /* ── Prev / Next arrow buttons ───────────────────── */ ?>
     <button class="rbs-arrow rbs-prev" aria-label="<?php esc_attr_e( 'Previous slide', 'richscape' ); ?>">&#10094;</button>
     <button class="rbs-arrow rbs-next" aria-label="<?php esc_attr_e( 'Next slide', 'richscape' ); ?>">&#10095;</button>
