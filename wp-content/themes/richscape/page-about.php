@@ -19,16 +19,11 @@ get_header(); ?>
 	<!-- About Card + Intro -->
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-				<div class="rounded-2xl overflow-hidden" style="min-height: 400px;">
-					<?php
-					$hero_img = has_post_thumbnail() ? get_the_post_thumbnail_url( get_the_ID(), 'large' ) : 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&auto=format&fit=crop';
-					?>
-					<img src="<?php echo esc_url( $hero_img ); ?>" alt="Richscape cảnh quan"
-					     class="w-full h-full object-cover">
-				</div>
-				<?php get_template_part( 'template-parts/section-about-card-page' ); ?>
+			<div class="mb-8 inline-block">
+				<h1 class="text-4xl font-black text-teal uppercase mb-3">Về Chúng Tôi</h1>
+				<div class="h-1 bg-teal"></div>
 			</div>
+			<?php get_template_part( 'template-parts/section-about-card-page' ); ?>
 		</div>
 	</section>
 
