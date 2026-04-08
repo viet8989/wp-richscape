@@ -27,7 +27,7 @@ get_header(); ?>
 					<img src="<?php echo esc_url( $hero_img ); ?>" alt="Richscape cảnh quan"
 					     class="w-full h-full object-cover">
 				</div>
-				<?php get_template_part( 'template-parts/section-about-card' ); ?>
+				<?php get_template_part( 'template-parts/section-about-card-page' ); ?>
 			</div>
 		</div>
 	</section>
