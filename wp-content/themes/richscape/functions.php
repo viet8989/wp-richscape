@@ -415,6 +415,40 @@ function richscape_register_cpts() {
 	);
 	register_post_type( 'projects', $projects_args );
 
+	// Members CPT
+	$members_labels = array(
+		'name'               => _x( 'Thành Viên', 'Post Type General Name', 'richscape' ),
+		'singular_name'      => _x( 'Thành Viên', 'Post Type Singular Name', 'richscape' ),
+		'menu_name'          => __( 'Thành Viên', 'richscape' ),
+		'name_admin_bar'     => __( 'Thành Viên', 'richscape' ),
+		'all_items'          => __( 'Tất Cả Thành Viên', 'richscape' ),
+		'add_new_item'       => __( 'Thêm Thành Viên Mới', 'richscape' ),
+		'add_new'            => __( 'Thêm Mới', 'richscape' ),
+		'new_item'           => __( 'Thành Viên Mới', 'richscape' ),
+		'edit_item'          => __( 'Chỉnh Sửa Thành Viên', 'richscape' ),
+		'update_item'        => __( 'Cập Nhật Thành Viên', 'richscape' ),
+		'search_items'       => __( 'Tìm Thành Viên', 'richscape' ),
+		'not_found'          => __( 'Không tìm thấy', 'richscape' ),
+		'not_found_in_trash' => __( 'Không tìm thấy trong Thùng rác', 'richscape' ),
+	);
+	$members_args = array(
+		'label'             => __( 'Thành Viên', 'richscape' ),
+		'labels'            => $members_labels,
+		'supports'          => array( 'title', 'thumbnail' ),
+		'hierarchical'      => false,
+		'public'            => false,
+		'show_ui'           => true,
+		'show_in_menu'      => true,
+		'menu_position'     => 7,
+		'menu_icon'         => 'dashicons-groups',
+		'show_in_admin_bar' => true,
+		'can_export'        => true,
+		'has_archive'       => false,
+		'publicly_queryable'=> false,
+		'capability_type'   => 'post',
+	);
+	register_post_type( 'members', $members_args );
+
 }
 add_action( 'init', 'richscape_register_cpts', 0 );
 
@@ -622,6 +656,8 @@ add_action( 'acf/init', function () {
 			array( 'key' => 'field_contact_phone',       'label' => 'Điện thoại',          'name' => 'contact_phone',       'type' => 'text' ),
 			array( 'key' => 'field_contact_email',       'label' => 'Email',               'name' => 'contact_email',       'type' => 'email' ),
 			array( 'key' => 'field_contact_address',     'label' => 'Địa chỉ',             'name' => 'contact_address',     'type' => 'textarea', 'rows' => 3 ),
+			array( 'key' => 'field_map_lat',             'label' => 'Tọa độ - Vĩ độ (Lat)', 'name' => 'map_lat',             'type' => 'text', 'placeholder' => 'Ví dụ: 10.7756' ),
+			array( 'key' => 'field_map_lng',             'label' => 'Tọa độ - Kinh độ (Lng)', 'name' => 'map_lng',           'type' => 'text', 'placeholder' => 'Ví dụ: 106.7476' ),
 			array( 'key' => 'field_social_zalo_url',     'label' => 'Zalo URL',            'name' => 'social_zalo_url',     'type' => 'url' ),
 			array( 'key' => 'field_social_messenger_url','label' => 'Messenger URL',       'name' => 'social_messenger_url','type' => 'url' ),
 			array( 'key' => 'field_about_tagline_en',    'label' => 'English Tagline',     'name' => 'about_tagline_en',    'type' => 'text' ),
@@ -680,23 +716,26 @@ add_action( 'acf/init', function () {
 					array( 'key' => 'field_leader_bg_photo', 'label' => 'Ảnh nền landscape','name' => 'leader_bg_photo', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
 				),
 			),
-			array(
-				'key'          => 'field_members',
-				'label'        => 'Thành Viên',
-				'name'         => 'members',
-				'type'         => 'repeater',
-				'button_label' => 'Thêm thành viên',
-				'layout'       => 'block',
-				'sub_fields'   => array(
-					array( 'key' => 'field_member_name',     'label' => 'Họ tên',    'name' => 'member_name',     'type' => 'text' ),
-					array( 'key' => 'field_member_title',    'label' => 'Chức danh', 'name' => 'member_title',    'type' => 'text' ),
-					array( 'key' => 'field_member_bio',      'label' => 'Tiểu sử',   'name' => 'member_bio',      'type' => 'textarea', 'rows' => 3 ),
-					array( 'key' => 'field_member_portrait', 'label' => 'Ảnh',       'name' => 'member_portrait', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
-				),
-			),
 		),
 		'location' => array(
 			array( array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-about.php' ) ),
+		),
+		'active' => true,
+	) );
+
+	// ── Members CPT Fields ───────────────────────────────────
+	acf_add_local_field_group( array(
+		'key'    => 'group_richscape_members',
+		'title'  => 'Thông Tin Thành Viên',
+		'fields' => array(
+			array( 'key' => 'field_cpt_member_title',    'label' => 'Chức danh',      'name' => 'member_title',    'type' => 'text' ),
+			array( 'key' => 'field_cpt_member_bio',      'label' => 'Tiểu sử',        'name' => 'member_bio',      'type' => 'textarea', 'rows' => 4 ),
+			array( 'key' => 'field_cpt_member_portrait', 'label' => 'Ảnh chân dung',  'name' => 'member_portrait', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
+			array( 'key' => 'field_cpt_member_bg_photo', 'label' => 'Ảnh nền',        'name' => 'member_bg_photo', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium' ),
+			array( 'key' => 'field_cpt_member_order',    'label' => 'Thứ tự hiển thị','name' => 'member_order',    'type' => 'number', 'default_value' => 0 ),
+		),
+		'location' => array(
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'members' ) ),
 		),
 		'active' => true,
 	) );

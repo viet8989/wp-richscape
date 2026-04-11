@@ -26,24 +26,28 @@ $img_url = has_post_thumbnail()
 
 	<!-- Top: title left, icon+number right -->
 	<div class="relative pt-6 px-5 pb-3">
-		<div class="flex items-start">
-			<h3 class="flex-1 text-white font-sans font-bold uppercase text-2xl leading-tight" style="min-height: 90px; padding-right: 56px;">
-				<?php the_title(); ?>
-			</h3>
-			<?php if ( $icon_url ) : ?>
-			<div class="absolute" style="top: 24px; right: 52px; width: 44px;">
-				<img src="<?php echo esc_url( $icon_url ); ?>" alt="" style="width: 44px; height: auto; object-fit: contain; opacity: 0.9;">
-			</div>
-			<?php endif; ?>
-			<div class="absolute" style="top: 12px; right: 16px;">
-				<span class="font-serif leading-none font-normal" style="font-size: 52px; color: #2A9D8F; line-height: 1;"><?php echo $count; ?></span>
-			</div>
+		<h3 class="text-white font-sans font-bold uppercase leading-tight"
+		    style="font-size: clamp(1.25rem, 2vw, 1.75rem); min-height: 95px; padding-right: 80px;">
+			<?php the_title(); ?>
+		</h3>
+		<?php if ( $icon_url ) : ?>
+		<!-- Icon PNG uploaded in wp-admin › Services › Biểu tượng dịch vụ -->
+		<div class="absolute" style="top: 22px; right: 40px; width: 56px;">
+			<img src="<?php echo esc_url( $icon_url ); ?>"
+			     alt=""
+			     style="width: 56px; height: auto; max-height: 52px; object-fit: contain; opacity: 0.92;">
+		</div>
+		<?php endif; ?>
+		<!-- Number badge overlaps icon right edge -->
+		<div class="absolute" style="top: 10px; right: 10px; line-height: 1;">
+			<span class="font-sans font-normal"
+			      style="font-size: 56px; color: #1EAF87; line-height: 1;"><?php echo $count; ?></span>
 		</div>
 	</div>
 
 	<!-- Description -->
 	<div class="px-5 pb-4">
-		<p class="text-white/80 font-body text-sm leading-relaxed"><?php echo esc_html( $desc ); ?></p>
+		<p class="text-white/85 font-body leading-relaxed" style="font-size: 0.9rem;"><?php echo esc_html( $desc ); ?></p>
 	</div>
 
 	<!-- Photo -->
@@ -56,7 +60,7 @@ $img_url = has_post_thumbnail()
 	<div class="flex justify-center py-4">
 		<a href="<?php the_permalink(); ?>"
 		   class="font-sans font-bold text-xs uppercase tracking-widest px-6 py-2 rounded-full hover:opacity-80 transition-opacity duration-300"
-		   style="background-color: #2A9D8F; color: #1A2251; text-decoration: underline;">
+		   style="background-color: #1EAF87; color: #21548C; text-decoration: underline;">
 			DỰ ÁN LIÊN QUAN
 		</a>
 	</div>
