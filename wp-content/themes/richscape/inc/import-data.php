@@ -13,21 +13,45 @@ function richscape_import_demo_data() {
 			'title'   => 'THIẾT KẾ THI CÔNG CẢNH QUAN',
 			'content' => 'Giải pháp toàn diện và chuyên nghiệp giúp nâng tầm vẻ đẹp tự nhiên cho không gian sống của bạn.',
 			'excerpt' => 'Kiến tạo không gian xanh thẩm mỹ, mang đậm dấu ấn riêng với quy trình chuyên nghiệp từ khâu ý tưởng đến khi hoàn thiện thực tế.',
+			'sub_items' => array(
+				array( 'caption' => 'MASTER PLAN' ),
+				array( 'caption' => '3D CONCEPT' ),
+				array( 'caption' => 'KHÁI TOÁN' ),
+				array( 'caption' => 'HARDSCAPE & CÂY XANH' ),
+			),
 		),
 		array(
-			'title'   => 'HỆ THỐNG CHIẾU SÁNG & TƯỚI TỰ ĐỘNG',
+			'title'   => 'CHIẾU SÁNG - TƯỚI TỰ ĐỘNG',
 			'content' => 'Chúng tôi cung cấp hệ thống chiếu sáng nghệ thuật và giải pháp tưới tự động thông minh giúp duy trì cảnh quan xanh tươi.',
-			'excerpt' => 'Giải pháp chiếu sáng nghệ thuật và hệ thống tưới thông minh tiết kiệm nước, duy trì cảnh quan xanh tươi bền vững.',
+			'excerpt' => 'Ứng dụng công nghệ tự động, đảm bảo tiêu chuẩn để tối ưu hóa việc chăm sóc cây trồng, kết hợp nghệ thuật thị giác làm bừng sáng vẻ đẹp cảnh quan mọi thời điểm trong ngày.',
+			'sub_items' => array(
+				array( 'caption' => 'KỊCH BẢN CHIẾU SÁNG - HỆ TƯỚI' ),
+				array( 'caption' => 'LẮP ĐẶT CHIẾU SÁNG' ),
+				array( 'caption' => 'HỆ TƯỚI TỰ ĐỘNG' ),
+				array( 'caption' => 'THIẾT BỊ CHÍNH HÃNG, AN TOÀN' ),
+			),
 		),
 		array(
-			'title'   => 'ĐÀI PHUN NƯỚC, HỒ BƠI & HỒ ÂM',
-			'content' => 'Thiết kế và thi công hệ thống đài phun nước, hồ bơi và hồ cá Koi (hồ âm) đạt tiêu chuẩn thẩm mỹ và kỹ thuật cao.',
-			'excerpt' => 'Thiết kế và thi công đài phun nước, hồ bơi, hồ cá Koi đạt tiêu chuẩn thẩm mỹ, mang lại không gian thư giãn lý tưởng.',
+			'title'   => 'ĐÀI PHUN NƯỚC - HỒ BƠI - HỒ CẢNH',
+			'content' => 'Thiết kế và thi công hệ thống đài phun nước, hồ bơi và hồ cảnh đạt tiêu chuẩn thẩm mỹ và kỹ thuật cao.',
+			'excerpt' => 'Đội ngũ kỹ sư tư vấn - lắp đặt vào dự án các hạng mục kỹ thuật cảnh quan nước tinh tế, tạo điểm nhấn sinh thái và phong thủy hài hòa.',
+			'sub_items' => array(
+				array( 'caption' => 'THÁC NƯỚC - ĐÀI PHUN NGHỆ THUẬT' ),
+				array( 'caption' => 'HỒ BƠI' ),
+				array( 'caption' => 'HỒ SINH THÁI' ),
+				array( 'caption' => 'HỒ JACUZZI' ),
+			),
 		),
 		array(
-			'title'   => 'BẢO DƯỠNG CẢNH QUAN',
+			'title'   => 'CHĂM SÓC - BẢO TRÌ CẢNH QUAN',
 			'content' => 'Dịch vụ chăm sóc, bảo dưỡng định kỳ giúp cảnh quan luôn giữ được vẻ đẹp nguyên bản và phát triển bền vững.',
-			'excerpt' => 'Dịch vụ chăm sóc định kỳ, cắt tỉa và bảo dưỡng giúp cảnh quan luôn giữ được vẻ đẹp tươi xanh và phát triển bền vững.',
+			'excerpt' => 'Duy trì vẻ đẹp bền vững và sức sống tươi tốt cho cảnh quan bằng dịch vụ chăm sóc, cắt tỉa và bảo dưỡng định kỳ tận tâm.',
+			'sub_items' => array(
+				array( 'caption' => 'CẮT TỈA & TẠO DÁNG ĐỊNH KỲ' ),
+				array( 'caption' => 'VỆ SINH CẢNH QUAN' ),
+				array( 'caption' => 'BẢO TRÌ HỆ THỐNG BƠM - LỌC' ),
+				array( 'caption' => 'DINH DƯỠNG, PHÒNG BỆNH' ),
+			),
 		),
 	);
 
@@ -110,8 +134,22 @@ function richscape_import_demo_data() {
 	// Insert Services
 	foreach ( $services_data as $index => $service ) {
 		$existing = get_page_by_title( $service['title'], OBJECT, 'services' );
-		if ( $existing ) continue;
-		wp_insert_post( array(
+		if ( $existing ) {
+			// Update sub_items if service exists but has no sub_items
+			$existing_items = get_post_meta( $existing->ID, '_service_sub_items', true );
+			if ( empty( $existing_items ) && ! empty( $service['sub_items'] ) ) {
+				$sub_items = array();
+				foreach ( $service['sub_items'] as $item ) {
+					$sub_items[] = array(
+						'image_id' => 0,
+						'caption'  => $item['caption'] ?? '',
+					);
+				}
+				update_post_meta( $existing->ID, '_service_sub_items', $sub_items );
+			}
+			continue;
+		}
+		$post_id = wp_insert_post( array(
 			'post_title'   => $service['title'],
 			'post_content' => $service['content'],
 			'post_excerpt' => $service['excerpt'],
@@ -120,6 +158,18 @@ function richscape_import_demo_data() {
 			'post_author'  => 1,
 			'menu_order'   => $index,
 		) );
+
+		// Save sub_items meta
+		if ( $post_id && ! is_wp_error( $post_id ) && ! empty( $service['sub_items'] ) ) {
+			$sub_items = array();
+			foreach ( $service['sub_items'] as $item ) {
+				$sub_items[] = array(
+					'image_id' => 0,
+					'caption'  => $item['caption'] ?? '',
+				);
+			}
+			update_post_meta( $post_id, '_service_sub_items', $sub_items );
+		}
 	}
 
 	// Insert Projects

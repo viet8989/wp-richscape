@@ -29,8 +29,11 @@ function richscape_scripts() {
 	// Enqueue main stylesheet.
 	wp_enqueue_style( 'richscape-style', get_stylesheet_uri() );
 
-	// Enqueue compiled Tailwind CSS.
-	wp_enqueue_style( 'richscape-tailwind', get_template_directory_uri() . '/assets/css/tailwind.css', array(), '1.0.0' );
+	// Enqueue compiled Tailwind CSS. Version string derived from file mtime
+	// so the browser cache busts automatically whenever the CSS is rebuilt.
+	$tailwind_path = get_template_directory() . '/assets/css/tailwind.css';
+	$tailwind_ver  = file_exists( $tailwind_path ) ? filemtime( $tailwind_path ) : '1.0.0';
+	wp_enqueue_style( 'richscape-tailwind', get_template_directory_uri() . '/assets/css/tailwind.css', array(), $tailwind_ver );
 
 	// Enqueue banner slider assets (CSS + JS).
 	wp_enqueue_style(
@@ -196,6 +199,206 @@ function richscape_get_project_gallery( $post_id = null ) {
 	if ( function_exists( 'get_field' ) ) {
 		$acf = get_field( 'project_gallery', $post_id );
 		if ( ! empty( $acf ) ) return $acf;
+	}
+
+	return array();
+}
+
+/* ============================================================
+   Service Sub-Items – Custom Meta Box
+   Stores 4 sub-items (image + caption) in post meta: _service_sub_items
+   ============================================================ */
+
+/**
+ * Register the meta box for Services CPT.
+ */
+add_action( 'add_meta_boxes', function() {
+	add_meta_box(
+		'richscape_service_sub_items',
+		'Hạng Mục Dịch Vụ (4 ảnh + tiêu đề)',
+		'richscape_service_sub_items_meta_box',
+		'services',
+		'normal',
+		'high'
+	);
+} );
+
+/**
+ * Render the service sub-items meta box HTML.
+ */
+function richscape_service_sub_items_meta_box( $post ) {
+	wp_nonce_field( 'richscape_save_service_items', 'richscape_service_items_nonce' );
+	$items = get_post_meta( $post->ID, '_service_sub_items', true );
+	if ( ! is_array( $items ) ) {
+		$items = array();
+	}
+	// Ensure we always have 4 slots
+	while ( count( $items ) < 4 ) {
+		$items[] = array( 'image_id' => '', 'caption' => '' );
+	}
+	?>
+	<style>
+	.service-sub-items-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+	.service-sub-item { border: 1px solid #ddd; padding: 15px; border-radius: 6px; background: #fafafa; }
+	.service-sub-item-header { font-weight: 600; margin-bottom: 10px; color: #1e3a5f; }
+	.service-sub-item-preview { width: 100%; height: 150px; border: 2px dashed #ccc; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; overflow: hidden; background: #fff; }
+	.service-sub-item-preview img { width: 100%; height: 100%; object-fit: cover; }
+	.service-sub-item-preview.has-image { border-style: solid; border-color: #2a9d8f; }
+	.service-sub-item-caption { width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 4px; margin-top: 8px; }
+	.service-sub-item-buttons { display: flex; gap: 8px; }
+	.service-sub-item-buttons button { flex: 1; }
+	</style>
+	<p style="margin-bottom: 15px; color: #666;">Thêm 4 hạng mục con cho dịch vụ này. Mỗi hạng mục gồm 1 ảnh và 1 tiêu đề.</p>
+	<div class="service-sub-items-grid">
+	<?php for ( $i = 0; $i < 4; $i++ ) :
+		$item = $items[ $i ];
+		$image_id = $item['image_id'] ?? '';
+		$caption  = $item['caption'] ?? '';
+		$thumb    = $image_id ? wp_get_attachment_image_url( $image_id, 'medium' ) : '';
+	?>
+		<div class="service-sub-item" data-index="<?php echo $i; ?>">
+			<div class="service-sub-item-header">Hạng mục <?php echo $i + 1; ?></div>
+			<div class="service-sub-item-preview <?php echo $thumb ? 'has-image' : ''; ?>">
+				<?php if ( $thumb ) : ?>
+					<img src="<?php echo esc_url( $thumb ); ?>" alt="">
+				<?php else : ?>
+					<span style="color: #999;">Chưa có ảnh</span>
+				<?php endif; ?>
+			</div>
+			<div class="service-sub-item-buttons">
+				<button type="button" class="button service-select-image">Chọn Ảnh</button>
+				<button type="button" class="button service-remove-image" <?php echo ! $thumb ? 'style="display:none;"' : ''; ?>>Xóa</button>
+			</div>
+			<input type="hidden" name="service_sub_items[<?php echo $i; ?>][image_id]" value="<?php echo esc_attr( $image_id ); ?>" class="service-image-id">
+			<input type="text" name="service_sub_items[<?php echo $i; ?>][caption]" value="<?php echo esc_attr( $caption ); ?>" class="service-sub-item-caption" placeholder="Tiêu đề hạng mục (VD: MASTER PLAN)">
+		</div>
+	<?php endfor; ?>
+	</div>
+
+	<script>
+	(function($){
+		$('.service-sub-item').each(function(){
+			var $item = $(this);
+			var frame;
+
+			$item.find('.service-select-image').on('click', function(e){
+				e.preventDefault();
+				if ( frame ) { frame.open(); return; }
+				frame = wp.media({
+					title: 'Chọn ảnh hạng mục',
+					button: { text: 'Sử dụng ảnh này' },
+					multiple: false
+				});
+				frame.on('select', function(){
+					var attachment = frame.state().get('selection').first().toJSON();
+					var thumbUrl = attachment.sizes && attachment.sizes.medium
+						? attachment.sizes.medium.url
+						: attachment.url;
+					$item.find('.service-image-id').val(attachment.id);
+					$item.find('.service-sub-item-preview')
+						.addClass('has-image')
+						.html('<img src="' + thumbUrl + '" alt="">');
+					$item.find('.service-remove-image').show();
+				});
+				frame.open();
+			});
+
+			$item.find('.service-remove-image').on('click', function(e){
+				e.preventDefault();
+				$item.find('.service-image-id').val('');
+				$item.find('.service-sub-item-preview')
+					.removeClass('has-image')
+					.html('<span style="color: #999;">Chưa có ảnh</span>');
+				$(this).hide();
+			});
+		});
+	})(jQuery);
+	</script>
+	<?php
+}
+
+/**
+ * Save the service sub-items when the post is saved.
+ */
+add_action( 'save_post_services', function( $post_id ) {
+	if ( ! isset( $_POST['richscape_service_items_nonce'] ) ) return;
+	if ( ! wp_verify_nonce( $_POST['richscape_service_items_nonce'], 'richscape_save_service_items' ) ) return;
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+	if ( ! current_user_can( 'edit_post', $post_id ) ) return;
+
+	$items = array();
+	if ( isset( $_POST['service_sub_items'] ) && is_array( $_POST['service_sub_items'] ) ) {
+		foreach ( $_POST['service_sub_items'] as $item ) {
+			$items[] = array(
+				'image_id' => absint( $item['image_id'] ?? 0 ),
+				'caption'  => sanitize_text_field( $item['caption'] ?? '' ),
+			);
+		}
+	}
+	update_post_meta( $post_id, '_service_sub_items', $items );
+} );
+
+/**
+ * Helper: get service sub-items for a service post.
+ * Returns array of sub-items with image URL and caption.
+ */
+function richscape_get_service_sub_items( $post_id = null ) {
+	$post_id = $post_id ?: get_the_ID();
+	$items = get_post_meta( $post_id, '_service_sub_items', true );
+
+	// Placeholder images for demo (when no image is uploaded)
+	$placeholders = array(
+		'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&h=533&fit=crop', // landscape design
+		'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=533&fit=crop', // 3D rendering
+		'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=533&fit=crop', // calculation
+		'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&h=533&fit=crop', // garden path
+		'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&h=533&fit=crop', // lighting
+		'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=533&fit=crop', // sprinkler
+		'https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=800&h=533&fit=crop', // fountain
+		'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=800&h=533&fit=crop', // pool
+		'https://images.unsplash.com/photo-1598902108854-10e335adac99?w=800&h=533&fit=crop', // pond
+		'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&h=533&fit=crop', // jacuzzi
+		'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=533&fit=crop', // pruning
+		'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=800&h=533&fit=crop', // maintenance
+	);
+
+	if ( ! empty( $items ) && is_array( $items ) ) {
+		$result = array();
+		$placeholder_index = ( $post_id % 4 ) * 4; // Different placeholders per service
+		foreach ( $items as $idx => $item ) {
+			$image_id = $item['image_id'] ?? 0;
+			$caption  = $item['caption'] ?? '';
+			if ( ! $image_id && ! $caption ) continue;
+
+			$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'large' ) : '';
+
+			// Use placeholder if no image but caption exists
+			if ( ! $image_url && $caption ) {
+				$ph_idx = ( $placeholder_index + $idx ) % count( $placeholders );
+				$image_url = $placeholders[ $ph_idx ];
+			}
+
+			$result[] = array(
+				'image_url' => $image_url,
+				'caption'   => $caption,
+			);
+		}
+		return $result;
+	}
+
+	// Fallback: try ACF fields (if ACF Pro is installed)
+	if ( function_exists( 'get_field' ) ) {
+		$acf_items = get_field( 'service_sub_images', $post_id );
+		if ( ! empty( $acf_items ) && is_array( $acf_items ) ) {
+			$result = array();
+			foreach ( $acf_items as $acf_item ) {
+				$result[] = array(
+					'image_url' => $acf_item['sub_image']['url'] ?? '',
+					'caption'   => $acf_item['sub_caption'] ?? '',
+				);
+			}
+			return $result;
+		}
 	}
 
 	return array();

@@ -102,6 +102,53 @@ The Canva design is a single scrollable landing page with these sections in orde
 - Messenger button (teal circle)
 - Back-to-top arrow (gray)
 
+## FTP Deployment
+
+### Auto Upload/Download via Python Scripts
+
+FTP scripts are located at: `~/Dropbox/AutoUploadFTPbyGitStatus/`
+
+- **auto_upload_ftp.py** — Uploads modified files (detected by git status) to production server
+- **auto_download_file.py** — Downloads specific files from production server
+- **ftp_config.ini** — FTP credentials configuration
+
+### Upload Changes
+
+```bash
+cd ~/Dropbox/wp-richscape
+python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_upload_ftp.py
+```
+
+The script shows which files changed, upload progress, and success/failure status.
+
+### Download Files from Server
+
+```bash
+cd ~/Dropbox/wp-richscape
+python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_download_file.py /wp-content/debug.log
+```
+
+### Typical Deploy Cycle
+
+1. Edit theme files locally
+2. Build CSS: `cd wp-content/themes/richscape && npm run build`
+3. Upload: `cd ~/Dropbox/wp-richscape && python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_upload_ftp.py`
+4. Hard-refresh the live site to verify
+
+### Debugging on Production
+
+Add `error_log()` statements in PHP files, upload, trigger the page, then download logs:
+
+```bash
+# Upload changes
+python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_upload_ftp.py
+
+# Download server logs
+python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_download_file.py /wp-content/debug.log
+```
+
+View logs with: `cat wp-content/debug.log`
+
 ## Demo Data Reset
 
 To re-trigger demo data import, delete the `richscape_demo_imported` option from the WordPress database (`wp_options` table) or via WP-CLI:

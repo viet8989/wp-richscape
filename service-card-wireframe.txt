@@ -1,0 +1,41 @@
+┌────────────────────────────────────┐
+│ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │
+│ ▓                            [4]▓ │
+│ ▓  CHĂM SÓC              🌱    ▓ │
+│ ▓  BẢO TRÌ              /🤲\   ▓ │
+│ ▓  CẢNH QUAN                   ▓ │
+│ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ │
+│                                    │
+│  Duy trì vẻ đẹp bền vững và sức   │
+│  sống tươi tốt cho cảnh quan      │
+│  bằng dịch vụ chăm sóc, cắt tỉa   │
+│  và bảo dưỡng định kỳ tận tâm.    │
+│                                    │
+│      ┌──────────────────────┐      │
+│      │ ╭──────────────────╮ │      │
+│      │ │                  │ │      │
+│      │ │    [  IMAGE  ]   │ │      │
+│      │ │   lawn mower     │ │      │
+│      │ │    on grass      │ │      │
+│      │ │                  │ │      │
+│      │ ╰──────────────────╯ │      │
+│      └──────────────────────┘      │
+│                                    │
+│   ┌────────────────────────────┐   │
+│   │     DỰ ÁN LIÊN QUAN        │   │
+│   └────────────────────────────┘   │
+│                                    │
+└────────────────────────────────────┘
+
+LEGEND:
+▓▓▓ = Gradient header (dark blue → teal)
+[4] = Number badge (circle)
+🌱🤲 = Icon (hands holding plant)
+╭──╮ = Rounded corners on image
+└──┘ = CTA button (teal background)
+
+STRUCTURE BREAKDOWN:
+- Header: Gradient bg, left-aligned title, number badge top-right, icon top-right
+- Description: White bg, gray text, ~4 lines
+- Image: Rounded corners, centered, ~60% width
+- CTA Button: Full-width teal button at bottom
