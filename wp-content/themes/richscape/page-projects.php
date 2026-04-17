@@ -18,7 +18,9 @@ get_header(); ?>
 				<?php
 				$projects_query = new WP_Query( array(
 					'post_type'      => 'projects',
-					'posts_per_page' => 9,
+					'posts_per_page' => -1,
+					'orderby'        => 'menu_order date',
+					'order'          => 'ASC',
 				) );
 
 				if ( $projects_query->have_posts() ) :
@@ -30,13 +32,6 @@ get_header(); ?>
 					echo '<p class="text-gray-500 col-span-3">Chưa có dự án nào.</p>';
 				endif;
 				?>
-			</div>
-
-			<div class="mt-12 text-center">
-				<a href="<?php echo esc_url( get_post_type_archive_link( 'projects' ) ); ?>"
-				   class="inline-flex items-center px-10 py-4 border-2 border-teal text-teal font-bold uppercase tracking-widest text-sm rounded-full hover:bg-teal hover:text-white transition-all duration-300">
-					Xem Tất Cả Dự Án
-				</a>
 			</div>
 		</div>
 	</section>

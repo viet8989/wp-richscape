@@ -7,15 +7,6 @@
 get_header(); ?>
 
 <div class="pt-32">
-
-	<?php
-	set_query_var( 'breadcrumbs', array(
-		array( 'label' => 'Trang Chủ', 'url' => home_url( '/' ) ),
-		array( 'label' => 'Thông Tin - Bản Tin' ),
-	) );
-	get_template_part( 'template-parts/section-breadcrumb' );
-	?>
-
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="mb-12">

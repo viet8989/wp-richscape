@@ -69,15 +69,6 @@ if ( isset( $_POST['richscape_contact_nonce'] ) && wp_verify_nonce( sanitize_tex
 ?>
 
 <div class="pt-32">
-
-	<?php
-	set_query_var( 'breadcrumbs', array(
-		array( 'label' => 'Trang Chủ', 'url' => home_url( '/' ) ),
-		array( 'label' => 'Liên Hệ' ),
-	) );
-	get_template_part( 'template-parts/section-breadcrumb' );
-	?>
-
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<!-- <div class="mb-12">

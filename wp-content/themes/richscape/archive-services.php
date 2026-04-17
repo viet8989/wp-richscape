@@ -9,14 +9,6 @@ get_header(); ?>
 <div class="pt-32">
 
 	<?php
-	set_query_var( 'breadcrumbs', array(
-		array( 'label' => 'Trang Chủ', 'url' => home_url( '/' ) ),
-		array( 'label' => 'Dịch Vụ' ),
-	) );
-	get_template_part( 'template-parts/section-breadcrumb' );
-	?>
-
-	<?php
 	// Custom query to ensure proper ordering
 	$services_query = new WP_Query( array(
 		'post_type'      => 'services',
@@ -37,10 +29,9 @@ get_header(); ?>
 				<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
 					<!-- Section Title with Teal Underline -->
-					<h2 class="text-xl md:text-[21px] font-bold text-[#1eaf87] uppercase mb-1 tracking-wide">
-						<?php echo richscape_service_title_html(); ?>
+					<h2 class="inline-block text-xl md:text-[21px] font-bold text-[#1eaf87] uppercase mb-6 tracking-wide pb-1 border-b-2 border-[#1eaf87]">
+						<?php the_title(); ?>
 					</h2>
-					<div class="w-full max-w-[280px] h-[2px] bg-[#1eaf87] mb-6"></div>
 
 					<?php if ( $count === 1 && $desc ) : ?>
 					<!-- Description (only for first service) -->
