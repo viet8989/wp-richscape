@@ -9,14 +9,6 @@ get_header(); ?>
 <div class="pt-32">
 
 	<?php
-	set_query_var( 'breadcrumbs', array(
-		array( 'label' => 'Trang Chủ', 'url' => home_url( '/' ) ),
-		array( 'label' => 'Dịch Vụ' ),
-	) );
-	get_template_part( 'template-parts/section-breadcrumb' );
-	?>
-
-	<?php
 	$services_query = new WP_Query( array(
 		'post_type'      => 'services',
 		'posts_per_page' => -1,

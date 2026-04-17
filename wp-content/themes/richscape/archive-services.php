@@ -38,7 +38,7 @@ get_header(); ?>
 
 					<!-- Section Title with Teal Underline -->
 					<h2 class="text-xl md:text-[21px] font-bold text-[#1eaf87] uppercase mb-1 tracking-wide">
-						<?php the_title(); ?>
+						<?php echo richscape_service_title_html(); ?>
 					</h2>
 					<div class="w-full max-w-[280px] h-[2px] bg-[#1eaf87] mb-6"></div>
 

@@ -170,7 +170,7 @@
 /* ── About card section ─────────────────────────────────────── */
 .about-card-inner {
   width: 100%;
-  background: linear-gradient(135deg, #1A2251 0%, #2A9D8F 100%);
+  background: linear-gradient(90deg, #1A2251 0%, #2A9D8F 100%);
   padding: 48px 40px;
   color: #ffffff;
 }

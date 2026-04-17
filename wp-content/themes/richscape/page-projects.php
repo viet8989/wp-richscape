@@ -7,19 +7,10 @@
 get_header(); ?>
 
 <div class="pt-32">
-
-	<?php
-	set_query_var( 'breadcrumbs', array(
-		array( 'label' => 'Trang Chủ', 'url' => home_url( '/' ) ),
-		array( 'label' => 'Dự Án Tiêu Biểu' ),
-	) );
-	get_template_part( 'template-parts/section-breadcrumb' );
-	?>
-
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="mb-12">
-				<h1 class="text-4xl md:text-5xl font-black text-darkblue uppercase mb-3">Dự Án Tiêu Biểu</h1>
+				<h1 class="text-4xl md:text-5xl font-black text-darkblue uppercase mb-3">Dự Án</h1>
 				<div class="w-20 h-1 bg-teal"></div>
 			</div>
 

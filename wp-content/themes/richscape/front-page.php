@@ -65,8 +65,8 @@ get_header(); ?>
 					<div class="group relative overflow-hidden flex flex-col transition-transform duration-300 hover:-translate-y-1"
 					     style="background: linear-gradient(180deg, #1A2251 0%, #2A9D8F 100%); border-radius: 32px; height: 100%; border: 1px solid rgba(95,217,195,0.25);">
 						<div class="relative pt-7 px-6 pb-2">
-							<h3 class="text-white font-sans font-bold uppercase leading-tight"
-							    style="min-height: 90px; padding-right: 80px; white-space: pre-line; font-size: 1.35rem;"><?php echo esc_html( $ms['title'] ); ?></h3>
+							<h3 class="text-white font-sans uppercase leading-tight"
+							    style="min-height: 90px; padding-right: 80px; white-space: pre-line; font-size: 1rem; font-weight: 700;"><?php echo esc_html( $ms['title'] ); ?></h3>
 							<!-- Number badge -->
 							<div class="absolute" style="top: 14px; right: 10px; line-height: 1;">
 								<span class="font-sans font-bold" style="font-size: 72px; color: #5FD9C3; line-height: 1;"><?php echo $index + 1; ?></span>

@@ -10,7 +10,7 @@ function richscape_import_demo_data() {
 
 	$services_data = array(
 		array(
-			'title'   => 'THIẾT KẾ THI CÔNG CẢNH QUAN',
+			'title'   => 'THIẾT KẾ - THI CÔNG - CẢNH QUAN',
 			'content' => 'Giải pháp toàn diện và chuyên nghiệp giúp nâng tầm vẻ đẹp tự nhiên cho không gian sống của bạn.',
 			'excerpt' => 'Kiến tạo không gian xanh thẩm mỹ, mang đậm dấu ấn riêng với quy trình chuyên nghiệp từ khâu ý tưởng đến khi hoàn thiện thực tế.',
 			'sub_items' => array(
@@ -43,7 +43,7 @@ function richscape_import_demo_data() {
 			),
 		),
 		array(
-			'title'   => 'CHĂM SÓC - BẢO TRÌ CẢNH QUAN',
+			'title'   => 'CHĂM SÓC - BẢO TRÌ - CẢNH QUAN',
 			'content' => 'Dịch vụ chăm sóc, bảo dưỡng định kỳ giúp cảnh quan luôn giữ được vẻ đẹp nguyên bản và phát triển bền vững.',
 			'excerpt' => 'Duy trì vẻ đẹp bền vững và sức sống tươi tốt cho cảnh quan bằng dịch vụ chăm sóc, cắt tỉa và bảo dưỡng định kỳ tận tâm.',
 			'sub_items' => array(
@@ -264,3 +264,60 @@ function richscape_import_demo_data() {
 }
 
 add_action( 'admin_init', 'richscape_import_demo_data' );
+
+/**
+ * Sync existing service posts to canonical titles/excerpts when the demo-data
+ * version bumps. Guards against re-running with the richscape_data_version
+ * option. Bump RICHSCAPE_DATA_VERSION when the canonical map below changes.
+ */
+function richscape_sync_service_titles() {
+	$version         = '2';
+	$current_version = get_option( 'richscape_data_version' );
+	if ( $current_version === $version ) {
+		return;
+	}
+
+	$canonical = array(
+		'THIẾT KẾ - THI CÔNG - CẢNH QUAN' => array(
+			'aliases' => array( 'THIẾT KẾ THI CÔNG CẢNH QUAN' ),
+			'excerpt' => 'Kiến tạo không gian xanh thẩm mỹ, mang đậm dấu ấn riêng với quy trình chuyên nghiệp từ khâu ý tưởng đến khi hoàn thiện thực tế.',
+		),
+		'CHIẾU SÁNG - TƯỚI TỰ ĐỘNG' => array(
+			'aliases' => array( 'CHIẾU SÁNG TƯỚI TỰ ĐỘNG' ),
+			'excerpt' => 'Ứng dụng công nghệ tự động, đảm bảo tiêu chuẩn để tối ưu hóa việc chăm sóc cây trồng, kết hợp nghệ thuật thị giác làm bừng sáng vẻ đẹp cảnh quan mọi thời điểm trong ngày.',
+		),
+		'ĐÀI PHUN NƯỚC - HỒ BƠI - HỒ CẢNH' => array(
+			'aliases' => array( 'ĐÀI PHUN NƯỚC, HỒ BƠI & HỒ ÂM', 'ĐÀI PHUN NƯỚC, HỒ BƠI & HỒ CẢNH' ),
+			'excerpt' => 'Đội ngũ kỹ sư tư vấn - lắp đặt vào dự án các hạng mục kỹ thuật cảnh quan nước tinh tế, tạo điểm nhấn sinh thái và phong thủy hài hòa.',
+		),
+		'CHĂM SÓC - BẢO TRÌ - CẢNH QUAN' => array(
+			'aliases' => array( 'CHĂM SÓC - BẢO TRÌ CẢNH QUAN', 'BẢO DƯỠNG CẢNH QUAN' ),
+			'excerpt' => 'Duy trì vẻ đẹp bền vững và sức sống tươi tốt cho cảnh quan bằng dịch vụ chăm sóc, cắt tỉa và bảo dưỡng định kỳ tận tâm.',
+		),
+	);
+
+	$services = get_posts( array(
+		'post_type'      => 'services',
+		'posts_per_page' => -1,
+		'post_status'    => 'any',
+	) );
+
+	foreach ( $services as $post ) {
+		foreach ( $canonical as $canonical_title => $meta ) {
+			$matches_canonical = $post->post_title === $canonical_title;
+			$matches_alias     = in_array( $post->post_title, $meta['aliases'], true );
+			if ( ! $matches_canonical && ! $matches_alias ) {
+				continue;
+			}
+			wp_update_post( array(
+				'ID'           => $post->ID,
+				'post_title'   => $canonical_title,
+				'post_excerpt' => $meta['excerpt'],
+			) );
+			break;
+		}
+	}
+
+	update_option( 'richscape_data_version', $version );
+}
+add_action( 'init', 'richscape_sync_service_titles' );

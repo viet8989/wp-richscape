@@ -404,6 +404,21 @@ function richscape_get_service_sub_items( $post_id = null ) {
 	return array();
 }
 
+/**
+ * Format a service post title for display: replace " - " / " / " delimiters
+ * with <br /> so each segment lands on its own line (per Canva design).
+ * Pass raw=false to get the plain (unbroken) title.
+ */
+function richscape_service_title_html( $title = null ) {
+	if ( $title === null ) {
+		$post  = get_post();
+		$title = $post ? $post->post_title : '';
+	}
+	// Split on hyphen, en/em dash, slash, comma, ampersand.
+	$parts = preg_split( '/\s*(?:-|–|—|\/|,|&)\s*/u', $title, -1, PREG_SPLIT_NO_EMPTY );
+	return implode( '<br />', array_map( 'esc_html', $parts ) );
+}
+
 /* ============================================================
    Banner Slider – Shortcode [richscape_banner_slider]
    ============================================================ */

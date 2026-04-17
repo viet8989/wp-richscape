@@ -63,7 +63,7 @@ get_header(); ?>
 
 	<!-- Service Body -->
 	<div class="single-service-body">
-		<h1><?php the_title(); ?></h1>
+		<h1><?php echo richscape_service_title_html(); ?></h1>
 		<div class="service-underline"></div>
 
 		<?php if ( get_the_content() ) : ?>

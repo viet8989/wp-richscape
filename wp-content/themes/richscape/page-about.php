@@ -8,20 +8,12 @@ get_header(); ?>
 
 <div class="pt-32">
 
-	<?php
-	set_query_var( 'breadcrumbs', array(
-		array( 'label' => 'Trang Chủ', 'url' => home_url( '/' ) ),
-		array( 'label' => 'Về Chúng Tôi' ),
-	) );
-	get_template_part( 'template-parts/section-breadcrumb' );
-	?>
-
 	<!-- About Card + Intro -->
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="mb-8 inline-block">
 				<h1 class="text-4xl font-black text-teal uppercase mb-3">Về Chúng Tôi</h1>
-				<div class="h-1 bg-teal"></div>
+				<div class="h-1 bg-teal w-full"></div>
 			</div>
 			<?php get_template_part( 'template-parts/section-about-card-page' ); ?>
 		</div>

@@ -21,7 +21,7 @@
 	<header id="masthead" class="site-header fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
         <!-- Top Gradient Bar -->
         <div class="w-full flex justify-center">
-            <div class="bg-gradient-to-r from-darkblue to-teal w-full" style="max-width:1280px;height:41.11px;border-radius:5px;"></div>
+            <div class="bg-gradient-to-r from-darkblue to-teal w-full" style="max-width:1280px;height:30.4569px;border-radius:5px;"></div>
         </div>
         
 		<div class="mx-auto w-full px-4 sm:px-6 lg:px-12" style="max-width:1280px;">

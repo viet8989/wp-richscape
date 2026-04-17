@@ -11,6 +11,8 @@ $icon     = function_exists( 'get_field' ) ? get_field( 'service_icon' ) : null;
 $icon_url = $icon['url'] ?? '';
 $desc     = has_excerpt() ? get_the_excerpt() : wp_trim_words( get_the_content(), 25 );
 
+$title_html = richscape_service_title_html();
+
 $fallback_imgs = array(
 	'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&auto=format&fit=crop',
 	'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop',
@@ -26,21 +28,21 @@ $img_url = has_post_thumbnail()
 
 	<!-- Top: title left, icon+number right -->
 	<div class="relative pt-7 px-6 pb-2">
-		<h3 class="text-white font-sans font-bold uppercase leading-tight"
-		    style="min-height: 90px; padding-right: 80px; font-size: 1.35rem;">
-			<?php the_title(); ?>
+		<h3 class="text-white font-sans uppercase leading-tight"
+		    style="min-height: 90px; padding-right: 80px; font-size: 1rem; font-weight: 700;">
+			<?php echo $title_html; ?>
 		</h3>
-		<!-- Number badge -->
+		<!-- Number badge — top-right -->
 		<div class="absolute" style="top: 14px; right: 10px; line-height: 1; z-index: 1;">
 			<span class="font-sans font-bold"
 			      style="font-size: 72px; color: #5FD9C3; line-height: 1;"><?php echo $count; ?></span>
 		</div>
 		<?php if ( $icon_url ) : ?>
-		<!-- Icon PNG — sits to the left of the number -->
-		<div class="absolute" style="top: 20px; right: 55px; width: 38px; z-index: 2;">
+		<!-- Icon — left column of the number badge -->
+		<div class="absolute" style="top: 50px; right: 40px; z-index: 2;">
 			<img src="<?php echo esc_url( $icon_url ); ?>"
 			     alt=""
-			     style="width: 38px; height: auto; max-height: 38px; object-fit: contain;">
+			     style="width: 72px; height: 46px; object-fit: contain;">
 		</div>
 		<?php endif; ?>
 	</div>
