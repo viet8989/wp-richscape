@@ -72,19 +72,19 @@ $logo_footer_alt    = $logo_footer_data['alt'] ?? 'Richscape';
 		</div>
 
 		<!-- Floating Buttons: Zalo (green) + Phone (teal) + Messenger (blue) + Back-to-top -->
-		<div class="fixed right-6 bottom-24 flex flex-col space-y-3 z-50">
+		<div class="fixed right-4 bottom-20 flex flex-col space-y-2 sm:right-6 sm:bottom-24 sm:space-y-3 z-50">
 			<!-- Zalo -->
 			<a href="<?php echo esc_url( $social_zalo ?: '#' ); ?>"
-			   class="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform duration-300"
+			   class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform duration-300"
 			   style="background-color: #0068ff;" title="Zalo" aria-label="Liên hệ Zalo">
-				<svg class="w-7 h-7" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M24 4C12.95 4 4 12.95 4 24C4 29.25 6.1 34.05 9.5 37.6L7 44L13.75 41.6C16.95 43.1 20.4 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4Z" fill="white"/>
 					<text x="10" y="30" font-family="Arial" font-weight="bold" font-size="14" fill="#0068ff">Zalo</text>
 				</svg>
 			</a>
 			<!-- Phone -->
 			<a href="tel:<?php echo esc_attr( preg_replace( '/\s+/', '', $contact_phone ) ); ?>"
-			   class="w-12 h-12 bg-teal rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform duration-300"
+			   class="w-10 h-10 sm:w-12 sm:h-12 bg-teal rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform duration-300"
 			   title="Gọi điện" aria-label="Gọi điện">
 				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
@@ -92,7 +92,7 @@ $logo_footer_alt    = $logo_footer_data['alt'] ?? 'Richscape';
 			</a>
 			<!-- Messenger -->
 			<a href="<?php echo esc_url( $social_messenger ?: '#' ); ?>"
-			   class="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform duration-300"
+			   class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-transform duration-300"
 			   style="background-color: #0084ff;" title="Messenger" aria-label="Liên hệ Messenger">
 				<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
 					<path d="M12 2C6.477 2 2 6.145 2 11.25c0 2.895 1.48 5.485 3.795 7.155.235.17.375.445.365.74l-.175 2.145c-.06.745.71 1.255 1.345.89l2.42-1.395c.23-.13.505-.175.76-.135 1.05.175 2.16.27 3.32.27 5.523 0 10-4.145 10-9.25S17.523 2 12 2z"/>
@@ -100,7 +100,7 @@ $logo_footer_alt    = $logo_footer_data['alt'] ?? 'Richscape';
 			</a>
 		</div>
 
-		<a href="#top" class="fixed right-6 bottom-6 w-12 h-12 bg-white text-darkblue rounded-full flex items-center justify-center shadow-lg hover:bg-teal hover:text-white transition-colors z-50" aria-label="Lên đầu trang">
+		<a href="#top" class="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 w-10 h-10 sm:w-12 sm:h-12 bg-white text-darkblue rounded-full flex items-center justify-center shadow-lg hover:bg-teal hover:text-white transition-colors z-50" aria-label="Lên đầu trang">
 			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
 		</a>
 
