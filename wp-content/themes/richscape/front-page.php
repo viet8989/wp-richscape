@@ -46,7 +46,7 @@ get_header(); ?>
 				array(
 					'title' => "CHĂM SÓC\nBẢO TRÌ\nCẢNH QUAN",
 					'desc'  => 'Duy trì vẻ đẹp bền vững và sức sống tươi tốt cho cảnh quan bằng dịch vụ chăm sóc, cắt tỉa và bảo dưỡng định kỳ tận tâm.',
-					'img'   => 'https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?w=600&auto=format&fit=crop',
+					'img'   => 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=600&auto=format&fit=crop',
 				),
 			);
 

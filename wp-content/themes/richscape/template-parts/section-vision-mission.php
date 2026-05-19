@@ -22,7 +22,7 @@ if ( empty( $core_values ) ) {
 	);
 }
 ?>
-<section class="py-20 bg-darkblue text-white relative">
+<section id="about" class="py-20 bg-darkblue text-white relative">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="vm-grid">
 

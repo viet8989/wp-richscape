@@ -28,9 +28,9 @@ get_header(); ?>
 .project-info-block h2 { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: #1A2251; border-bottom: 2px solid #1A2251; display: inline-block; padding-bottom: 4px; margin: 0 0 12px; }
 .project-info-block p { font-family: 'Open Sans', sans-serif; font-size: 13px; color: #374151; margin: 4px 0; }
 .project-content { font-family: 'Open Sans', sans-serif; font-size: 14px; color: #374151; line-height: 1.75; text-align: justify; margin-bottom: 24px; }
-.project-watermark { text-align: center; padding: 20px 0; font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: .4em; color: #e5e7eb; user-select: none; }
+.project-watermark { text-align: center; padding: 20px 0; font-family: 'Montserrat', sans-serif; font-size: 1.0rem; font-weight: 600; text-transform: uppercase; letter-spacing: .4em; color: rgb(36, 64, 142); user-select: none; }
 .project-gallery-full { max-width: 1200px; margin: 0 auto 60px; padding: 0 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.project-gallery-full a { display: block; overflow: hidden; aspect-ratio: 4/3; }
+.project-gallery-full a { display: block; overflow: hidden; }
 .project-gallery-full img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
 .project-gallery-full a:hover img { transform: scale(1.05); }
 @media (max-width: 640px) { .project-gallery-full { grid-template-columns: repeat(2, 1fr); } }
@@ -64,16 +64,6 @@ get_header(); ?>
 	$gallery      = function_exists( 'richscape_get_project_gallery' ) ? richscape_get_project_gallery( get_the_ID() ) : array();
 	$views        = (int) get_post_meta( get_the_ID(), '_project_views', true );
 	?>
-
-	<!-- Hero Image -->
-	<?php
-	$hero_url = has_post_thumbnail()
-		? get_the_post_thumbnail_url( get_the_ID(), 'full' )
-		: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=1600&auto=format&fit=crop';
-	?>
-	<div class="project-hero">
-		<img src="<?php echo esc_url( $hero_url ); ?>" alt="<?php the_title_attribute(); ?>">
-	</div>
 
 	<!-- Breadcrumb -->
 	<div class="single-project-breadcrumb">
@@ -189,9 +179,9 @@ get_header(); ?>
 	<!-- Gallery – full width below 2-col layout -->
 	<?php if ( ! empty( $gallery ) ) : ?>
 	<div class="project-gallery-full">
-		<?php foreach ( $gallery as $img ) : ?>
+		<?php foreach ( $gallery as $img ) : ?>	
 		<a href="<?php echo esc_url( $img['url'] ); ?>" target="_blank" rel="noopener">
-			<img src="<?php echo esc_url( $img['sizes']['medium_large'] ?? $img['url'] ); ?>"
+			<img src="<?php echo esc_url( $img['sizes']['large'] ?? $img['url'] ); ?>"
 			     alt="<?php echo esc_attr( $img['alt'] ); ?>">
 		</a>
 		<?php endforeach; ?>
