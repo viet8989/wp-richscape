@@ -81,7 +81,7 @@ get_header(); ?>
 			<p class="font-sans font-black uppercase text-white mb-10" style="letter-spacing:0.45em; font-size:0.8rem;">MEMBERS</p>
 
 			<!-- Member cards -->
-			<div class="space-y-6">
+			<div class="space-y-12">
 				<?php while ( $members_query->have_posts() ) : $members_query->the_post();
 					$portrait     = function_exists( 'get_field' ) ? get_field( 'member_portrait' ) : null;
 					$bg           = function_exists( 'get_field' ) ? get_field( 'member_bg_photo' ) : null;
@@ -90,41 +90,57 @@ get_header(); ?>
 					$title_role   = function_exists( 'get_field' ) ? get_field( 'member_title' ) : '';
 					$bio          = function_exists( 'get_field' ) ? get_field( 'member_bio' ) : '';
 				?>
-				<div class="relative overflow-hidden" style="min-height:480px;">
+				<!-- Card outer: overflow:visible so portrait can overlap upward -->
+				<div class="overflow-visible mb-8" style="position:relative;">
 
-					<!-- Background: optional image or teal gradient -->
-					<?php if ( $bg_url ) : ?>
-					<img src="<?php echo esc_url( $bg_url ); ?>" alt="" class="absolute inset-0 w-full h-full object-cover">
-					<div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(42,157,143,0.8) 0%,rgba(26,34,81,0.55) 100%);"></div>
-					<?php else : ?>
-					<div class="absolute inset-0" style="background:linear-gradient(160deg,#2A9D8F 0%,#1a7a6a 30%,#16655a 52%,#1e3d6e 100%);"></div>
-					<?php endif; ?>
-
-					<!-- Portrait (left, bottom-aligned) -->
-					<?php if ( $portrait_url ) : ?>
-					<div class="absolute bottom-0 left-0" style="width:40%;height:88%;">
-						<img src="<?php echo esc_url( $portrait_url ); ?>"
-						     alt="<?php echo esc_attr( get_the_title() ); ?>"
-						     class="w-full h-full object-cover object-top">
+					<!-- Top: background image section -->
+					<div class="relative overflow-hidden" style="height:200px;">
+						<svg style="display:block;height:100%;width:100%;" role="presentation" viewBox="0 0 256 1426.378" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="__id114__id115" gradientUnits="userSpaceOnUse" x1="0" y1="713.189" x2="256" y2="713.189"><stop stop-color="#24408e" stop-opacity="1" offset="0"></stop><stop stop-color="#2aaf87" stop-opacity="1" offset="1"></stop></linearGradient></defs><rect x="0" y="0" width="256" height="1426.378" fill="url(#__id114__id115)"></rect></svg>
 					</div>
-					<?php endif; ?>
+					<div class="relative overflow-hidden" style="height:260px;">
+						<?php if ( $bg_url ) : ?>
+						<img src="<?php echo esc_url( $bg_url ); ?>" alt=""
+						     class="absolute inset-0 w-full h-full object-cover">
+						<div class="absolute inset-0"
+						     style="background:linear-gradient(135deg,rgba(42,157,143,0.65) 0%,rgba(26,34,81,0.5) 100%);"></div>
+						<?php else : ?>
+						<div class="absolute inset-0"
+						     style="background:linear-gradient(160deg,#2A9D8F 0%,#1a7a6a 30%,#16655a 52%,#1e3d6e 100%);"></div>
+						<?php endif; ?>
+					</div>
 
-					<!-- Dark blue info panel (right side, bottom portion) -->
-					<div class="absolute" style="left:42%;right:0;bottom:0;top:28%;background:#1A2251;padding:2.5rem 3rem;">
-						<h3 class="font-serif italic font-bold mb-1" style="font-size:1.8rem;color:#2A9D8F;">
-							<?php the_title(); ?>
-						</h3>
-						<?php if ( $title_role ) : ?>
-						<p class="font-sans font-black uppercase text-white" style="font-size:0.65rem;letter-spacing:0.18em;">
-							<?php echo esc_html( $title_role ); ?>
-						</p>
+					<!-- Bottom: dark blue row with portrait + text info -->
+					<div style="background:#1A2251;padding:2rem 2.5rem 2.5rem 2rem;display:flex;align-items:flex-start;gap:2rem;">
+
+						<!-- Portrait: negative margin-top overlaps into top image -->
+						<?php if ( $portrait_url ) : ?>
+						<div class="flex-shrink-0" style="width:200px;margin-top:-100px;position:relative;z-index:10;box-shadow:0 8px 32px rgba(0,0,0,0.35); background-image:url('/wp-content/uploads/background-member.png'); background-size:cover; background-position:center;">
+							<img src="<?php echo esc_url( $portrait_url ); ?>"
+							     alt="<?php echo esc_attr( get_the_title() ); ?>"
+							     style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block;">
+						</div>
 						<?php endif; ?>
-						<div style="border-top:1px solid rgba(255,255,255,0.35);margin:1rem 0;"></div>
-						<?php if ( $bio ) : ?>
-						<p class="font-body text-sm leading-relaxed" style="color:rgba(255,255,255,0.82);">
-							<?php echo nl2br( esc_html( $bio ) ); ?>
-						</p>
-						<?php endif; ?>
+
+						<!-- Text info -->
+						<div class="text-white" style="padding-top:0.5rem;flex:1;">
+							<h3 class="font-serif italic font-bold mb-1" style="font-size:1.8rem;color:#2A9D8F;">
+								<?php the_title(); ?>
+							</h3>
+							<?php if ( $title_role ) : ?>
+							<p class="font-sans font-black uppercase text-white"
+							   style="font-size:0.65rem;letter-spacing:0.18em;">
+								<?php echo esc_html( $title_role ); ?>
+							</p>
+							<?php endif; ?>
+							<div style="border-top:1px solid rgba(255,255,255,0.35);margin:1rem 0;"></div>
+							<?php if ( $bio ) : ?>
+							<p class="font-body text-sm leading-relaxed"
+							   style="color:rgba(255,255,255,0.82);">
+								<?php echo nl2br( esc_html( $bio ) ); ?>
+							</p>
+							<?php endif; ?>
+						</div>
+
 					</div>
 
 				</div>
