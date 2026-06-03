@@ -81,7 +81,7 @@ get_header(); ?>
 			<p class="font-sans font-black uppercase text-white mb-10" style="letter-spacing:0.45em; font-size:0.8rem;">MEMBERS</p>
 
 			<!-- Member cards -->
-			<div class="space-y-12 mx-auto" style="width:1115px;">
+			<div class="mx-auto" style="width:1115px; margin-bottom:50px;">
 				<?php while ( $members_query->have_posts() ) : $members_query->the_post();
 					$portrait     = function_exists( 'get_field' ) ? get_field( 'member_portrait' ) : null;
 					$bg           = function_exists( 'get_field' ) ? get_field( 'member_bg_photo' ) : null;
@@ -91,7 +91,7 @@ get_header(); ?>
 					$bio          = function_exists( 'get_field' ) ? get_field( 'member_bio' ) : '';
 				?>
 				<!-- Card outer: overflow:visible so portrait can overlap upward -->
-				<div class="overflow-visible mb-8" style="position:relative;">
+				<div class="overflow-visible" style="position:relative;">
 
 					<div class="relative overflow-hidden" style="height:510px;">
 						<?php if ( $bg_url ) : ?>
