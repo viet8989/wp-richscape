@@ -85,7 +85,7 @@ get_header(); ?>
 				<?php while ( $members_query->have_posts() ) : $members_query->the_post();
 					$portrait     = function_exists( 'get_field' ) ? get_field( 'member_portrait' ) : null;
 					$portrait_url = $portrait['url'] ?? '';
-					$bg_url       = '/uploads/background_about_us.png';
+					$bg_url       = '/wp-content/uploads/background_about_us.png';
 					$title_role   = function_exists( 'get_field' ) ? get_field( 'member_title' ) : '';
 					$bio          = function_exists( 'get_field' ) ? get_field( 'member_bio' ) : '';
 				?>
@@ -161,7 +161,7 @@ get_header(); ?>
 	);
 	?>
 	<section class="py-20 bg-white">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div style="width:1115px;margin:0 auto;">
 			<div class="mb-12">
 				<h2 class="text-4xl font-bold italic text-darkblue">Trusted by</h2>
 			</div>
