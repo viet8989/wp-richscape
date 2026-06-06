@@ -14,6 +14,9 @@ if ( ! function_exists( 'richscape_setup' ) ) :
 		// Enable support for Post Thumbnails on posts and pages.
 		add_theme_support( 'post-thumbnails' );
 
+		// Enable support for site icon.
+		add_theme_support( 'custom-logo' );
+
 		// Register menus.
 		register_nav_menus( array(
 			'primary' => esc_html__( 'Primary Menu', 'richscape' ),
@@ -546,7 +549,7 @@ add_action( 'acf/init', function () {
 } );
 
 /**
- * Register Custom Post Types: Services and Projects
+ * Register Custom Post Types: Services, Projects, Members
  */
 function richscape_register_cpts() {
 

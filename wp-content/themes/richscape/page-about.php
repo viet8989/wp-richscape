@@ -92,8 +92,9 @@ get_header(); ?>
 				?>
 				<!-- Card outer: overflow:visible so portrait can overlap upward -->
 				<div class="overflow-visible" style="position:relative;">
-
 					<div class="relative overflow-hidden" style="height:510px;">
+					<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(360deg,transparent,#2aaf87);z-index:999;">
+					</div>
 						<?php if ( $bg_url ) : ?>
 						<img src="<?php echo esc_url( $bg_url ); ?>" alt=""
 						     class="absolute inset-0 w-full h-full object-cover">
@@ -110,10 +111,10 @@ get_header(); ?>
 
 						<!-- Portrait: negative margin-top overlaps into top image -->
 						<?php if ( $portrait_url ) : ?>
-						<div class="flex-shrink-0" style="height:410px;margin-top:-200px;position:relative;z-index:10;box-shadow:0 8px 32px rgba(0,0,0,0.35); background-image:url('/wp-content/uploads/background-member.png'); background-size:cover; background-position:center;">
+						<div class="flex-shrink-0" style="margin-top:-200px;position:relative;z-index:10;box-shadow:0 8px 32px rgba(0,0,0,0.35); background-image:url('/wp-content/uploads/background-member.png'); background-size:cover; background-position:center;">
 							<img src="<?php echo esc_url( $portrait_url ); ?>"
 							     alt="<?php echo esc_attr( get_the_title() ); ?>"
-							     style="width:100%;aspect-ratio:3/4;object-fit:contain;object-position:top;display:block;">
+							     style="width:100%;object-fit:contain;object-position:bottom;display:block;">
 						</div>
 						<?php endif; ?>
 
@@ -143,6 +144,8 @@ get_header(); ?>
 					</div>
 				</div>
 				<?php endwhile; wp_reset_postdata(); ?>
+				<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(360deg,transparent,#2aaf87);z-index:999;">
+				</div>
 			</div>
 		</div>
 	</section>
@@ -150,29 +153,34 @@ get_header(); ?>
 
 	<!-- Trusted By Section -->
 	<?php
-	$trusted_by = function_exists( 'get_field' ) ? get_field( 'trusted_by', 'option' ) : array();
-	if ( ! empty( $trusted_by ) ) :
+	$logos_base = content_url( '/uploads/customer-logos/' );
+	$partner_logos = array(
+		array( 'file' => 'tt-group.png',      'name' => 'T&T Group' ),
+		array( 'file' => 'tt-capital.png',    'name' => 'TT Capital' ),
+		array( 'file' => 'apache.png',        'name' => 'Apache' ),
+		array( 'file' => 'newtecons.png',     'name' => 'Newtecons' ),
+		array( 'file' => 'hung-loc-phat.png', 'name' => 'Hưng Lộc Phát Group' ),
+		array( 'file' => 'unicons.png',       'name' => 'Unicons' ),
+		array( 'file' => 'm-village.png',     'name' => 'M Village' ),
+		array( 'file' => 'uth.png',           'name' => 'University of Transport Ho Chi Minh City' ),
+		array( 'file' => 'kymdan.png',        'name' => 'Kymdan' ),
+	);
 	?>
 	<section class="py-20 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="mb-12 text-center">
-				<h2 class="text-4xl font-black text-darkblue uppercase mb-3">Đối Tác Tin Tưởng</h2>
-				<div class="w-20 h-1 bg-teal mx-auto"></div>
+			<div class="mb-12">
+				<h2 class="text-4xl font-bold italic text-darkblue">Trusted by</h2>
 			</div>
-			<div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-8 items-center">
-				<?php foreach ( $trusted_by as $partner ) :
-					$logo_url = $partner['partner_logo']['url'] ?? '';
-					if ( ! $logo_url ) continue;
-				?>
-				<div class="flex items-center justify-center p-4 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300">
-					<img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( $partner['partner_name'] ); ?>"
-					     class="max-h-16 w-auto object-contain">
+			<div class="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-16 items-center">
+				<?php foreach ( $partner_logos as $logo ) : ?>
+				<div class="flex items-center justify-center p-4">
+					<img src="<?php echo esc_url( $logos_base . $logo['file'] ); ?>" alt="<?php echo esc_attr( $logo['name'] ); ?>"
+					     class="max-h-20 w-auto object-contain">
 				</div>
 				<?php endforeach; ?>
 			</div>
 		</div>
 	</section>
-	<?php endif; ?>
 
 </div>
 
