@@ -71,9 +71,9 @@ if ( isset( $_POST['richscape_contact_nonce'] ) && wp_verify_nonce( sanitize_tex
 <div class="pt-32">
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<!-- <div class="mb-12">
-				<h1 class="text-4xl md:text-5xl font-black text-darkblue uppercase mb-3">Liên Hệ</h1>
-				<div class="w-20 h-1 bg-teal"></div>
+			<!-- <div class="mb-8 inline-block">
+				<h1 class="text-sm font-display font-bold text-teal uppercase mb-3 tracking-wide">Liên Hệ</h1>
+				<div class="h-1 bg-teal w-full"></div>
 			</div> -->
 
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-16">

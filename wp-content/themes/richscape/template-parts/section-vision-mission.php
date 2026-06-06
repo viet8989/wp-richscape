@@ -29,18 +29,18 @@ if ( empty( $core_values ) ) {
 			<!-- Left Column: Vision & Mission -->
 			<div class="space-y-12">
 				<div>
-					<h2 class="font-serif italic text-3xl md:text-4xl text-teal mb-4">Vision</h2>
-					<p class="text-gray-300 font-body leading-relaxed"><?php echo nl2br( esc_html( $vision_text ) ); ?></p>
+					<h2 class="font-display font-bold text-xl text-teal mb-4">Vision</h2>
+					<p class="text-gray-300 font-manrope leading-relaxed"><?php echo nl2br( esc_html( $vision_text ) ); ?></p>
 				</div>
 				<div>
-					<h2 class="font-serif italic text-3xl md:text-4xl text-teal mb-4">Mission</h2>
-					<p class="text-gray-300 font-body leading-relaxed"><?php echo nl2br( esc_html( $mission_text ) ); ?></p>
+					<h2 class="font-display font-bold text-xl text-teal mb-4">Mission</h2>
+					<p class="text-gray-300 font-manrope leading-relaxed"><?php echo nl2br( esc_html( $mission_text ) ); ?></p>
 				</div>
 			</div>
 
 			<!-- Right Column: Core Values -->
 			<div>
-				<h2 class="font-serif italic text-3xl md:text-4xl text-teal mb-8">Core Values</h2>
+				<h2 class="font-display font-bold text-xl text-teal mb-8">Core Values</h2>
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-x-6" style="row-gap: 10px;">
 					<?php foreach ( $core_values as $i => $cv ) : ?>
 					<div class="cv-item">
@@ -48,8 +48,8 @@ if ( empty( $core_values ) ) {
 						<div class="cv-body">
 							<div class="cv-line"></div>
 							<div class="cv-text-block">
-								<h3 class="text-sm font-bold uppercase tracking-wide text-white mb-2"><?php echo esc_html( $cv['cv_title'] ); ?></h3>
-								<p class="font-body text-xs leading-relaxed" style="color: rgba(255,255,255,0.6);"><?php echo esc_html( $cv['cv_description'] ); ?></p>
+								<h3 class="font-manrope text-sm font-bold uppercase tracking-wide text-white mb-2"><?php echo esc_html( $cv['cv_title'] ); ?></h3>
+								<p class="font-manrope text-xs leading-relaxed" style="color: rgba(255,255,255,0.6);"><?php echo esc_html( $cv['cv_description'] ); ?></p>
 							</div>
 						</div>
 					</div>
