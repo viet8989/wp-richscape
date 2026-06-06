@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Brand fonts (match Canva design) ──────────────────────── */
+@font-face {
+    font-family: 'Utile Semibold';
+    src: url('/wp-content/themes/richscape/fonts/utile-semibold-italic-gfxtra.com-if66f3bd3b4efd9-webfont.woff2') format('woff2'),
+         url('/wp-content/themes/richscape/fonts/utile-semibold-italic-gfxtra.com-if66f3bd3b4efd9-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Area Extended';
+    src: url('/wp-content/themes/richscape/fonts/area_extended_bold-webfont.woff2') format('woff2'),
+         url('/wp-content/themes/richscape/fonts/area_extended_bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
 @layer utilities {
     .text-outline {
         -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);

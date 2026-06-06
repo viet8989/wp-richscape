@@ -12,7 +12,7 @@ get_header(); ?>
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="mb-8 inline-block">
-				<h1 class="text-4xl font-black text-teal uppercase mb-3">Về Chúng Tôi</h1>
+				<h1 class="text-4xl font-display font-bold text-teal uppercase mb-3">Về Chúng Tôi</h1>
 				<div class="h-1 bg-teal w-full"></div>
 			</div>
 			<?php get_template_part( 'template-parts/section-about-card-page' ); ?>
@@ -30,7 +30,7 @@ get_header(); ?>
 	<section class="py-20 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="mb-12">
-				<h2 class="text-4xl font-black text-darkblue uppercase mb-3">Ban Lãnh Đạo</h2>
+				<h2 class="text-4xl font-display font-bold text-darkblue uppercase mb-3">Ban Lãnh Đạo</h2>
 				<div class="w-20 h-1 bg-teal"></div>
 			</div>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -48,10 +48,10 @@ get_header(); ?>
 						     class="w-20 h-20 rounded-full object-cover border-2 border-teal flex-shrink-0">
 						<?php endif; ?>
 						<div class="text-white">
-							<h3 class="text-2xl font-black uppercase"><?php echo esc_html( $leader['leader_name'] ); ?></h3>
-							<p class="text-teal font-bold uppercase tracking-widest text-xs mb-2"><?php echo esc_html( $leader['leader_title'] ); ?></p>
+							<h3 class="text-2xl font-display font-bold uppercase"><?php echo esc_html( $leader['leader_name'] ); ?></h3>
+							<p class="text-teal font-manrope font-bold uppercase tracking-widest text-xs mb-2"><?php echo esc_html( $leader['leader_title'] ); ?></p>
 							<?php if ( ! empty( $leader['leader_bio'] ) ) : ?>
-							<p class="text-white/80 font-body text-sm leading-relaxed"><?php echo nl2br( esc_html( $leader['leader_bio'] ) ); ?></p>
+							<p class="text-white/80 font-manrope text-sm leading-relaxed"><?php echo nl2br( esc_html( $leader['leader_bio'] ) ); ?></p>
 							<?php endif; ?>
 						</div>
 					</div>
@@ -78,7 +78,7 @@ get_header(); ?>
 		<div class="mx-auto">
 
 			<!-- Section label -->
-			<p class="font-sans font-black uppercase text-white mb-10" style="letter-spacing:0.45em; font-size:0.8rem;">MEMBERS</p>
+			<p class="font-manrope font-bold uppercase text-white mb-10" style="letter-spacing:0.45em; font-size:0.8rem;">MEMBERS</p>
 
 			<!-- Member cards -->
 			<div class="mx-auto" style="width:1115px; margin-bottom:50px;">
@@ -114,18 +114,18 @@ get_header(); ?>
 
 						<!-- Text info -->
 						<div class="text-white" style="padding-top:0.5rem;flex:1;">
-							<h3 class="font-serif italic font-bold mb-1" style="font-size:1.8rem;color:#2A9D8F;padding-left:100px">
+							<h3 class="font-utile italic mb-1" style="font-size:1.8rem;color:#2A9D8F;padding-left:100px">
 								<?php the_title(); ?>
 							</h3>
 							<?php if ( $title_role ) : ?>
-							<p class="font-sans font-black uppercase text-white"
+							<p class="font-manrope font-bold uppercase text-white"
 							   style="font-size:0.65rem;letter-spacing:0.18em;padding-left:100px;">
 								<?php echo esc_html( $title_role ); ?>
 							</p>
 							<?php endif; ?>
 							<div style="border-top:1px solid #fff;margin:1rem 0;"></div>
 							<?php if ( $bio ) : ?>
-							<p class="font-body text-sm leading-relaxed"
+							<p class="font-manrope text-sm leading-relaxed"
 							   style="color:rgba(255,255,255,0.82);padding-left:100px;padding-right:100px;">
 								<?php echo nl2br( esc_html( $bio ) ); ?>
 							</p>
@@ -163,7 +163,7 @@ get_header(); ?>
 	<section class="py-20 bg-white">
 		<div style="width:1115px;margin:0 auto;">
 			<div class="mb-12">
-				<h2 class="text-4xl font-bold italic text-darkblue">Trusted by</h2>
+				<h2 class="text-4xl font-utile italic text-darkblue">Trusted by</h2>
 			</div>
 			<div class="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-16 items-center">
 				<?php foreach ( $partner_logos as $logo ) : ?>
