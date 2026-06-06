@@ -84,9 +84,8 @@ get_header(); ?>
 			<div class="mx-auto" style="width:1115px; margin-bottom:50px;">
 				<?php while ( $members_query->have_posts() ) : $members_query->the_post();
 					$portrait     = function_exists( 'get_field' ) ? get_field( 'member_portrait' ) : null;
-					$bg           = function_exists( 'get_field' ) ? get_field( 'member_bg_photo' ) : null;
 					$portrait_url = $portrait['url'] ?? '';
-					$bg_url       = $bg['url'] ?? '';
+					$bg_url       = '/uploads/background_about_us.png';
 					$title_role   = function_exists( 'get_field' ) ? get_field( 'member_title' ) : '';
 					$bio          = function_exists( 'get_field' ) ? get_field( 'member_bio' ) : '';
 				?>
@@ -95,15 +94,10 @@ get_header(); ?>
 					<div class="relative overflow-hidden" style="height:510px;">
 					<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(360deg,transparent,#2aaf87);z-index:999;">
 					</div>
-						<?php if ( $bg_url ) : ?>
 						<img src="<?php echo esc_url( $bg_url ); ?>" alt=""
 						     class="absolute inset-0 w-full h-full object-cover">
 						<div class="absolute inset-0"
 						     style="background:linear-gradient(135deg,rgba(42,157,143,0.65) 0%,rgba(26,34,81,0.5) 100%);"></div>
-						<?php else : ?>
-						<div class="absolute inset-0"
-						     style="background:linear-gradient(160deg,#2A9D8F 0%,#1a7a6a 30%,#16655a 52%,#1e3d6e 100%);"></div>
-						<?php endif; ?>
 					</div>
 
 					<!-- Bottom: dark blue row with portrait + text info -->

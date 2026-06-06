@@ -1032,17 +1032,6 @@ add_action( 'acf/init', function () {
 				'preview_size'  => 'medium',
 			),
 			array(
-				'key'         => 'field_project_service',
-				'label'       => 'Dịch vụ liên quan',
-				'name'        => 'project_service',
-				'type'        => 'post_object',
-				'post_type'   => array( 'services' ),
-				'return_format' => 'object',
-				'allow_null'  => 1,
-				'multiple'    => 0,
-				'ui'          => 1,
-			),
-			array(
 				'key'         => 'field_project_special',
 				'label'       => 'Dự án nổi bật',
 				'name'        => 'project_special',

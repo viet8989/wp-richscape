@@ -116,7 +116,7 @@ FTP scripts are located at: `~/Dropbox/AutoUploadFTPbyGitStatus/`
 
 ```bash
 cd ~/Dropbox/wp-richscape
-python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_upload_ftp.py
+python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_upload_ftp.py --server richscape
 ```
 
 The script shows which files changed, upload progress, and success/failure status.
@@ -125,14 +125,14 @@ The script shows which files changed, upload progress, and success/failure statu
 
 ```bash
 cd ~/Dropbox/wp-richscape
-python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_download_file.py /wp-content/debug.log
+python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_download_file.py --server richscape /wp-content/debug.log
 ```
 
 ### Typical Deploy Cycle
 
 1. Edit theme files locally
 2. Build CSS: `cd wp-content/themes/richscape && npm run build`
-3. Upload: `cd ~/Dropbox/wp-richscape && python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_upload_ftp.py`
+3. Upload: `cd ~/Dropbox/wp-richscape && python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_upload_ftp.py` --server richscape
 4. Hard-refresh the live site to verify
 
 ### Debugging on Production
@@ -141,20 +141,12 @@ Add `error_log()` statements in PHP files, upload, trigger the page, then downlo
 
 ```bash
 # Upload changes
-python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_upload_ftp.py
+python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_upload_ftp.py --server richscape
 
 # Download server logs
-python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_download_file.py /wp-content/debug.log
+python3 ~/Dropbox/AutoUploadFTPbyGitStatus/auto_download_file.py --server richscape /wp-content/debug.log
 ```
 
 View logs with: `cat wp-content/debug.log`
-
-## Demo Data Reset
-
-To re-trigger demo data import, delete the `richscape_demo_imported` option from the WordPress database (`wp_options` table) or via WP-CLI:
-
-```bash
-wp option delete richscape_demo_imported
-```
 
 Then visit any admin page to trigger `admin_init`.
