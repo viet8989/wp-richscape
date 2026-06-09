@@ -26,6 +26,11 @@ endif;
 add_action( 'after_setup_theme', 'richscape_setup' );
 
 /**
+ * Load custom admin pages
+ */
+require_once( get_template_directory() . '/admin-richscape-options-page.php' );
+
+/**
  * Enqueue scripts and styles.
  */
 function richscape_scripts() {
@@ -881,7 +886,7 @@ add_action( 'acf/init', function () {
 			array( 'key' => 'field_map_lng',             'label' => 'Tọa độ - Kinh độ (Lng)', 'name' => 'map_lng',           'type' => 'text', 'placeholder' => 'Ví dụ: 106.7476' ),
 			array( 'key' => 'field_social_zalo_url',     'label' => 'Zalo URL',            'name' => 'social_zalo_url',     'type' => 'url' ),
 			array( 'key' => 'field_social_messenger_url','label' => 'Messenger URL',       'name' => 'social_messenger_url','type' => 'url' ),
-			array( 'key' => 'field_about_tagline_en',    'label' => 'English Tagline',     'name' => 'about_tagline_en',    'type' => 'text' ),
+			array( 'key' => 'field_about_tagline_en',    'label' => 'English Tagline',     'name' => 'about_tagline_en',    'type' => 'textarea', 'rows' => 3 ),
 			array( 'key' => 'field_about_intro_vi',      'label' => 'Vietnamese Intro',    'name' => 'about_intro_vi',      'type' => 'textarea', 'rows' => 4 ),
 			array( 'key' => 'field_vision_text',         'label' => 'Nội dung Tầm Nhìn',   'name' => 'vision_text',         'type' => 'textarea', 'rows' => 4 ),
 			array( 'key' => 'field_mission_text',        'label' => 'Nội dung Sứ Mệnh',    'name' => 'mission_text',        'type' => 'textarea', 'rows' => 4 ),
