@@ -29,7 +29,7 @@ get_header(); ?>
 				<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
 					<!-- Section Title with Teal Underline -->
-					<h2 class="inline-block text-xl md:text-[21px] font-bold text-[#1eaf87] uppercase mb-6 tracking-wide pb-1 border-b-2 border-[#1eaf87]">
+					<h2 class="inline-block text-xl md:text-[21px] font-utm font-bold text-[#264191] uppercase mb-6 tracking-wide pb-1 border-b-2 border-[#264191]">
 						<?php the_title(); ?>
 					</h2>
 

@@ -14,8 +14,8 @@ Text Domain: richscape
 
 /* --- Custom Design Tokens --- */
 :root {
-    --rs-teal: #2A9D8F;
-    --rs-darkblue: #1A2251;
+    --rs-teal: #02ad83;
+    --rs-darkblue: #264191;
     --rs-black: #000000;
     --rs-white: #ffffff;
     --rs-gray: #808080;

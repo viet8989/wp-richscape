@@ -27,11 +27,10 @@ get_header(); ?>
 			<section class="py-16 bg-white">
 				<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-					<!-- Section Title with Teal Underline -->
-					<h2 class="text-xl md:text-[21px] font-bold text-[#1eaf87] uppercase mb-1 tracking-wide">
+					<!-- Section Title with Text-Width Underline -->
+					<h2 class="text-xl md:text-[21px] font-utm font-bold text-[#264191] uppercase mb-1 tracking-wide inline-block w-fit pb-2 border-b-2 border-[#264191]">
 						<?php the_title(); ?>
 					</h2>
-					<div class="w-full max-w-[280px] h-[2px] bg-[#1eaf87] mb-6"></div>
 
 					<?php if ( $count === 1 && $desc ) : ?>
 					<!-- Description (only for first service) -->

@@ -12,20 +12,20 @@ get_header(); ?>
 .single-service-breadcrumb { background: #f9fafb; border-bottom: 1px solid #e5e7eb; padding: 10px 0; }
 .single-service-breadcrumb nav { max-width: 1200px; margin: 0 auto; padding: 0 24px; font-size: 12px; font-family: 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .single-service-breadcrumb a { color: #6b7280; text-decoration: none; }
-.single-service-breadcrumb a:hover { color: #2A9D8F; }
-.single-service-breadcrumb .current { color: #2A9D8F; font-weight: 600; }
+.single-service-breadcrumb a:hover { color: #02ad83; }
+.single-service-breadcrumb .current { color: #02ad83; font-weight: 600; }
 .single-service-body { max-width: 1200px; margin: 0 auto; padding: 40px 24px 20px; }
-.single-service-body h1 { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 900; text-transform: uppercase; color: #1A2251; margin: 0 0 12px; }
-.service-underline { width: 60px; height: 3px; background: #2A9D8F; margin-bottom: 24px; }
+.single-service-body h1 { font-family: 'UTM AVO', serif; font-size: 2rem; font-weight: 900; text-transform: uppercase; color: #264191; margin: 0 0 12px; }
+.service-underline { width: 60px; height: 3px; background: #02ad83; margin-bottom: 24px; }
 .service-content { font-family: 'Open Sans', sans-serif; font-size: 14px; color: #374151; line-height: 1.8; text-align: justify; margin-bottom: 40px; }
 /* Related projects section */
 .service-projects-section { max-width: 1200px; margin: 0 auto; padding: 0 24px 60px; }
-.service-projects-heading { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #1A2251; margin: 0 0 8px; }
-.service-projects-divider { width: 50px; height: 3px; background: #2A9D8F; margin-bottom: 28px; }
+.service-projects-heading { font-family: 'UTM AVO', serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #264191; margin: 0 0 8px; }
+.service-projects-divider { width: 50px; height: 3px; background: #02ad83; margin-bottom: 28px; }
 .service-projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 @media (max-width: 900px) { .service-projects-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .service-projects-grid { grid-template-columns: 1fr; } }
-.service-project-card { position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; background: #1A2251; display: block; text-decoration: none; }
+.service-project-card { position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; background: #264191; display: block; text-decoration: none; }
 .service-project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; opacity: .9; }
 .service-project-card:hover img { transform: scale(1.08); opacity: 1; }
 .service-project-card .overlay { position: absolute; inset: 0 0 0 0; background: linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 55%); }

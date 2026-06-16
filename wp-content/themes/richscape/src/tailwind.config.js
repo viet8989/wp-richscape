@@ -6,8 +6,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        teal: '#2A9D8F',
-        darkblue: '#1A2251',
+        teal: '#02ad83',
+        darkblue: '#264191',
         light: '#FFFFFF',
         graytext: '#808080',
       },
@@ -15,6 +15,11 @@ module.exports = {
         sans: ['Montserrat', 'sans-serif'],
         serif: ['"Playfair Display"', 'serif'],
         body: ['"Open Sans"', 'sans-serif'],
+        display: ['"Area Extended"', 'sans-serif'],
+        utm: ['"UTM AVO"', 'serif'],
+        pws: ['"PWS Cratchedfont"', 'cursive'],
+        utile: ['"Utile Semibold"', 'serif'],
+        manrope: ['"Manrope"', 'sans-serif'],
       },
     },
   },

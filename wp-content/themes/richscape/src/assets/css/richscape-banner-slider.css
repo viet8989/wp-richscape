@@ -5,12 +5,12 @@
    ============================================================ */
 
 :root {
-  --rbs-teal:          #00C7A3;
-  --rbs-navy:          #0A2342;
+  --rbs-teal:          #02ad83;
+  --rbs-navy:          #264191;
   --rbs-arrow-bg:      rgba(255, 255, 255, 0.20);
   --rbs-arrow-hover:   rgba(255, 255, 255, 0.50);
   --rbs-dot-inactive:  rgba(255, 255, 255, 0.40);
-  --rbs-dot-active:    #00C7A3;
+  --rbs-dot-active:    #02ad83;
   --rbs-height:        clamp(250px, 60vh, 560px);
   --rbs-transition:    0.6s ease-in-out;
 }

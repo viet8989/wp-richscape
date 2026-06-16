@@ -57,6 +57,24 @@ function richscape_scripts() {
 		filemtime( get_template_directory() . '/assets/js/richscape-banner-slider.js' ),
 		true     // load in footer
 	);
+
+	// Enqueue GLightbox for project gallery (single-projects.php)
+	if ( is_singular( 'projects' ) ) {
+		// Using CDN for GLightbox (lightweight, no dependencies)
+		wp_enqueue_style(
+			'glightbox',
+			'https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css',
+			array(),
+			'3.3.0'
+		);
+		wp_enqueue_script(
+			'glightbox',
+			'https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js',
+			array(),
+			'3.3.0',
+			true
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'richscape_scripts' );
 

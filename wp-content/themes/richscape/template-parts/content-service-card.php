@@ -24,7 +24,7 @@ $img_url = has_post_thumbnail()
 	: $fallback_imgs[ ( $count - 1 ) % 4 ];
 ?>
 <div class="group relative overflow-hidden flex flex-col h-full transition-transform duration-300 hover:-translate-y-1"
-     style="background: linear-gradient(180deg, #1A2251 0%, #2A9D8F 100%); border-radius: 32px; height: 100%; border: 1px solid rgba(95,217,195,0.25);">
+     style="background: linear-gradient(180deg, #264191 0%, #02ad83 100%); border-radius: 32px; height: 100%; border: 1px solid #264191;">
 
 	<!-- Top: title left, icon+number right -->
 	<div class="relative pt-7 px-6 pb-2">
@@ -35,7 +35,7 @@ $img_url = has_post_thumbnail()
 		<!-- Number badge — top-right -->
 		<div class="absolute" style="top: 14px; right: 10px; line-height: 1; z-index: 1;">
 			<span class="font-sans font-bold"
-			      style="font-size: 72px; color: #5FD9C3; line-height: 1;"><?php echo $count; ?></span>
+			      style="font-size: 72px; color: #02ad83; line-height: 1;"><?php echo $count; ?></span>
 		</div>
 		<?php if ( $icon_url ) : ?>
 		<!-- Icon — left column of the number badge -->
@@ -62,8 +62,8 @@ $img_url = has_post_thumbnail()
 	<div class="flex justify-center pb-6">
 		<a href="<?php the_permalink(); ?>"
 		   class="font-sans font-bold text-[11px] uppercase tracking-widest px-5 py-1.5 rounded-full border transition-colors duration-300"
-		   style="border-color: #5FD9C3; color: #5FD9C3; background-color: transparent;">
-			DỰ ÁN LIÊN QUAN
+		   style="border-color: #02ad83; color: #02ad83; background-color: transparent;">
+			XEM THÊM
 		</a>
 	</div>
 </div>

@@ -15,7 +15,7 @@ get_header(); ?>
 <section id="services" class="py-20 bg-white relative">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="mb-12">
-			<h2 class="inline-block text-2xl md:text-3xl font-sans font-bold text-teal uppercase tracking-wide pb-1 border-b-2 border-teal">DỊCH VỤ</h2>
+			<h2 class="inline-block text-2xl md:text-3xl font-pws font-bold text-teal uppercase tracking-wide pb-1 border-b-2 border-teal" style="font-size: 2.5rem;">DỊCH VỤ</h2>
 		</div>
 
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -63,13 +63,13 @@ get_header(); ?>
 				foreach ( $mock_services as $index => $ms ) :
 					?>
 					<div class="group relative overflow-hidden flex flex-col transition-transform duration-300 hover:-translate-y-1"
-					     style="background: linear-gradient(180deg, #1A2251 0%, #2A9D8F 100%); border-radius: 32px; height: 100%; border: 1px solid rgba(95,217,195,0.25);">
+					     style="background: linear-gradient(180deg, #264191 0%, #02ad83 100%); border-radius: 32px; height: 100%; border: 1px solid #264191;">
 						<div class="relative pt-7 px-6 pb-2">
 							<h3 class="text-white font-sans uppercase leading-tight"
 							    style="min-height: 90px; padding-right: 80px; white-space: pre-line; font-size: 1rem; font-weight: 700;"><?php echo esc_html( $ms['title'] ); ?></h3>
 							<!-- Number badge -->
 							<div class="absolute" style="top: 14px; right: 10px; line-height: 1;">
-								<span class="font-sans font-bold" style="font-size: 72px; color: #5FD9C3; line-height: 1;"><?php echo $index + 1; ?></span>
+								<span class="font-sans font-bold" style="font-size: 72px; color: #02ad83; line-height: 1;"><?php echo $index + 1; ?></span>
 							</div>
 						</div>
 						<div class="px-6 pt-1 pb-5">
@@ -82,8 +82,8 @@ get_header(); ?>
 						<div class="flex justify-center pb-6">
 							<a href="<?php echo esc_url( get_post_type_archive_link( 'projects' ) ); ?>"
 							   class="font-sans font-bold text-[11px] uppercase tracking-widest px-5 py-1.5 rounded-full border transition-colors duration-300"
-							   style="border-color: #5FD9C3; color: #5FD9C3; background-color: transparent;">
-								DỰ ÁN LIÊN QUAN
+							   style="border-color: #02ad83; color: #02ad83; background-color: transparent;">
+								XEM THÊM
 							</a>
 						</div>
 					</div>

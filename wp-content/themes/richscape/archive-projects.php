@@ -9,9 +9,8 @@ get_header(); ?>
 
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="mb-8 inline-block">
-				<h1 class="text-sm font-display font-bold text-teal uppercase mb-3 tracking-wide">Dự Án</h1>
-				<div class="h-1 bg-teal w-full"></div>
+			<div class="mb-8">
+				<h1 class="inline-block font-utm font-bold text-darkblue uppercase mb-3 tracking-wide pb-2 border-b-2 border-darkblue" style="font-size: 1.75rem;">DỰ ÁN</h1>
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

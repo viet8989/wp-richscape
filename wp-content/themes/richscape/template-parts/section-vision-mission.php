@@ -22,25 +22,25 @@ if ( empty( $core_values ) ) {
 	);
 }
 ?>
-<section id="about" class="py-20 bg-darkblue text-white relative">
+<section id="about" class="py-12 bg-darkblue text-white relative">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="vm-grid">
 
 			<!-- Left Column: Vision & Mission -->
 			<div class="space-y-12">
 				<div>
-					<h2 class="font-display font-bold text-xl text-teal mb-4">Vision</h2>
-					<p class="text-gray-300 font-manrope leading-relaxed"><?php echo nl2br( esc_html( $vision_text ) ); ?></p>
+					<h2 class="font-utile font-bold text-2xl text-teal mb-4">Vision</h2>
+					<p class="text-white font-display leading-relaxed"><?php echo nl2br( esc_html( $vision_text ) ); ?></p>
 				</div>
 				<div>
-					<h2 class="font-display font-bold text-xl text-teal mb-4">Mission</h2>
-					<p class="text-gray-300 font-manrope leading-relaxed"><?php echo nl2br( esc_html( $mission_text ) ); ?></p>
+					<h2 class="font-utile font-bold text-2xl text-teal mb-4">Mission</h2>
+					<p class="text-white font-display leading-relaxed"><?php echo nl2br( esc_html( $mission_text ) ); ?></p>
 				</div>
 			</div>
 
 			<!-- Right Column: Core Values -->
 			<div>
-				<h2 class="font-display font-bold text-xl text-teal mb-8">Core Values</h2>
+				<h2 class="font-utile font-bold text-2xl text-teal mb-8">Core Values</h2>
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-x-6" style="row-gap: 10px;">
 					<?php foreach ( $core_values as $i => $cv ) : ?>
 					<div class="cv-item">

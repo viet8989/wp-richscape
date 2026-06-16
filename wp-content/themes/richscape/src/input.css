@@ -4,6 +4,25 @@
 
 /* ── Brand fonts (match Canva design) ──────────────────────── */
 @font-face {
+    font-family: 'UTM AVO';
+    src: url('/wp-content/themes/richscape/fonts/utm-avo-webfont.woff2') format('woff2'),
+         url('/wp-content/themes/richscape/fonts/utm-avo-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    /* Fallback to serif if font file not yet supplied by client */
+}
+
+@font-face {
+    font-family: 'PWS Cratchedfont';
+    src: url('/wp-content/themes/richscape/fonts/pwscratchedfont-webfont.woff2') format('woff2'),
+         url('/wp-content/themes/richscape/fonts/pwscratchedfont-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'Utile Semibold';
     src: url('/wp-content/themes/richscape/fonts/utile-semibold-italic-gfxtra.com-if66f3bd3b4efd9-webfont.woff2') format('woff2'),
          url('/wp-content/themes/richscape/fonts/utile-semibold-italic-gfxtra.com-if66f3bd3b4efd9-webfont.woff') format('woff');
@@ -11,6 +30,7 @@
     font-style: normal;
     font-display: swap;
 }
+
 @font-face {
     font-family: 'Area Extended';
     src: url('/wp-content/themes/richscape/fonts/area_extended_bold-webfont.woff2') format('woff2'),

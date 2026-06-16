@@ -117,9 +117,9 @@ if ( isset( $_POST['richscape_contact_nonce'] ) && wp_verify_nonce( sanitize_tex
 
 						var marker = L.marker([lat, lng]).addTo(map);
 						marker.bindPopup(
-							'<strong style="color:#1A2251;font-size:13px;">RICHSCAPE</strong>' +
+							'<strong style="color:#264191;font-size:13px;">RICHSCAPE</strong>' +
 							'<br><span style="color:#555;font-size:12px;">' + address + '</span>' +
-							'<br><span style="color:#2A9D8F;font-size:12px;">' + phone + '</span>' +
+							'<br><span style="color:#02ad83;font-size:12px;">' + phone + '</span>' +
 							'<br><span style="color:#555;font-size:12px;">' + email + '</span>',
 							{ maxWidth: 220 }
 						).openPopup();

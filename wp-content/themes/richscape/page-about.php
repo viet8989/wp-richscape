@@ -11,9 +11,8 @@ get_header(); ?>
 	<!-- About Card + Intro -->
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="mb-8 inline-block">
-				<h1 class="text-sm font-display font-bold text-teal uppercase mb-3 tracking-wide">Về Chúng Tôi</h1>
-				<div class="h-1 bg-teal w-full"></div>
+			<div class="mb-8">
+				<h1 class="inline-block font-utm font-bold text-teal uppercase mb-3 tracking-wide pb-2 border-b-2" style="font-size: 1.75rem; border-image: linear-gradient(to right, #264191, #02ad83) 1;">Về Chúng Tôi</h1>
 			</div>
 			<?php get_template_part( 'template-parts/section-about-card-page' ); ?>
 		</div>
@@ -92,16 +91,16 @@ get_header(); ?>
 				<!-- Card outer: overflow:visible so portrait can overlap upward -->
 				<div class="overflow-visible" style="position:relative;">
 					<div class="relative overflow-hidden" style="height:510px;">
-					<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(360deg,transparent,#2aaf87);z-index:999;">
+					<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(360deg,transparent,#02ad83);z-index:999;">
 					</div>
 						<img src="<?php echo esc_url( $bg_url ); ?>" alt=""
 						     class="absolute inset-0 w-full h-full object-cover">
 						<div class="absolute inset-0"
-						     style="background:linear-gradient(135deg,rgba(42,157,143,0.65) 0%,rgba(26,34,81,0.5) 100%);"></div>
+						     style="background:linear-gradient(135deg,rgba(2,173,131,0.65) 0%,rgba(26,34,81,0.5) 100%);"></div>
 					</div>
 
 					<!-- Bottom: dark blue row with portrait + text info -->
-					<div style="background:#24408e;padding:2rem 2.5rem 2.5rem 4rem;display:flex;align-items:flex-start;gap:2rem;">
+					<div style="background:#264191;padding:2rem 2.5rem 2.5rem 4rem;display:flex;align-items:flex-start;gap:2rem;">
 
 						<!-- Portrait: negative margin-top overlaps into top image -->
 						<?php if ( $portrait_url ) : ?>
@@ -114,11 +113,11 @@ get_header(); ?>
 
 						<!-- Text info -->
 						<div class="text-white" style="padding-top:0.5rem;flex:1;">
-							<h3 class="font-utile italic mb-1" style="font-size:1.8rem;color:#2A9D8F;padding-left:100px">
+							<h3 class="font-utile italic mb-1" style="font-size:1.8rem;color:#02ad83;padding-left:100px">
 								<?php the_title(); ?>
 							</h3>
 							<?php if ( $title_role ) : ?>
-							<p class="font-manrope font-bold uppercase text-white"
+							<p class="font-utile font-bold uppercase text-white"
 							   style="font-size:0.65rem;letter-spacing:0.18em;padding-left:100px;">
 								<?php echo esc_html( $title_role ); ?>
 							</p>
@@ -134,11 +133,11 @@ get_header(); ?>
 
 					</div>
 
-					<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(180deg,#24408e,#2aaf87);">
+					<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(180deg,#264191,#02ad83);">
 					</div>
 				</div>
 				<?php endwhile; wp_reset_postdata(); ?>
-				<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(360deg,transparent,#2aaf87);z-index:999;">
+				<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(360deg,transparent,#02ad83);z-index:999;">
 				</div>
 			</div>
 		</div>

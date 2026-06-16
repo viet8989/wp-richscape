@@ -13,9 +13,9 @@ $intro   = $intro   ?: 'Được thành lập vào năm 2020, RichScape Landscap
 ?>
 <section id="about" class="about-section-overlap">
 	<div class="about-card-inner">
-		<span class="font-sans font-bold uppercase tracking-widest text-xs mb-6 block" style="color: #2A9D8F; letter-spacing: 0.15em;">VỀ CHÚNG TÔI</span>
-		<p class="font-sans font-bold text-xl leading-snug mb-6"><?php echo nl2br( esc_html( $tagline ) ); ?></p>
-		<p class="font-body text-sm leading-relaxed mb-10" style="color: rgba(255,255,255,0.8);"><?php echo nl2br( esc_html( $intro ) ); ?></p>
-		<p class="font-sans font-bold uppercase text-xs text-center" style="color: rgba(255,255,255,0.45); letter-spacing: 0.25em;">LANDSCAPE CREATOR</p>
+		<span class="font-pws font-bold uppercase tracking-widest text-sm mb-6 block" style="color: #02ad83; letter-spacing: 0.15em; font-size: 1.25rem;">VỀ CHÚNG TÔI</span>
+		<p class="font-utm font-bold text-2xl leading-snug mb-6 text-white"><?php echo wp_kses_post( $tagline ); ?></p>
+		<p class="font-display text-sm leading-relaxed mb-10" style="color: rgba(255,255,255,0.8);"><?php echo nl2br( esc_html( $intro ) ); ?></p>
+		<p class="font-pws font-bold uppercase text-xs text-center text-white" style="letter-spacing: 0.25em; font-size: 0.9rem;">LANDSCAPE CREATOR</p>
 	</div>
 </section>

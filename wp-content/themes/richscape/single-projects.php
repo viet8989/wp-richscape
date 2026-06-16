@@ -13,19 +13,19 @@ get_header(); ?>
 .single-project-breadcrumb { background: #f9fafb; border-bottom: 1px solid #e5e7eb; padding: 10px 0; }
 .single-project-breadcrumb nav { max-width: 1200px; margin: 0 auto; padding: 0 24px; font-size: 12px; font-family: 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .single-project-breadcrumb a { color: #6b7280; text-decoration: none; }
-.single-project-breadcrumb a:hover { color: #2A9D8F; }
-.single-project-breadcrumb .current { color: #2A9D8F; font-weight: 600; }
+.single-project-breadcrumb a:hover { color: #02ad83; }
+.single-project-breadcrumb .current { color: #02ad83; font-weight: 600; }
 .single-project-body { max-width: 1200px; margin: 0 auto; padding: 40px 24px 60px; display: grid; grid-template-columns: 1fr 340px; gap: 40px; }
 @media (max-width: 1024px) { .single-project-body { grid-template-columns: 1fr; } }
 /* Main column */
-.project-main h1 { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 900; text-transform: uppercase; color: #1A2251; margin: 0 0 16px; }
+.project-main h1 { font-family: 'UTM AVO', serif; font-size: 2rem; font-weight: 900; text-transform: uppercase; color: #264191; margin: 0 0 16px; }
 .project-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; font-family: 'Open Sans', sans-serif; font-size: 13px; color: #9ca3af; margin-bottom: 16px; }
 .project-meta span { display: flex; align-items: center; gap: 5px; }
 .project-cat { font-family: 'Open Sans', sans-serif; font-size: 14px; font-weight: 700; color: #374151; margin-bottom: 8px; }
 .project-address { font-family: 'Open Sans', sans-serif; font-size: 13px; color: #6b7280; margin-bottom: 20px; }
 .project-address strong { color: #374151; }
 .project-info-block { margin-bottom: 20px; }
-.project-info-block h2 { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: #1A2251; border-bottom: 2px solid #1A2251; display: inline-block; padding-bottom: 4px; margin: 0 0 12px; }
+.project-info-block h2 { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; color: #264191; border-bottom: 2px solid #264191; display: inline-block; padding-bottom: 4px; margin: 0 0 12px; }
 .project-info-block p { font-family: 'Open Sans', sans-serif; font-size: 13px; color: #374151; margin: 4px 0; }
 .project-content { font-family: 'Open Sans', sans-serif; font-size: 14px; color: #374151; line-height: 1.75; text-align: justify; margin-bottom: 24px; }
 .project-watermark { text-align: center; padding: 20px 0; font-family: 'Montserrat', sans-serif; font-size: 1.0rem; font-weight: 600; text-transform: uppercase; letter-spacing: .4em; color: rgb(36, 64, 142); user-select: none; }
@@ -36,17 +36,17 @@ get_header(); ?>
 @media (max-width: 640px) { .project-gallery-full { grid-template-columns: repeat(2, 1fr); } }
 /* Sidebar */
 .project-sidebar-box { border: 1px solid #e5e7eb; border-radius: 10px; padding: 20px; }
-.sidebar-heading { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700; color: #2A9D8F; margin: 0 0 4px; }
-.sidebar-divider { height: 2px; background: #2A9D8F; margin-bottom: 16px; }
+.sidebar-heading { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700; color: #02ad83; margin: 0 0 4px; }
+.sidebar-divider { height: 2px; background: #02ad83; margin-bottom: 16px; }
 .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
 .related-item { display: block; text-decoration: none; }
 .related-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform .4s; display: block; }
 .related-item:hover img { transform: scale(1.05); }
 .related-caption { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #374151; text-align: center; padding: 6px 4px 0; line-height: 1.3; }
-.related-item:hover .related-caption { color: #2A9D8F; }
+.related-item:hover .related-caption { color: #02ad83; }
 .xem-them-wrap { text-align: center; padding-top: 4px; }
 .xem-them-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #6b7280; border: 1px solid #d1d5db; padding: 8px 24px; border-radius: 4px; text-decoration: none; transition: all .2s; }
-.xem-them-btn:hover { color: #2A9D8F; border-color: #2A9D8F; }
+.xem-them-btn:hover { color: #02ad83; border-color: #02ad83; }
 </style>
 
 <div class="single-project-wrap">
@@ -180,12 +180,20 @@ get_header(); ?>
 	<?php if ( ! empty( $gallery ) ) : ?>
 	<div class="project-gallery-full">
 		<?php foreach ( $gallery as $img ) : ?>	
-		<a href="<?php echo esc_url( $img['url'] ); ?>" target="_blank" rel="noopener">
+		<a href="<?php echo esc_url( $img['url'] ); ?>" class="glightbox" data-gallery="project-gallery">
 			<img src="<?php echo esc_url( $img['sizes']['large'] ?? $img['url'] ); ?>"
 			     alt="<?php echo esc_attr( $img['alt'] ); ?>">
 		</a>
 		<?php endforeach; ?>
 	</div>
+	<!-- Initialize GLightbox for gallery -->
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		if (typeof GLightbox !== 'undefined') {
+			GLightbox({ selector: '.glightbox' });
+		}
+	});
+	</script>
 	<?php endif; ?>
 
 <?php endwhile; ?>
