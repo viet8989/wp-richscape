@@ -77,7 +77,7 @@ get_header(); ?>
 		<div class="mx-auto">
 
 			<!-- Section label -->
-			<p class="font-manrope font-bold uppercase text-white mb-10" style="letter-spacing:0.45em; font-size:0.8rem;">MEMBERS</p>
+			<p class="font-manrope font-bold uppercase text-teal mb-10" style="letter-spacing:0.45em; font-size:0.8rem;">MEMBERS</p>
 
 			<!-- Member cards -->
 			<div class="mx-auto" style="width:1115px; margin-bottom:50px;">
@@ -113,19 +113,19 @@ get_header(); ?>
 
 						<!-- Text info -->
 						<div class="text-white" style="padding-top:0.5rem;flex:1;">
-							<h3 class="font-utile italic mb-1" style="font-size:1.8rem;color:#02ad83;padding-left:100px">
+							<h3 class="font-utile italic mb-1" style="font-size:1.8rem;color:#02ad83;">
 								<?php the_title(); ?>
 							</h3>
 							<?php if ( $title_role ) : ?>
 							<p class="font-utile font-bold uppercase text-white"
-							   style="font-size:0.65rem;letter-spacing:0.18em;padding-left:100px;">
+							   style="font-size:0.65rem;letter-spacing:0.18em;">
 								<?php echo esc_html( $title_role ); ?>
 							</p>
 							<?php endif; ?>
 							<div style="border-top:1px solid #fff;margin:1rem 0;"></div>
 							<?php if ( $bio ) : ?>
 							<p class="font-manrope text-sm leading-relaxed"
-							   style="color:rgba(255,255,255,0.82);padding-left:100px;padding-right:100px;">
+							   style="color:rgba(255,255,255,0.82);">
 								<?php echo nl2br( esc_html( $bio ) ); ?>
 							</p>
 							<?php endif; ?>
@@ -133,12 +133,10 @@ get_header(); ?>
 
 					</div>
 
-					<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(180deg,#264191,#02ad83);">
+					<div class="relative overflow-hidden" style="height:80px;background:linear-gradient(180deg,#264191,#02ad83);">
 					</div>
 				</div>
 				<?php endwhile; wp_reset_postdata(); ?>
-				<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(360deg,transparent,#02ad83);z-index:999;">
-				</div>
 			</div>
 		</div>
 	</section>

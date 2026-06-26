@@ -10,7 +10,7 @@ This is a custom WordPress theme (`richscape`) for a Vietnamese landscape design
 
 **Design reference:** https://testky.my.canva.site/richscape-web/ — this Canva site is the canonical design source. The WordPress theme is a faithful implementation of it.
 
-**Live site:** https://deepskyblue-alpaca-301704.hostingersite.com/ — hosted on Hostinger. Deployment is via FTP (not local). There is no local WordPress installation; changes are deployed by uploading theme files over FTP.
+**Live site:** https://richscape.vn/ — hosted on the server. Deployment is via FTP (not local). There is no local WordPress installation; changes are deployed by uploading theme files over FTP.
 
 ## Development Setup
 
