@@ -25,6 +25,6 @@ $logo_alt    = $logo_header['alt'] ?? 'Richscape';
 		     style="height: 60px;">
 	</div>
 	<p class="font-utm font-bold text-white" style="font-size: 18px; line-height: 21px; margin-bottom: 12px;"><?php echo wp_kses_post( $tagline ); ?></p>
-	<p class="font-display text-justify" style="font-size: 15px; line-height: 18px; margin-bottom: 10px; color: rgba(255,255,255,0.85);"><?php echo nl2br( esc_html( $intro ) ); ?></p>
-	<p class="font-pws font-bold uppercase text-white" style="font-size: 11px; letter-spacing: 0.25em; text-align: center;">LANDSCAPE CREATOR</p>
+	<p class="font-display" style="font-size: 15px; line-height: 18px; margin-bottom: 10px; color: rgba(255,255,255,0.85);"><?php echo nl2br( esc_html( $intro ) ); ?></p>
+	<p class="font-pws font-bold uppercase" style="font-size: 11px; letter-spacing: 0.25em; text-align: center; color: rgba(255,255,255,0.65);">LANDSCAPE CREATOR</p>
 </div>
