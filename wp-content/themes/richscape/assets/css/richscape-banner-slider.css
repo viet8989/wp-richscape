@@ -225,32 +225,129 @@
   font-size: 12px;
   background: #02ad83;
   color: #ffffff;
-  margin-top: 2px;
 }
 
-/* ── Core value item: badge on top, line + text below ───────── */
+/* ── Core value item: [badge + title] row, then [line + description] row ── */
 .cv-item {
   display: flex;
   flex-direction: column;
 }
 
-/* Row below badge: line + text side by side */
+/* Top row: number badge + title on the same line (matches Canva design) */
+.cv-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Second row: vertical line (under the badge) + description (under the title) */
 .cv-body {
   display: flex;
   align-items: stretch;
-  gap: 12px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
-/* Vertical line centered under badge (badge = 26px, center at 13px) */
+/* 26px rail keeps the 2px line centered under the 26px badge */
+.cv-rail {
+  flex-shrink: 0;
+  width: 26px;
+  display: flex;
+  justify-content: center;
+}
+
 .cv-line {
   width: 2px;
-  flex-shrink: 0;
-  background: rgba(42, 157, 143, 0.5);
-  margin-left: 12px;
-  min-height: 20px;
+  background: rgba(2, 173, 131, 0.5);
 }
 
-.cv-text-block {
+/* Description aligns under the title (badge 26px + 12px gap = 38px indent) */
+.cv-desc {
   flex: 1;
+  margin-left: 12px;
+}
+
+/* ── Member showcase cards (about page) ─────────────────────────
+   Desktop values match the original page-about.php inline styles
+   exactly; the mobile media query (<768px) stacks the portrait
+   above the text and centres everything so the card fits a phone
+   instead of forcing a fixed 1115px width. */
+.member-card {
+  position: relative;
+  overflow: visible;
+}
+
+.member-top {
+  position: relative;
+  overflow: hidden;
+  height: 510px;
+}
+
+/* teal gradient strip across the top of the image band */
+.member-top-strip {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  background: linear-gradient(360deg, transparent, #02ad83);
+  z-index: 999;
+}
+
+/* dark-blue info row: portrait + name/title/bio */
+.member-row {
+  background: #264191;
+  padding: 2rem 2.5rem 2.5rem 4rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+/* portrait overlaps upward into the image band via negative margin */
+.member-portrait {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  margin-top: -200px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  background-image: url('/wp-content/uploads/background-member.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.member-portrait img {
+  width: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  display: block;
+}
+
+.member-info {
+  flex: 1;
+  padding-top: 0.5rem;
+}
+
+.member-bottom {
+  position: relative;
+  overflow: hidden;
+  height: 80px;
+  background: linear-gradient(180deg, #264191, #02ad83);
+}
+
+@media (max-width: 767px) {
+  .member-top       { height: 220px; }
+  .member-top-strip { height: 120px; }
+
+  .member-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.5rem 1.25rem 2rem;
+  }
+
+  .member-portrait {
+    margin-top: -140px;
+    width: 200px;
+    max-width: 62%;
+  }
+
+  .member-info { padding-top: 0; }
 }

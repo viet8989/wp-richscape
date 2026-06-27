@@ -22,35 +22,35 @@ if ( empty( $core_values ) ) {
 	);
 }
 ?>
-<section id="about" class="py-12 bg-darkblue text-white relative">
+<section id="about" class="py-8 bg-darkblue text-white relative">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="vm-grid">
 
 			<!-- Left Column: Vision & Mission -->
-			<div class="space-y-12">
+			<div class="space-y-8">
 				<div>
-					<h2 class="font-utile font-bold text-2xl text-teal mb-4">Vision</h2>
-					<p class="text-white font-display leading-relaxed"><?php echo nl2br( esc_html( $vision_text ) ); ?></p>
+					<h2 class="font-utile font-bold text-teal mb-4" style="font-size:27px;line-height:1.1;">Vision</h2>
+					<p class="text-white font-display text-sm leading-relaxed"><?php echo nl2br( esc_html( $vision_text ) ); ?></p>
 				</div>
 				<div>
-					<h2 class="font-utile font-bold text-2xl text-teal mb-4">Mission</h2>
-					<p class="text-white font-display leading-relaxed"><?php echo nl2br( esc_html( $mission_text ) ); ?></p>
+					<h2 class="font-utile font-bold text-teal mb-4" style="font-size:27px;line-height:1.1;">Mission</h2>
+					<p class="text-white font-display text-sm leading-relaxed"><?php echo nl2br( esc_html( $mission_text ) ); ?></p>
 				</div>
 			</div>
 
 			<!-- Right Column: Core Values -->
 			<div>
-				<h2 class="font-utile font-bold text-2xl text-teal mb-8">Core Values</h2>
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-x-6" style="row-gap: 10px;">
+				<h2 class="font-utile font-bold text-teal mb-8" style="font-size:27px;line-height:1.1;">Core Values</h2>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-x-6" style="row-gap: 32px;">
 					<?php foreach ( $core_values as $i => $cv ) : ?>
 					<div class="cv-item">
-						<div class="cv-badge"><?php echo $i + 1; ?></div>
+						<div class="cv-head">
+							<div class="cv-badge"><?php echo $i + 1; ?></div>
+							<h3 class="font-utm text-sm font-bold uppercase tracking-wide text-white"><?php echo esc_html( $cv['cv_title'] ); ?></h3>
+						</div>
 						<div class="cv-body">
-							<div class="cv-line"></div>
-							<div class="cv-text-block">
-								<h3 class="font-manrope text-sm font-bold uppercase tracking-wide text-white mb-2"><?php echo esc_html( $cv['cv_title'] ); ?></h3>
-								<p class="font-manrope text-xs leading-relaxed" style="color: rgba(255,255,255,0.6);"><?php echo esc_html( $cv['cv_description'] ); ?></p>
-							</div>
+							<div class="cv-rail"><div class="cv-line"></div></div>
+							<p class="cv-desc font-display text-sm leading-relaxed" style="color: rgba(255,255,255,0.6);"><?php echo esc_html( $cv['cv_description'] ); ?></p>
 						</div>
 					</div>
 					<?php endforeach; ?>

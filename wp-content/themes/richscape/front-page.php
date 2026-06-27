@@ -15,7 +15,7 @@ get_header(); ?>
 <section id="services" class="py-20 bg-white relative">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="mb-12">
-			<h2 class="inline-block text-2xl md:text-3xl font-pws font-bold text-teal uppercase tracking-wide pb-1 border-b-2 border-teal" style="font-size: 2.5rem;">DỊCH VỤ</h2>
+			<h2 class="inline-block text-2xl md:text-3xl font-utm font-bold text-teal uppercase tracking-wide pb-1 border-b-2 border-teal" style="font-size: 2.5rem;">DỊCH VỤ</h2>
 		</div>
 
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

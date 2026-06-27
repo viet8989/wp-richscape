@@ -12,7 +12,7 @@ get_header(); ?>
 	<section class="py-16 bg-white">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="mb-8">
-				<h1 class="inline-block font-utm font-bold text-teal uppercase mb-3 tracking-wide pb-2 border-b-2" style="font-size: 1.75rem; border-image: linear-gradient(to right, #264191, #02ad83) 1;">Về Chúng Tôi</h1>
+				<h1 class="inline-block font-utm font-bold text-teal uppercase mb-3 tracking-wide pb-1 border-b" style="font-size: 2rem; border-image: linear-gradient(to right, #264191, #02ad83) 1;">Về Chúng Tôi</h1>
 			</div>
 			<?php get_template_part( 'template-parts/section-about-card-page' ); ?>
 		</div>
@@ -47,10 +47,10 @@ get_header(); ?>
 						     class="w-20 h-20 rounded-full object-cover border-2 border-teal flex-shrink-0">
 						<?php endif; ?>
 						<div class="text-white">
-							<h3 class="text-2xl font-display font-bold uppercase"><?php echo esc_html( $leader['leader_name'] ); ?></h3>
-							<p class="text-teal font-manrope font-bold uppercase tracking-widest text-xs mb-2"><?php echo esc_html( $leader['leader_title'] ); ?></p>
+							<h3 class="text-2xl font-utile italic text-teal"><?php echo esc_html( $leader['leader_name'] ); ?></h3>
+							<p class="text-white font-utile uppercase tracking-widest text-xs mb-2"><?php echo esc_html( $leader['leader_title'] ); ?></p>
 							<?php if ( ! empty( $leader['leader_bio'] ) ) : ?>
-							<p class="text-white/80 font-manrope text-sm leading-relaxed"><?php echo nl2br( esc_html( $leader['leader_bio'] ) ); ?></p>
+							<p class="text-white/80 font-display text-sm leading-relaxed"><?php echo nl2br( esc_html( $leader['leader_bio'] ) ); ?></p>
 							<?php endif; ?>
 						</div>
 					</div>
@@ -76,11 +76,8 @@ get_header(); ?>
 	<section class="overflow-hidden" id="members">
 		<div class="mx-auto">
 
-			<!-- Section label -->
-			<p class="font-manrope font-bold uppercase text-teal mb-10" style="letter-spacing:0.45em; font-size:0.8rem;">MEMBERS</p>
-
 			<!-- Member cards -->
-			<div class="mx-auto" style="width:1115px; margin-bottom:50px;">
+			<div class="mx-auto" style="width:100%;max-width:1115px; margin-bottom:50px;">
 				<?php while ( $members_query->have_posts() ) : $members_query->the_post();
 					$portrait     = function_exists( 'get_field' ) ? get_field( 'member_portrait' ) : null;
 					$portrait_url = $portrait['url'] ?? '';
@@ -89,10 +86,9 @@ get_header(); ?>
 					$bio          = function_exists( 'get_field' ) ? get_field( 'member_bio' ) : '';
 				?>
 				<!-- Card outer: overflow:visible so portrait can overlap upward -->
-				<div class="overflow-visible" style="position:relative;">
-					<div class="relative overflow-hidden" style="height:510px;">
-					<div class="relative overflow-hidden" style="height:200px;background:linear-gradient(360deg,transparent,#02ad83);z-index:999;">
-					</div>
+				<div class="member-card">
+					<div class="member-top">
+						<div class="member-top-strip"></div>
 						<img src="<?php echo esc_url( $bg_url ); ?>" alt=""
 						     class="absolute inset-0 w-full h-full object-cover">
 						<div class="absolute inset-0"
@@ -100,19 +96,18 @@ get_header(); ?>
 					</div>
 
 					<!-- Bottom: dark blue row with portrait + text info -->
-					<div style="background:#264191;padding:2rem 2.5rem 2.5rem 4rem;display:flex;align-items:flex-start;gap:2rem;">
+					<div class="member-row">
 
 						<!-- Portrait: negative margin-top overlaps into top image -->
 						<?php if ( $portrait_url ) : ?>
-						<div class="flex-shrink-0" style="margin-top:-200px;position:relative;z-index:10;box-shadow:0 8px 32px rgba(0,0,0,0.35); background-image:url('/wp-content/uploads/background-member.png'); background-size:cover; background-position:center;">
+						<div class="member-portrait">
 							<img src="<?php echo esc_url( $portrait_url ); ?>"
-							     alt="<?php echo esc_attr( get_the_title() ); ?>"
-							     style="width:100%;object-fit:contain;object-position:bottom;display:block;">
+							     alt="<?php echo esc_attr( get_the_title() ); ?>">
 						</div>
 						<?php endif; ?>
 
 						<!-- Text info -->
-						<div class="text-white" style="padding-top:0.5rem;flex:1;">
+						<div class="member-info text-white">
 							<h3 class="font-utile italic mb-1" style="font-size:1.8rem;color:#02ad83;">
 								<?php the_title(); ?>
 							</h3>
@@ -124,7 +119,7 @@ get_header(); ?>
 							<?php endif; ?>
 							<div style="border-top:1px solid #fff;margin:1rem 0;"></div>
 							<?php if ( $bio ) : ?>
-							<p class="font-manrope text-sm leading-relaxed"
+							<p class="font-display text-sm leading-relaxed"
 							   style="color:rgba(255,255,255,0.82);">
 								<?php echo nl2br( esc_html( $bio ) ); ?>
 							</p>
@@ -133,8 +128,7 @@ get_header(); ?>
 
 					</div>
 
-					<div class="relative overflow-hidden" style="height:80px;background:linear-gradient(180deg,#264191,#02ad83);">
-					</div>
+					<div class="member-bottom"></div>
 				</div>
 				<?php endwhile; wp_reset_postdata(); ?>
 			</div>
@@ -158,7 +152,7 @@ get_header(); ?>
 	);
 	?>
 	<section class="py-20 bg-white">
-		<div style="width:1115px;margin:0 auto;">
+		<div style="width:100%;max-width:1115px;margin:0 auto;">
 			<div class="mb-12">
 				<h2 class="text-4xl font-utile italic text-darkblue">Trusted by</h2>
 			</div>

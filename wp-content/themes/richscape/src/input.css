@@ -2,15 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Brand fonts (match Canva design) ──────────────────────── */
+/* ── Brand fonts (match Canva design) ──────────────────────────
+ * UTM AVO ......... general info & headings (tiêu đề)
+ * PWS Cratchedfont  large section labels (mục lớn)
+ * Utile Semibold .. English text & staff names (tiếng Anh, tên nhân viên)
+ * Area Extended ... Vietnamese body text (tiếng Việt)
+ * Each family declares every available weight/style so `font-bold`,
+ * `italic`, etc. resolve to a REAL face instead of a synthesized one.
+ * ──────────────────────────────────────────────────────────── */
+
+/* UTM AVO — regular / bold / italic / bold-italic */
 @font-face {
     font-family: 'UTM AVO';
     src: url('/wp-content/themes/richscape/fonts/utm-avo-webfont.woff2') format('woff2'),
          url('/wp-content/themes/richscape/fonts/utm-avo-webfont.woff') format('woff');
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
-    /* Fallback to serif if font file not yet supplied by client */
+}
+@font-face {
+    font-family: 'UTM AVO';
+    src: url('/wp-content/themes/richscape/fonts/utm_avobold-webfont.woff2') format('woff2'),
+         url('/wp-content/themes/richscape/fonts/utm_avobold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'UTM AVO';
+    src: url('/wp-content/themes/richscape/fonts/utm_avoitalic-webfont.woff2') format('woff2'),
+         url('/wp-content/themes/richscape/fonts/utm_avoitalic-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'UTM AVO';
+    src: url('/wp-content/themes/richscape/fonts/utm_avobold_italic-webfont.woff2') format('woff2'),
+         url('/wp-content/themes/richscape/fonts/utm_avobold_italic-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
@@ -22,20 +54,40 @@
     font-display: swap;
 }
 
+/* Utile Semibold — single semibold-italic face; cover all weights so
+ * `font-bold` doesn't trigger faux-bold, and keep style italic so it
+ * renders correctly whether or not the `italic` class is applied. */
 @font-face {
     font-family: 'Utile Semibold';
     src: url('/wp-content/themes/richscape/fonts/utile-semibold-italic-gfxtra.com-if66f3bd3b4efd9-webfont.woff2') format('woff2'),
          url('/wp-content/themes/richscape/fonts/utile-semibold-italic-gfxtra.com-if66f3bd3b4efd9-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+    font-weight: 100 900;
+    font-style: italic;
     font-display: swap;
 }
 
+/* Area Extended — regular / semibold / bold (Vietnamese body text) */
+@font-face {
+    font-family: 'Area Extended';
+    src: url('/wp-content/themes/richscape/fonts/area_extended_regular-webfont.woff2') format('woff2'),
+         url('/wp-content/themes/richscape/fonts/area_extended_regular-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Area Extended';
+    src: url('/wp-content/themes/richscape/fonts/area_extended_semibold-webfont.woff2') format('woff2'),
+         url('/wp-content/themes/richscape/fonts/area_extended_semibold-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
 @font-face {
     font-family: 'Area Extended';
     src: url('/wp-content/themes/richscape/fonts/area_extended_bold-webfont.woff2') format('woff2'),
          url('/wp-content/themes/richscape/fonts/area_extended_bold-webfont.woff') format('woff');
-    font-weight: bold;
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
@@ -69,7 +121,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .main-navigation a {
-    @apply text-darkblue uppercase font-sans text-[11px] xl:text-[13px] font-semibold tracking-wider py-[10px] px-3 lg:px-[20px] transition-all duration-300 block bg-transparent;
+    @apply text-darkblue uppercase font-utm text-[11px] xl:text-[13px] font-bold tracking-wider py-[10px] px-3 lg:px-[20px] transition-all duration-300 block bg-transparent;
 }
 
 .main-navigation li.current-menu-item > a,
