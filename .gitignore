@@ -3,3 +3,13 @@ wp-content/themes/richscape/node_modules/
 wp-content/themes/richscape/assets/css/tailwind.css
 .worktrees/
 bug_page_about/
+
+# Security incident artifacts (Jul 2026) — keep out of git and off the server
+SECURITY-INCIDENT-inventory.md
+host-message.md
+db-compromise-audit.sql
+DEPLOY-clean-theme.md
+richscape-clean-theme.tar.gz
+richscape_wp_5ysf2.sql
+richscape_wp_clean.sql
+richscape-db-cleanup.sql

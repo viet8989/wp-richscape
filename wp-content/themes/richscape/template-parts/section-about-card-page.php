@@ -10,12 +10,12 @@ $tagline = function_exists( 'get_field' ) ? get_field( 'about_tagline_en', 'opti
 $intro   = function_exists( 'get_field' ) ? get_field( 'about_intro_vi',   'option' ) : '';
 
 $tagline = $tagline ?: 'As Landscape Creators,<br />We Bring Your Green Visions To Life.';
-$intro   = $intro   ?: 'Được thành lập vào năm 2020, RichScape Landscape Design & Build Ltd. là đơn vị chuyên cung cấp các giải pháp thiết kế và thi công cảnh quan toàn diện. Với đội ngũ kiến trúc sư và chuyên gia tầm huyết, chúng tôi biến những ý tưởng sáng tạo thành các không gian sống xanh, bền vững và mang đậm dấu ấn thẩm mỹ riêng biệt. Sự am hiểu sâu sắc về kiến trúc cảnh quan và hệ sinh thái tự nhiên giúp RichScape luôn mang đến những công trình vượt ra ngoài sự mong đợi.';
+$intro   = $intro   ?: 'Được thành lập vào năm 2020, RichScape Landscape Design & Build Ltd. là đơn vị chuyên cung cấp các giải pháp thiết kế và thi công cảnh quan toàn diện. Với đội ngũ kiến trúc sư và chuyên gia tâm huyết, chúng tôi biến những ý tưởng sáng tạo thành các không gian sống xanh, bền vững và mang đậm dấu ấn thẩm mỹ riêng biệt. Sự am hiểu sâu sắc về kiến trúc cảnh quan và hệ sinh thái tự nhiên giúp RichScape luôn mang đến những công trình vượt ra ngoài sự mong đợi.';
 
 // This card sits on a coloured gradient, so it needs the TRANSPARENT logo.
 // The ACF `logo_header` option is a white-background version (correct on the
 // white header, but it shows a white box here), so use the transparent file.
-$logo_url = '/wp-content/uploads/logo.png';
+$logo_url = '/wp-content/uploads/logo_vector_white.svg';
 $logo_alt = 'Richscape';
 ?>
 <!-- Box matches Canva design element size: 500.96 x ~376px -->
@@ -24,7 +24,7 @@ $logo_alt = 'Richscape';
 	<div class="flex justify-center" style="height: 60px; margin-bottom: 18px;">
 		<img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( $logo_alt ); ?>"
 		     class="w-auto object-contain"
-		     style="height: 60px;">
+		     style="height: 210px; position: absolute; top: -50px;">
 	</div>
 	<p class="font-utm font-bold text-white" style="font-size: 18px; line-height: 21px; margin-bottom: 12px;"><?php echo wp_kses_post( $tagline ); ?></p>
 	<p class="font-display" style="font-size: 15px; line-height: 18px; margin-bottom: 10px; color: rgba(255,255,255,0.85);"><?php echo nl2br( esc_html( $intro ) ); ?></p>
